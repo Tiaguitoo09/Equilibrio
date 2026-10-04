@@ -1,0 +1,6484 @@
+[
+ {
+  "num": 1,
+  "name": "Línea única",
+  "block": 1,
+  "nodes": {
+   "A": {
+    "x": 240,
+    "y": 500,
+    "label": "Portal Usme",
+    "kind": "terminal"
+   },
+   "B": {
+    "x": 1200,
+    "y": 500,
+    "label": "Av. Jiménez",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "B",
+    "cars": 6000
+   }
+  ],
+  "links": [
+   {
+    "id": "s",
+    "from": "A",
+    "to": "B",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      240,
+      500
+     ],
+     [
+      400,
+      340
+     ],
+     [
+      1040,
+      340
+     ],
+     [
+      1200,
+      500
+     ]
+    ],
+    "t0": 60.0,
+    "x0": 6000,
+    "t1": 45.0,
+    "x1": 4500,
+    "open_solved": true
+   },
+   {
+    "id": "n",
+    "from": "A",
+    "to": "B",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": false,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      240,
+      500
+     ],
+     [
+      400,
+      660
+     ],
+     [
+      1040,
+      660
+     ],
+     [
+      1200,
+      500
+     ]
+    ],
+    "t0": null,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 1500,
+    "open_solved": true
+   }
+  ],
+  "msg": "Toca la vía gris para abrirla.",
+  "legend": [
+   "ancha",
+   "angosta",
+   "cerrada"
+  ],
+  "start": 60.0,
+  "optimo": 45.0,
+  "cambios": 1,
+  "solucion": [
+   "n"
+  ],
+  "lineas": 2,
+  "cables": 0,
+  "grupos": 1
+ },
+ {
+  "num": 2,
+  "name": "Estación de paso",
+  "block": 1,
+  "nodes": {
+   "A": {
+    "x": 180,
+    "y": 500,
+    "label": "Portal Sur",
+    "kind": "terminal"
+   },
+   "M": {
+    "x": 720,
+    "y": 500,
+    "label": "Ricaurte",
+    "kind": "station"
+   },
+   "B": {
+    "x": 1260,
+    "y": 500,
+    "label": "Calle 26",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "B",
+    "cars": 4000
+   }
+  ],
+  "links": [
+   {
+    "id": "a1",
+    "from": "A",
+    "to": "M",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      180,
+      500
+     ],
+     [
+      330,
+      350
+     ],
+     [
+      570,
+      350
+     ],
+     [
+      720,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 4000,
+    "t1": 25.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "a2",
+    "from": "A",
+    "to": "M",
+    "kind": "ancha",
+    "a": 25,
+    "b": 0,
+    "k": null,
+    "open": false,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      180,
+      500
+     ],
+     [
+      330,
+      650
+     ],
+     [
+      570,
+      650
+     ],
+     [
+      720,
+      500
+     ]
+    ],
+    "t0": null,
+    "x0": 0,
+    "t1": 25.0,
+    "x1": 1500,
+    "open_solved": true
+   },
+   {
+    "id": "b1",
+    "from": "M",
+    "to": "B",
+    "kind": "ancha",
+    "a": 25,
+    "b": 0,
+    "k": null,
+    "open": false,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      500
+     ],
+     [
+      870,
+      350
+     ],
+     [
+      1110,
+      350
+     ],
+     [
+      1260,
+      500
+     ]
+    ],
+    "t0": null,
+    "x0": 0,
+    "t1": 25.0,
+    "x1": 1500,
+    "open_solved": true
+   },
+   {
+    "id": "b2",
+    "from": "M",
+    "to": "B",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      500
+     ],
+     [
+      870,
+      650
+     ],
+     [
+      1110,
+      650
+     ],
+     [
+      1260,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 4000,
+    "t1": 25.0,
+    "x1": 2500,
+    "open_solved": true
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 80.0,
+  "optimo": 50.0,
+  "cambios": 2,
+  "solucion": [
+   "a2",
+   "b1"
+  ],
+  "lineas": 2,
+  "cables": 0,
+  "grupos": 1
+ },
+ {
+  "num": 3,
+  "name": "El puente",
+  "block": 1,
+  "nodes": {
+   "A": {
+    "x": 230,
+    "y": 500,
+    "label": "Portal Tunal",
+    "kind": "terminal"
+   },
+   "T": {
+    "x": 720,
+    "y": 320,
+    "label": "El Paraíso",
+    "kind": "station"
+   },
+   "D": {
+    "x": 720,
+    "y": 680,
+    "label": "Santa Lucía",
+    "kind": "station"
+   },
+   "B": {
+    "x": 1210,
+    "y": 500,
+    "label": "Av. Jiménez",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "B",
+    "cars": 4000
+   }
+  ],
+  "links": [
+   {
+    "id": "at",
+    "from": "A",
+    "to": "T",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      230,
+      500
+     ],
+     [
+      410,
+      320
+     ],
+     [
+      720,
+      320
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 4000,
+    "t1": 20.0,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "tb",
+    "from": "T",
+    "to": "B",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      320
+     ],
+     [
+      1030,
+      320
+     ],
+     [
+      1210,
+      500
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "ad",
+    "from": "A",
+    "to": "D",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      230,
+      500
+     ],
+     [
+      410,
+      680
+     ],
+     [
+      720,
+      680
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "db",
+    "from": "D",
+    "to": "B",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      720,
+      680
+     ],
+     [
+      1030,
+      680
+     ],
+     [
+      1210,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 4000,
+    "t1": 20.0,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "cab",
+    "from": "T",
+    "to": "D",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      720,
+      320
+     ],
+     [
+      720,
+      680
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 4000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": "Apareció un cable: un atajo. ¿Ayuda o estorba?",
+  "legend": [
+   "ancha",
+   "angosta",
+   "cerrada",
+   "cable"
+  ],
+  "start": 80.0,
+  "optimo": 65.0,
+  "cambios": 1,
+  "solucion": [
+   "cab"
+  ],
+  "lineas": 2,
+  "cables": 1,
+  "grupos": 1
+ },
+ {
+  "num": 4,
+  "name": "El puente bueno",
+  "block": 1,
+  "nodes": {
+   "A": {
+    "x": 230,
+    "y": 500,
+    "label": "Portal Américas",
+    "kind": "terminal"
+   },
+   "T": {
+    "x": 720,
+    "y": 320,
+    "label": "Banderas",
+    "kind": "station"
+   },
+   "D": {
+    "x": 720,
+    "y": 680,
+    "label": "Kennedy",
+    "kind": "station"
+   },
+   "B": {
+    "x": 1210,
+    "y": 500,
+    "label": "Puente Aranda",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "B",
+    "cars": 4000
+   }
+  ],
+  "links": [
+   {
+    "id": "at",
+    "from": "A",
+    "to": "T",
+    "kind": "ancha",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      230,
+      500
+     ],
+     [
+      410,
+      320
+     ],
+     [
+      720,
+      320
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 2000,
+    "t1": 10.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "tb",
+    "from": "T",
+    "to": "B",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      320
+     ],
+     [
+      1030,
+      320
+     ],
+     [
+      1210,
+      500
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 2000,
+    "t1": 10.0,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "ad",
+    "from": "A",
+    "to": "D",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      230,
+      500
+     ],
+     [
+      410,
+      680
+     ],
+     [
+      720,
+      680
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 2000,
+    "t1": 10.0,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "db",
+    "from": "D",
+    "to": "B",
+    "kind": "ancha",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      720,
+      680
+     ],
+     [
+      1030,
+      680
+     ],
+     [
+      1210,
+      500
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 2000,
+    "t1": 10.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "cab",
+    "from": "T",
+    "to": "D",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": false,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      720,
+      320
+     ],
+     [
+      720,
+      680
+     ]
+    ],
+    "t0": null,
+    "x0": 0,
+    "t1": 0.0,
+    "x1": 2000,
+    "open_solved": true
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 30.0,
+  "optimo": 20.0,
+  "cambios": 1,
+  "solucion": [
+   "cab"
+  ],
+  "lineas": 2,
+  "cables": 1,
+  "grupos": 1
+ },
+ {
+  "num": 5,
+  "name": "Dos puentes",
+  "block": 1,
+  "nodes": {
+   "A": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Suba",
+    "kind": "terminal"
+   },
+   "T1": {
+    "x": 430,
+    "y": 300,
+    "label": "Niza",
+    "kind": "station"
+   },
+   "D1": {
+    "x": 430,
+    "y": 700,
+    "label": "Suba Tv. 91",
+    "kind": "station"
+   },
+   "M": {
+    "x": 720,
+    "y": 500,
+    "label": "Calle 100",
+    "kind": "station",
+    "group": true
+   },
+   "T2": {
+    "x": 1010,
+    "y": 300,
+    "label": "Usaquén",
+    "kind": "station"
+   },
+   "D2": {
+    "x": 1010,
+    "y": 700,
+    "label": "Pepe Sierra",
+    "kind": "station"
+   },
+   "B": {
+    "x": 1290,
+    "y": 500,
+    "label": "Chapinero",
+    "kind": "terminal"
+   }
+  },
+  "toques": 1,
+  "phases": [
+   {
+    "name": "Hora valle",
+    "factor": 0.6
+   },
+   {
+    "name": "Hora pico",
+    "factor": 1.0
+   }
+  ],
+  "groups": [
+   {
+    "from": "A",
+    "to": "B",
+    "cars": 2500
+   },
+   {
+    "from": "M",
+    "to": "B",
+    "cars": 2500
+   }
+  ],
+  "links": [
+   {
+    "id": "a_t1",
+    "from": "A",
+    "to": "T1",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      300
+     ],
+     [
+      430,
+      300
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 1500,
+    "t1": 5.0,
+    "x1": 1500,
+    "open_solved": true
+   },
+   {
+    "id": "t1_m",
+    "from": "T1",
+    "to": "M",
+    "kind": "ancha",
+    "a": 15,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      430,
+      300
+     ],
+     [
+      520,
+      300
+     ],
+     [
+      720,
+      500
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 1000,
+    "t1": 15.0,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "a_d1",
+    "from": "A",
+    "to": "D1",
+    "kind": "ancha",
+    "a": 15,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      700
+     ],
+     [
+      430,
+      700
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 1000,
+    "t1": 15.0,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "d1_m",
+    "from": "D1",
+    "to": "M",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      430,
+      700
+     ],
+     [
+      520,
+      700
+     ],
+     [
+      720,
+      500
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 1500,
+    "t1": 5.0,
+    "x1": 1500,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "T1",
+    "to": "D1",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      430,
+      300
+     ],
+     [
+      430,
+      700
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 500,
+    "t1": 10.0,
+    "x1": 500,
+    "open_solved": true
+   },
+   {
+    "id": "m_t2",
+    "from": "M",
+    "to": "T2",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      500
+     ],
+     [
+      920,
+      300
+     ],
+     [
+      1010,
+      300
+     ]
+    ],
+    "t0": 41.0,
+    "x0": 4100,
+    "t1": 25.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "t2_b",
+    "from": "T2",
+    "to": "B",
+    "kind": "ancha",
+    "a": 41,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      1010,
+      300
+     ],
+     [
+      1090,
+      300
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 41.0,
+    "x0": 900,
+    "t1": 41.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "m_d2",
+    "from": "M",
+    "to": "D2",
+    "kind": "ancha",
+    "a": 41,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      720,
+      500
+     ],
+     [
+      920,
+      700
+     ],
+     [
+      1010,
+      700
+     ]
+    ],
+    "t0": 41.0,
+    "x0": 900,
+    "t1": 41.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "d2_b",
+    "from": "D2",
+    "to": "B",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      1010,
+      700
+     ],
+     [
+      1090,
+      700
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 41.0,
+    "x0": 4100,
+    "t1": 25.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "T2",
+    "to": "D2",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      1010,
+      300
+     ],
+     [
+      1010,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3200,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": "Hora pico: solo tienes 1 toque. Elige bien el cable.",
+  "legend": null,
+  "start": 83.8,
+  "optimo": 72.2,
+  "cambios": 1,
+  "solucion": [
+   "cab2"
+  ],
+  "lineas": 4,
+  "cables": 2,
+  "grupos": 2
+ },
+ {
+  "num": 6,
+  "name": "Dos portales",
+  "block": 2,
+  "nodes": {
+   "PN": {
+    "x": 170,
+    "y": 290,
+    "label": "Portal Norte",
+    "kind": "terminal"
+   },
+   "PU": {
+    "x": 170,
+    "y": 710,
+    "label": "Portal Usme",
+    "kind": "terminal"
+   },
+   "C72": {
+    "x": 560,
+    "y": 290,
+    "label": "Calle 72",
+    "kind": "station"
+   },
+   "BOS": {
+    "x": 560,
+    "y": 710,
+    "label": "Bosa",
+    "kind": "station"
+   },
+   "SV": {
+    "x": 860,
+    "y": 500,
+    "label": "San Victorino",
+    "kind": "capsule"
+   },
+   "CEN": {
+    "x": 1270,
+    "y": 500,
+    "label": "Centro",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "PN",
+    "to": "CEN",
+    "cars": 2000
+   },
+   {
+    "from": "PU",
+    "to": "CEN",
+    "cars": 3500
+   }
+  ],
+  "links": [
+   {
+    "id": "y1",
+    "from": "PN",
+    "to": "C72",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      560,
+      290
+     ]
+    ],
+    "t0": 23.3,
+    "x0": 2000,
+    "t1": 23.3,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "y2",
+    "from": "C72",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 35,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      1060,
+      290
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 152,
+    "t1": 35.0,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "o1",
+    "from": "PN",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      340,
+      460
+     ],
+     [
+      860,
+      460
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "tr",
+    "from": "SV",
+    "to": "CEN",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      860,
+      500
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 5250,
+    "t1": 18.2,
+    "x1": 2725,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "C72",
+    "to": "SV",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      860,
+      480
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 1848,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "l1",
+    "from": "PU",
+    "to": "BOS",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      560,
+      710
+     ]
+    ],
+    "t0": 22.0,
+    "x0": 3300,
+    "t1": 5.2,
+    "x1": 775,
+    "open_solved": true
+   },
+   {
+    "id": "l2",
+    "from": "BOS",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 35,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      1060,
+      710
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 98,
+    "t1": 35.0,
+    "x1": 775,
+    "open_solved": true
+   },
+   {
+    "id": "a1",
+    "from": "PU",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 22,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      340,
+      540
+     ],
+     [
+      860,
+      540
+     ]
+    ],
+    "t0": 22.0,
+    "x0": 200,
+    "t1": 22.0,
+    "x1": 2725,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "BOS",
+    "to": "SV",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      860,
+      520
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3202,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": "Dos grupos comparten el centro.",
+  "legend": null,
+  "start": 57.5,
+  "optimo": 46.8,
+  "cambios": 2,
+  "solucion": [
+   "cab1",
+   "cab2"
+  ],
+  "lineas": 4,
+  "cables": 2,
+  "grupos": 2
+ },
+ {
+  "num": 7,
+  "name": "Expreso y local",
+  "block": 2,
+  "nodes": {
+   "A": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Eldorado",
+    "kind": "terminal"
+   },
+   "T1": {
+    "x": 420,
+    "y": 300,
+    "label": "Modelia",
+    "kind": "station"
+   },
+   "T2": {
+    "x": 720,
+    "y": 300,
+    "label": "Av. 68",
+    "kind": "station"
+   },
+   "T3": {
+    "x": 1020,
+    "y": 300,
+    "label": "Corferias",
+    "kind": "station"
+   },
+   "B1": {
+    "x": 420,
+    "y": 700,
+    "label": "Fontibón",
+    "kind": "station"
+   },
+   "B2": {
+    "x": 720,
+    "y": 700,
+    "label": "Salitre",
+    "kind": "station"
+   },
+   "B3": {
+    "x": 1020,
+    "y": 700,
+    "label": "Gobernación",
+    "kind": "station"
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Universidades",
+    "kind": "terminal"
+   },
+   "P2": {
+    "x": 250,
+    "y": 820,
+    "label": "Portal Fontibón",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "Z",
+    "cars": 3000
+   },
+   {
+    "from": "P2",
+    "to": "Z",
+    "cars": 3000
+   }
+  ],
+  "links": [
+   {
+    "id": "t0",
+    "from": "A",
+    "to": "T1",
+    "kind": "ancha",
+    "a": 20,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      300
+     ],
+     [
+      420,
+      300
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 0,
+    "t1": 20.0,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "t1",
+    "from": "T1",
+    "to": "T2",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      420,
+      300
+     ],
+     [
+      720,
+      300
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 1500,
+    "t1": 6.7,
+    "x1": 1000,
+    "open_solved": true
+   },
+   {
+    "id": "t2",
+    "from": "T2",
+    "to": "T3",
+    "kind": "ancha",
+    "a": 31,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      300
+     ],
+     [
+      1020,
+      300
+     ]
+    ],
+    "t0": 31.0,
+    "x0": 1350,
+    "t1": 31.0,
+    "x1": 3675,
+    "open_solved": true
+   },
+   {
+    "id": "t3",
+    "from": "T3",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      1020,
+      300
+     ],
+     [
+      1090,
+      300
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 6000,
+    "t1": 24.5,
+    "x1": 3675,
+    "open_solved": true
+   },
+   {
+    "id": "b0",
+    "from": "A",
+    "to": "B1",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      700
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 3000,
+    "t1": 16.7,
+    "x1": 2000,
+    "open_solved": true
+   },
+   {
+    "id": "b1",
+    "from": "B1",
+    "to": "B2",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      420,
+      700
+     ],
+     [
+      720,
+      700
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "b2",
+    "from": "B2",
+    "to": "B3",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      700
+     ],
+     [
+      1020,
+      700
+     ]
+    ],
+    "t0": 31.0,
+    "x0": 4650,
+    "t1": 15.5,
+    "x1": 2325,
+    "open_solved": true
+   },
+   {
+    "id": "b3",
+    "from": "B3",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      1020,
+      700
+     ],
+     [
+      1090,
+      700
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 0,
+    "t1": 40.0,
+    "x1": 2325,
+    "open_solved": true
+   },
+   {
+    "id": "p2",
+    "from": "P2",
+    "to": "B1",
+    "kind": "ancha",
+    "a": 15,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      250,
+      820
+     ],
+     [
+      300,
+      820
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 3000,
+    "t1": 15.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "c1",
+    "from": "T1",
+    "to": "B1",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      420,
+      300
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 1500,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "c2",
+    "from": "T2",
+    "to": "B2",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      720,
+      300
+     ],
+     [
+      720,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 4650,
+    "t1": 0.0,
+    "x1": 2325,
+    "open_solved": true
+   },
+   {
+    "id": "c3",
+    "from": "T3",
+    "to": "B3",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      1020,
+      300
+     ],
+     [
+      1020,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 4650,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "c4",
+    "from": "B1",
+    "to": "T2",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      420,
+      700
+     ],
+     [
+      720,
+      300
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 4500,
+    "t1": 10.0,
+    "x1": 5000,
+    "open_solved": true
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 98.5,
+  "optimo": 81.3,
+  "cambios": 2,
+  "solucion": [
+   "c1",
+   "c3"
+  ],
+  "lineas": 3,
+  "cables": 4,
+  "grupos": 2
+ },
+ {
+  "num": 8,
+  "name": "Hora pico",
+  "block": 2,
+  "nodes": {
+   "PN": {
+    "x": 170,
+    "y": 290,
+    "label": "Portal Norte",
+    "kind": "terminal"
+   },
+   "PU": {
+    "x": 170,
+    "y": 710,
+    "label": "Portal Usme",
+    "kind": "terminal"
+   },
+   "C72": {
+    "x": 560,
+    "y": 290,
+    "label": "Calle 72",
+    "kind": "station"
+   },
+   "BOS": {
+    "x": 560,
+    "y": 710,
+    "label": "Bosa",
+    "kind": "station"
+   },
+   "SV": {
+    "x": 860,
+    "y": 500,
+    "label": "San Victorino",
+    "kind": "capsule"
+   },
+   "CEN": {
+    "x": 1270,
+    "y": 500,
+    "label": "Centro",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "PN",
+    "to": "CEN",
+    "cars": 3000
+   },
+   {
+    "from": "PU",
+    "to": "CEN",
+    "cars": 4500
+   }
+  ],
+  "links": [
+   {
+    "id": "y1",
+    "from": "PN",
+    "to": "C72",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.0025,
+    "k": 400,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      560,
+      290
+     ]
+    ],
+    "t0": 7.5,
+    "x0": 3000,
+    "t1": 7.5,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "y2",
+    "from": "C72",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 39,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      1060,
+      290
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 39.0,
+    "x0": 1350,
+    "t1": 39.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "o1",
+    "from": "PN",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 60,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      340,
+      460
+     ],
+     [
+      860,
+      460
+     ]
+    ],
+    "t0": 60.0,
+    "x0": 0,
+    "t1": 60.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "tr",
+    "from": "SV",
+    "to": "CEN",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.008,
+    "k": 125,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      860,
+      500
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 39.0,
+    "x0": 4875,
+    "t1": 22.9,
+    "x1": 2859,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "C72",
+    "to": "SV",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      860,
+      480
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 1650,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "l1",
+    "from": "PU",
+    "to": "BOS",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      560,
+      710
+     ]
+    ],
+    "t0": 38.0,
+    "x0": 2850,
+    "t1": 21.9,
+    "x1": 1641,
+    "open_solved": true
+   },
+   {
+    "id": "l2",
+    "from": "BOS",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 41,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      1060,
+      710
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 41.0,
+    "x0": 1275,
+    "t1": 41.0,
+    "x1": 1641,
+    "open_solved": true
+   },
+   {
+    "id": "a1",
+    "from": "PU",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      340,
+      540
+     ],
+     [
+      860,
+      540
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1650,
+    "t1": 40.0,
+    "x1": 2859,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "BOS",
+    "to": "SV",
+    "kind": "cable",
+    "a": 2,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      860,
+      520
+     ]
+    ],
+    "t0": 2.0,
+    "x0": 1575,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "phases": [
+   {
+    "name": "Hora valle",
+    "factor": 0.7
+   },
+   {
+    "name": "Hora pico",
+    "factor": 1.0
+   }
+  ],
+  "msg": "Hora pico: entran más carros a la red.",
+  "legend": null,
+  "start": 65.6,
+  "optimo": 54.3,
+  "cambios": 2,
+  "solucion": [
+   "cab1",
+   "cab2"
+  ],
+  "lineas": 4,
+  "cables": 2,
+  "grupos": 2
+ },
+ {
+  "num": 9,
+  "name": "Tres grupos",
+  "block": 2,
+  "nodes": {
+   "A": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Eldorado",
+    "kind": "terminal"
+   },
+   "T1": {
+    "x": 420,
+    "y": 300,
+    "label": "Modelia",
+    "kind": "station"
+   },
+   "T2": {
+    "x": 720,
+    "y": 300,
+    "label": "Av. 68",
+    "kind": "station"
+   },
+   "T3": {
+    "x": 1020,
+    "y": 300,
+    "label": "Corferias",
+    "kind": "station"
+   },
+   "B1": {
+    "x": 420,
+    "y": 700,
+    "label": "Fontibón",
+    "kind": "station"
+   },
+   "B2": {
+    "x": 720,
+    "y": 700,
+    "label": "Salitre",
+    "kind": "station"
+   },
+   "B3": {
+    "x": 1020,
+    "y": 700,
+    "label": "Gobernación",
+    "kind": "station"
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Universidades",
+    "kind": "terminal"
+   },
+   "P2": {
+    "x": 250,
+    "y": 820,
+    "label": "Portal Fontibón",
+    "kind": "terminal"
+   },
+   "P3": {
+    "x": 720,
+    "y": 130,
+    "label": "Suba",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "A",
+    "to": "Z",
+    "cars": 2500
+   },
+   {
+    "from": "P2",
+    "to": "Z",
+    "cars": 2500
+   },
+   {
+    "from": "P3",
+    "to": "Z",
+    "cars": 500
+   }
+  ],
+  "links": [
+   {
+    "id": "t0",
+    "from": "A",
+    "to": "T1",
+    "kind": "ancha",
+    "a": 15,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      300
+     ],
+     [
+      420,
+      300
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 0,
+    "t1": 15.0,
+    "x1": 1111,
+    "open_solved": true
+   },
+   {
+    "id": "t1",
+    "from": "T1",
+    "to": "T2",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.005,
+    "k": 200,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      420,
+      300
+     ],
+     [
+      720,
+      300
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 2000,
+    "t1": 5.6,
+    "x1": 1111,
+    "open_solved": true
+   },
+   {
+    "id": "t2",
+    "from": "T2",
+    "to": "T3",
+    "kind": "ancha",
+    "a": 26,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      300
+     ],
+     [
+      1020,
+      300
+     ]
+    ],
+    "t0": 26.0,
+    "x0": 1600,
+    "t1": 26.0,
+    "x1": 3725,
+    "open_solved": true
+   },
+   {
+    "id": "t3",
+    "from": "T3",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      1020,
+      300
+     ],
+     [
+      1090,
+      300
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 36.7,
+    "x0": 5500,
+    "t1": 24.8,
+    "x1": 3725,
+    "open_solved": true
+   },
+   {
+    "id": "b0",
+    "from": "A",
+    "to": "B1",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.004,
+    "k": 250,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      500
+     ],
+     [
+      350,
+      700
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 2500,
+    "t1": 10.6,
+    "x1": 1389,
+    "open_solved": true
+   },
+   {
+    "id": "b1",
+    "from": "B1",
+    "to": "B2",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      420,
+      700
+     ],
+     [
+      720,
+      700
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "b2",
+    "from": "B2",
+    "to": "B3",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      700
+     ],
+     [
+      1020,
+      700
+     ]
+    ],
+    "t0": 26.0,
+    "x0": 3900,
+    "t1": 11.8,
+    "x1": 1775,
+    "open_solved": true
+   },
+   {
+    "id": "b3",
+    "from": "B3",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 39,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      1020,
+      700
+     ],
+     [
+      1090,
+      700
+     ],
+     [
+      1290,
+      500
+     ]
+    ],
+    "t0": 39.0,
+    "x0": 0,
+    "t1": 39.0,
+    "x1": 1775,
+    "open_solved": true
+   },
+   {
+    "id": "p2",
+    "from": "P2",
+    "to": "B1",
+    "kind": "ancha",
+    "a": 15,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      250,
+      820
+     ],
+     [
+      300,
+      820
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 15.0,
+    "x0": 2500,
+    "t1": 15.0,
+    "x1": 2500,
+    "open_solved": true
+   },
+   {
+    "id": "c1",
+    "from": "T1",
+    "to": "B1",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      420,
+      300
+     ],
+     [
+      420,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 2000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "c2",
+    "from": "T2",
+    "to": "B2",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      720,
+      300
+     ],
+     [
+      720,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3900,
+    "t1": 0.0,
+    "x1": 1775,
+    "open_solved": true
+   },
+   {
+    "id": "c3",
+    "from": "T3",
+    "to": "B3",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": true,
+    "pts": [
+     [
+      1020,
+      300
+     ],
+     [
+      1020,
+      700
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3900,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "c4",
+    "from": "B1",
+    "to": "T2",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      420,
+      700
+     ],
+     [
+      720,
+      300
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 3000,
+    "t1": 10.0,
+    "x1": 3889,
+    "open_solved": true
+   },
+   {
+    "id": "p3",
+    "from": "P3",
+    "to": "T2",
+    "kind": "ancha",
+    "a": 9,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      720,
+      130
+     ],
+     [
+      720,
+      300
+     ]
+    ],
+    "t0": 9.0,
+    "x0": 500,
+    "t1": 9.0,
+    "x1": 500,
+    "open_solved": true
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 86.2,
+  "optimo": 72.4,
+  "cambios": 2,
+  "solucion": [
+   "c1",
+   "c3"
+  ],
+  "lineas": 4,
+  "cables": 4,
+  "grupos": 3
+ },
+ {
+  "num": 10,
+  "name": "Obra en San Victorino",
+  "block": 2,
+  "nodes": {
+   "PN": {
+    "x": 170,
+    "y": 290,
+    "label": "Portal Norte",
+    "kind": "terminal"
+   },
+   "PU": {
+    "x": 170,
+    "y": 710,
+    "label": "Portal Usme",
+    "kind": "terminal"
+   },
+   "C72": {
+    "x": 560,
+    "y": 290,
+    "label": "Calle 72",
+    "kind": "station"
+   },
+   "BOS": {
+    "x": 560,
+    "y": 710,
+    "label": "Bosa",
+    "kind": "station"
+   },
+   "SV": {
+    "x": 860,
+    "y": 500,
+    "label": "San Victorino",
+    "kind": "capsule"
+   },
+   "CEN": {
+    "x": 1270,
+    "y": 500,
+    "label": "Centro",
+    "kind": "terminal"
+   }
+  },
+  "groups": [
+   {
+    "from": "PN",
+    "to": "CEN",
+    "cars": 3000
+   },
+   {
+    "from": "PU",
+    "to": "CEN",
+    "cars": 3000
+   }
+  ],
+  "links": [
+   {
+    "id": "y1",
+    "from": "PN",
+    "to": "C72",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      560,
+      290
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 3000,
+    "t1": 20.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "y2",
+    "from": "C72",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      1060,
+      290
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 0,
+    "t1": 40.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "o1",
+    "from": "PN",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 20,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      170,
+      290
+     ],
+     [
+      340,
+      460
+     ],
+     [
+      860,
+      460
+     ]
+    ],
+    "t0": 20.0,
+    "x0": 0,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "tr",
+    "from": "SV",
+    "to": "CEN",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      860,
+      500
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 6000,
+    "t1": 20.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "C72",
+    "to": "SV",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      290
+     ],
+     [
+      860,
+      480
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "l1",
+    "from": "PU",
+    "to": "BOS",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      560,
+      710
+     ]
+    ],
+    "t0": 25.0,
+    "x0": 3000,
+    "t1": 25.0,
+    "x1": 3000,
+    "open_solved": true
+   },
+   {
+    "id": "l2",
+    "from": "BOS",
+    "to": "CEN",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      1060,
+      710
+     ],
+     [
+      1270,
+      500
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "a1",
+    "from": "PU",
+    "to": "SV",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      170,
+      710
+     ],
+     [
+      340,
+      540
+     ],
+     [
+      860,
+      540
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "BOS",
+    "to": "SV",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": true,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      710
+     ],
+     [
+      860,
+      520
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3000,
+    "t1": 0.0,
+    "x1": 3000,
+    "open_solved": true
+   }
+  ],
+  "msg": "El cable de Bosa está en obra y no se puede cerrar. Busca otra salida.",
+  "legend": [
+   "obra"
+  ],
+  "start": 62.5,
+  "optimo": 52.5,
+  "cambios": 2,
+  "solucion": [
+   "o1",
+   "cab1"
+  ],
+  "lineas": 4,
+  "cables": 2,
+  "grupos": 2
+ },
+ {
+  "num": 11,
+  "name": "Tres corredores",
+  "block": 3,
+  "nodes": {
+   "O": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Américas",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Universidades",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "U1": {
+    "x": 560,
+    "y": 250,
+    "label": "Banderas",
+    "kind": "station"
+   },
+   "L1": {
+    "x": 820,
+    "y": 330,
+    "label": "Pradera",
+    "kind": "station"
+   },
+   "U2": {
+    "x": 480,
+    "y": 460,
+    "label": "Marsella",
+    "kind": "station"
+   },
+   "L2": {
+    "x": 740,
+    "y": 540,
+    "label": "Américas",
+    "kind": "station"
+   },
+   "U3": {
+    "x": 640,
+    "y": 670,
+    "label": "Mandalay",
+    "kind": "station"
+   },
+   "L3": {
+    "x": 900,
+    "y": 750,
+    "label": "Puente Aranda",
+    "kind": "station"
+   }
+  },
+  "groups": [
+   {
+    "from": "O",
+    "to": "Z",
+    "cars": 9000
+   }
+  ],
+  "links": [
+   {
+    "id": "u1a",
+    "from": "O",
+    "to": "U1",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      250
+     ],
+     [
+      560,
+      250
+     ]
+    ],
+    "t0": 32.7,
+    "x0": 883,
+    "t1": 24.1,
+    "x1": 454,
+    "open_solved": true
+   },
+   {
+    "id": "u1b",
+    "from": "U1",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 39,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      560,
+      250
+     ],
+     [
+      1290,
+      250
+     ]
+    ],
+    "t0": 39.0,
+    "x0": 0,
+    "t1": 39.0,
+    "x1": 454,
+    "open_solved": true
+   },
+   {
+    "id": "l1a",
+    "from": "O",
+    "to": "L1",
+    "kind": "ancha",
+    "a": 39,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      330
+     ],
+     [
+      820,
+      330
+     ]
+    ],
+    "t0": 39.0,
+    "x0": 0,
+    "t1": 39.0,
+    "x1": 454,
+    "open_solved": true
+   },
+   {
+    "id": "l1b",
+    "from": "L1",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      820,
+      330
+     ],
+     [
+      1290,
+      330
+     ]
+    ],
+    "t0": 32.7,
+    "x0": 883,
+    "t1": 24.1,
+    "x1": 454,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "U1",
+    "to": "L1",
+    "kind": "cable",
+    "a": 6,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      250
+     ],
+     [
+      820,
+      330
+     ]
+    ],
+    "t0": 6.0,
+    "x0": 883,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u2a",
+    "from": "O",
+    "to": "U2",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.005,
+    "k": 200,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      460
+     ],
+     [
+      480,
+      460
+     ]
+    ],
+    "t0": 33.2,
+    "x0": 5631,
+    "t1": 18.1,
+    "x1": 2615,
+    "open_solved": true
+   },
+   {
+    "id": "u2b",
+    "from": "U2",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      480,
+      460
+     ],
+     [
+      1290,
+      460
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 2615,
+    "open_solved": true
+   },
+   {
+    "id": "l2a",
+    "from": "O",
+    "to": "L2",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      150,
+      540
+     ],
+     [
+      740,
+      540
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 2615,
+    "open_solved": true
+   },
+   {
+    "id": "l2b",
+    "from": "L2",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.005,
+    "k": 200,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      740,
+      540
+     ],
+     [
+      1290,
+      540
+     ]
+    ],
+    "t0": 33.2,
+    "x0": 5631,
+    "t1": 18.1,
+    "x1": 2615,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "U2",
+    "to": "L2",
+    "kind": "cable",
+    "a": 5,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      480,
+      460
+     ],
+     [
+      740,
+      540
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 5631,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u3a",
+    "from": "O",
+    "to": "U3",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      150,
+      670
+     ],
+     [
+      640,
+      670
+     ]
+    ],
+    "t0": 33.2,
+    "x0": 2487,
+    "t1": 19.1,
+    "x1": 1431,
+    "open_solved": true
+   },
+   {
+    "id": "u3b",
+    "from": "U3",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 44,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      640,
+      670
+     ],
+     [
+      1290,
+      670
+     ]
+    ],
+    "t0": 44.0,
+    "x0": 0,
+    "t1": 44.0,
+    "x1": 1431,
+    "open_solved": true
+   },
+   {
+    "id": "l3a",
+    "from": "O",
+    "to": "L3",
+    "kind": "ancha",
+    "a": 44,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      150,
+      750
+     ],
+     [
+      900,
+      750
+     ]
+    ],
+    "t0": 44.0,
+    "x0": 0,
+    "t1": 44.0,
+    "x1": 1431,
+    "open_solved": true
+   },
+   {
+    "id": "l3b",
+    "from": "L3",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      900,
+      750
+     ],
+     [
+      1290,
+      750
+     ]
+    ],
+    "t0": 33.2,
+    "x0": 2487,
+    "t1": 19.1,
+    "x1": 1431,
+    "open_solved": true
+   },
+   {
+    "id": "cab3",
+    "from": "U3",
+    "to": "L3",
+    "kind": "cable",
+    "a": 5,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      640,
+      670
+     ],
+     [
+      900,
+      750
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 2487,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 71.3,
+  "optimo": 63.1,
+  "cambios": 3,
+  "solucion": [
+   "cab1",
+   "cab2",
+   "cab3"
+  ],
+  "lineas": 6,
+  "cables": 3,
+  "grupos": 1
+ },
+ {
+  "num": 12,
+  "name": "Tres grupos, seis líneas",
+  "block": 3,
+  "nodes": {
+   "O": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Américas",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Universidades",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "U1": {
+    "x": 560,
+    "y": 250,
+    "label": "Banderas",
+    "kind": "station"
+   },
+   "L1": {
+    "x": 820,
+    "y": 330,
+    "label": "Pradera",
+    "kind": "station"
+   },
+   "U2": {
+    "x": 480,
+    "y": 460,
+    "label": "Marsella",
+    "kind": "station"
+   },
+   "L2": {
+    "x": 740,
+    "y": 540,
+    "label": "Américas",
+    "kind": "station"
+   },
+   "U3": {
+    "x": 640,
+    "y": 670,
+    "label": "Mandalay",
+    "kind": "station"
+   },
+   "L3": {
+    "x": 900,
+    "y": 750,
+    "label": "Puente Aranda",
+    "kind": "station"
+   }
+  },
+  "groups": [
+   {
+    "from": "O",
+    "to": "Z",
+    "cars": 9500
+   },
+   {
+    "from": "U1",
+    "to": "Z",
+    "cars": 1500
+   },
+   {
+    "from": "O",
+    "to": "L3",
+    "cars": 2000
+   }
+  ],
+  "links": [
+   {
+    "id": "u1a",
+    "from": "O",
+    "to": "U1",
+    "kind": "angosta",
+    "a": 14,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      250
+     ],
+     [
+      560,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1300,
+    "t1": 26.5,
+    "x1": 625,
+    "open_solved": true
+   },
+   {
+    "id": "u1b",
+    "from": "U1",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      560,
+      250
+     ],
+     [
+      1290,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1860,
+    "t1": 40.0,
+    "x1": 2125,
+    "open_solved": true
+   },
+   {
+    "id": "l1a",
+    "from": "O",
+    "to": "L1",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      330
+     ],
+     [
+      820,
+      330
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 360,
+    "t1": 40.0,
+    "x1": 625,
+    "open_solved": true
+   },
+   {
+    "id": "l1b",
+    "from": "L1",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 14,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      820,
+      330
+     ],
+     [
+      1290,
+      330
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1300,
+    "t1": 26.5,
+    "x1": 625,
+    "open_solved": true
+   },
+   {
+    "id": "cab1",
+    "from": "U1",
+    "to": "L1",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      560,
+      250
+     ],
+     [
+      820,
+      330
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 940,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u2a",
+    "from": "O",
+    "to": "U2",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.005,
+    "k": 200,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      460
+     ],
+     [
+      480,
+      460
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 6000,
+    "t1": 21.5,
+    "x1": 3300,
+    "open_solved": true
+   },
+   {
+    "id": "u2b",
+    "from": "U2",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      480,
+      460
+     ],
+     [
+      1290,
+      460
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 340,
+    "t1": 45.0,
+    "x1": 3300,
+    "open_solved": true
+   },
+   {
+    "id": "l2a",
+    "from": "O",
+    "to": "L2",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      150,
+      540
+     ],
+     [
+      740,
+      540
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 340,
+    "t1": 45.0,
+    "x1": 3300,
+    "open_solved": true
+   },
+   {
+    "id": "l2b",
+    "from": "L2",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.005,
+    "k": 200,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      740,
+      540
+     ],
+     [
+      1290,
+      540
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 6000,
+    "t1": 21.5,
+    "x1": 3300,
+    "open_solved": true
+   },
+   {
+    "id": "cab2",
+    "from": "U2",
+    "to": "L2",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      480,
+      460
+     ],
+     [
+      740,
+      540
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 5660,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u3a",
+    "from": "O",
+    "to": "U3",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      150,
+      670
+     ],
+     [
+      640,
+      670
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 2000,
+    "t1": 21.5,
+    "x1": 825,
+    "open_solved": true
+   },
+   {
+    "id": "u3b",
+    "from": "U3",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      640,
+      670
+     ],
+     [
+      1290,
+      670
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 0,
+    "t1": 45.0,
+    "x1": 825,
+    "open_solved": true
+   },
+   {
+    "id": "l3a",
+    "from": "O",
+    "to": "L3",
+    "kind": "ancha",
+    "a": 45,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      150,
+      750
+     ],
+     [
+      900,
+      750
+     ]
+    ],
+    "t0": 45.0,
+    "x0": 1500,
+    "t1": 45.0,
+    "x1": 2825,
+    "open_solved": true
+   },
+   {
+    "id": "l3b",
+    "from": "L3",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 5,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      900,
+      750
+     ],
+     [
+      1290,
+      750
+     ]
+    ],
+    "t0": 35.0,
+    "x0": 1500,
+    "t1": 21.5,
+    "x1": 825,
+    "open_solved": true
+   },
+   {
+    "id": "cab3",
+    "from": "U3",
+    "to": "L3",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      640,
+      670
+     ],
+     [
+      900,
+      750
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 2000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 70.0,
+  "optimo": 60.1,
+  "cambios": 3,
+  "solucion": [
+   "cab1",
+   "cab2",
+   "cab3"
+  ],
+  "lineas": 6,
+  "cables": 3,
+  "grupos": 3
+ },
+ {
+  "num": 13,
+  "name": "Cruzar la ciudad",
+  "block": 3,
+  "nodes": {
+   "O": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Sur",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "M": {
+    "x": 720,
+    "y": 500,
+    "label": "Ricaurte",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Calle 100",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "U11": {
+    "x": 350,
+    "y": 270,
+    "label": "Sevillana",
+    "kind": "station"
+   },
+   "L11": {
+    "x": 520,
+    "y": 370,
+    "label": "Venecia",
+    "kind": "station"
+   },
+   "U12": {
+    "x": 390,
+    "y": 630,
+    "label": "Kennedy",
+    "kind": "station"
+   },
+   "L12": {
+    "x": 560,
+    "y": 730,
+    "label": "Mundo Aventura",
+    "kind": "station"
+   },
+   "U21": {
+    "x": 920,
+    "y": 270,
+    "label": "Calle 45",
+    "kind": "station"
+   },
+   "L21": {
+    "x": 1090,
+    "y": 370,
+    "label": "Marly",
+    "kind": "station"
+   },
+   "U22": {
+    "x": 960,
+    "y": 630,
+    "label": "Movistar Arena",
+    "kind": "station"
+   },
+   "L22": {
+    "x": 1130,
+    "y": 730,
+    "label": "Calle 76",
+    "kind": "station"
+   }
+  },
+  "groups": [
+   {
+    "from": "O",
+    "to": "Z",
+    "cars": 4000
+   },
+   {
+    "from": "M",
+    "to": "Z",
+    "cars": 2000
+   },
+   {
+    "from": "O",
+    "to": "M",
+    "cars": 2000
+   }
+  ],
+  "links": [
+   {
+    "id": "u11a",
+    "from": "O",
+    "to": "U11",
+    "kind": "angosta",
+    "a": 21,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      270
+     ],
+     [
+      350,
+      270
+     ]
+    ],
+    "t0": 50.8,
+    "x0": 4463,
+    "t1": 36.0,
+    "x1": 2250,
+    "open_solved": true
+   },
+   {
+    "id": "u11b",
+    "from": "U11",
+    "to": "M",
+    "kind": "ancha",
+    "a": 53,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      350,
+      270
+     ],
+     [
+      720,
+      270
+     ]
+    ],
+    "t0": 53.0,
+    "x0": 0,
+    "t1": 53.0,
+    "x1": 2250,
+    "open_solved": true
+   },
+   {
+    "id": "l11a",
+    "from": "O",
+    "to": "L11",
+    "kind": "ancha",
+    "a": 53,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      370
+     ],
+     [
+      520,
+      370
+     ]
+    ],
+    "t0": 53.0,
+    "x0": 0,
+    "t1": 53.0,
+    "x1": 2250,
+    "open_solved": true
+   },
+   {
+    "id": "l11b",
+    "from": "L11",
+    "to": "M",
+    "kind": "angosta",
+    "a": 21,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      520,
+      370
+     ],
+     [
+      720,
+      370
+     ]
+    ],
+    "t0": 50.8,
+    "x0": 4463,
+    "t1": 36.0,
+    "x1": 2250,
+    "open_solved": true
+   },
+   {
+    "id": "cab11",
+    "from": "U11",
+    "to": "L11",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      350,
+      270
+     ],
+     [
+      520,
+      370
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 4463,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u12a",
+    "from": "O",
+    "to": "U12",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      630
+     ],
+     [
+      390,
+      630
+     ]
+    ],
+    "t0": 45.7,
+    "x0": 1537,
+    "t1": 30.0,
+    "x1": 750,
+    "open_solved": true
+   },
+   {
+    "id": "u12b",
+    "from": "U12",
+    "to": "M",
+    "kind": "ancha",
+    "a": 59,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      390,
+      630
+     ],
+     [
+      720,
+      630
+     ]
+    ],
+    "t0": 59.0,
+    "x0": 0,
+    "t1": 59.0,
+    "x1": 750,
+    "open_solved": true
+   },
+   {
+    "id": "l12a",
+    "from": "O",
+    "to": "L12",
+    "kind": "ancha",
+    "a": 59,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      150,
+      730
+     ],
+     [
+      560,
+      730
+     ]
+    ],
+    "t0": 59.0,
+    "x0": 0,
+    "t1": 59.0,
+    "x1": 750,
+    "open_solved": true
+   },
+   {
+    "id": "l12b",
+    "from": "L12",
+    "to": "M",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      730
+     ],
+     [
+      720,
+      730
+     ]
+    ],
+    "t0": 45.7,
+    "x0": 1537,
+    "t1": 30.0,
+    "x1": 750,
+    "open_solved": true
+   },
+   {
+    "id": "cab12",
+    "from": "U12",
+    "to": "L12",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      390,
+      630
+     ],
+     [
+      560,
+      730
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 1537,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u21a",
+    "from": "M",
+    "to": "U21",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      270
+     ],
+     [
+      920,
+      270
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 3000,
+    "t1": 18.0,
+    "x1": 1800,
+    "open_solved": true
+   },
+   {
+    "id": "u21b",
+    "from": "U21",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      920,
+      270
+     ],
+     [
+      1290,
+      270
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 0,
+    "t1": 30.0,
+    "x1": 1800,
+    "open_solved": true
+   },
+   {
+    "id": "l21a",
+    "from": "M",
+    "to": "L21",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      720,
+      370
+     ],
+     [
+      1090,
+      370
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 0,
+    "t1": 30.0,
+    "x1": 1800,
+    "open_solved": true
+   },
+   {
+    "id": "l21b",
+    "from": "L21",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      1090,
+      370
+     ],
+     [
+      1290,
+      370
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 3000,
+    "t1": 18.0,
+    "x1": 1800,
+    "open_solved": true
+   },
+   {
+    "id": "cab21",
+    "from": "U21",
+    "to": "L21",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      920,
+      270
+     ],
+     [
+      1090,
+      370
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u22a",
+    "from": "M",
+    "to": "U22",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      630
+     ],
+     [
+      960,
+      630
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 3000,
+    "t1": 18.0,
+    "x1": 1200,
+    "open_solved": true
+   },
+   {
+    "id": "u22b",
+    "from": "U22",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      960,
+      630
+     ],
+     [
+      1290,
+      630
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 0,
+    "t1": 30.0,
+    "x1": 1200,
+    "open_solved": true
+   },
+   {
+    "id": "l22a",
+    "from": "M",
+    "to": "L22",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      720,
+      730
+     ],
+     [
+      1130,
+      730
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 0,
+    "t1": 30.0,
+    "x1": 1200,
+    "open_solved": true
+   },
+   {
+    "id": "l22b",
+    "from": "L22",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      1130,
+      730
+     ],
+     [
+      1290,
+      730
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 3000,
+    "t1": 18.0,
+    "x1": 1200,
+    "open_solved": true
+   },
+   {
+    "id": "cab22",
+    "from": "U22",
+    "to": "L22",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      960,
+      630
+     ],
+     [
+      1130,
+      730
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 3000,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "msg": null,
+  "legend": null,
+  "start": 121.1,
+  "optimo": 102.8,
+  "cambios": 4,
+  "solucion": [
+   "cab11",
+   "cab12",
+   "cab21",
+   "cab22"
+  ],
+  "lineas": 4,
+  "cables": 4,
+  "grupos": 3
+ },
+ {
+  "num": 14,
+  "name": "Hora pico, dos toques",
+  "block": 3,
+  "nodes": {
+   "O": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Sur",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "M": {
+    "x": 720,
+    "y": 500,
+    "label": "Ricaurte",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Calle 100",
+    "kind": "bar",
+    "y1": 220,
+    "y2": 780
+   },
+   "U11": {
+    "x": 350,
+    "y": 270,
+    "label": "Sevillana",
+    "kind": "station"
+   },
+   "L11": {
+    "x": 520,
+    "y": 370,
+    "label": "Venecia",
+    "kind": "station"
+   },
+   "U12": {
+    "x": 390,
+    "y": 630,
+    "label": "Kennedy",
+    "kind": "station"
+   },
+   "L12": {
+    "x": 560,
+    "y": 730,
+    "label": "Mundo Aventura",
+    "kind": "station"
+   },
+   "U21": {
+    "x": 920,
+    "y": 270,
+    "label": "Calle 45",
+    "kind": "station"
+   },
+   "L21": {
+    "x": 1090,
+    "y": 370,
+    "label": "Marly",
+    "kind": "station"
+   },
+   "U22": {
+    "x": 960,
+    "y": 630,
+    "label": "Movistar Arena",
+    "kind": "station"
+   },
+   "L22": {
+    "x": 1130,
+    "y": 730,
+    "label": "Calle 76",
+    "kind": "station"
+   }
+  },
+  "groups": [
+   {
+    "from": "O",
+    "to": "Z",
+    "cars": 4000
+   },
+   {
+    "from": "M",
+    "to": "Z",
+    "cars": 1500
+   },
+   {
+    "from": "O",
+    "to": "M",
+    "cars": 2000
+   }
+  ],
+  "links": [
+   {
+    "id": "u11a",
+    "from": "O",
+    "to": "U11",
+    "kind": "angosta",
+    "a": 30,
+    "b": 0.04,
+    "k": 25,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      270
+     ],
+     [
+      350,
+      270
+     ]
+    ],
+    "t0": 52.0,
+    "x0": 550,
+    "t1": 41.8,
+    "x1": 294,
+    "open_solved": true
+   },
+   {
+    "id": "u11b",
+    "from": "U11",
+    "to": "M",
+    "kind": "ancha",
+    "a": 80,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      350,
+      270
+     ],
+     [
+      720,
+      270
+     ]
+    ],
+    "t0": 80.0,
+    "x0": 0,
+    "t1": 80.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l11a",
+    "from": "O",
+    "to": "L11",
+    "kind": "ancha",
+    "a": 80,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      370
+     ],
+     [
+      520,
+      370
+     ]
+    ],
+    "t0": 80.0,
+    "x0": 0,
+    "t1": 80.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l11b",
+    "from": "L11",
+    "to": "M",
+    "kind": "angosta",
+    "a": 30,
+    "b": 0.04,
+    "k": 25,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      520,
+      370
+     ],
+     [
+      720,
+      370
+     ]
+    ],
+    "t0": 52.0,
+    "x0": 550,
+    "t1": 41.8,
+    "x1": 294,
+    "open_solved": true
+   },
+   {
+    "id": "cab11",
+    "from": "U11",
+    "to": "L11",
+    "kind": "cable",
+    "a": 5,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      350,
+      270
+     ],
+     [
+      520,
+      370
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 550,
+    "t1": 5.0,
+    "x1": 294,
+    "open_solved": true
+   },
+   {
+    "id": "u12a",
+    "from": "O",
+    "to": "U12",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      630
+     ],
+     [
+      390,
+      630
+     ]
+    ],
+    "t0": 54.5,
+    "x0": 5450,
+    "t1": 28.5,
+    "x1": 2853,
+    "open_solved": true
+   },
+   {
+    "id": "u12b",
+    "from": "U12",
+    "to": "M",
+    "kind": "ancha",
+    "a": 60,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      390,
+      630
+     ],
+     [
+      720,
+      630
+     ]
+    ],
+    "t0": 60.0,
+    "x0": 0,
+    "t1": 60.0,
+    "x1": 2853,
+    "open_solved": true
+   },
+   {
+    "id": "l12a",
+    "from": "O",
+    "to": "L12",
+    "kind": "ancha",
+    "a": 60,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      150,
+      730
+     ],
+     [
+      560,
+      730
+     ]
+    ],
+    "t0": 60.0,
+    "x0": 0,
+    "t1": 60.0,
+    "x1": 2853,
+    "open_solved": true
+   },
+   {
+    "id": "l12b",
+    "from": "L12",
+    "to": "M",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.01,
+    "k": 100,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      730
+     ],
+     [
+      720,
+      730
+     ]
+    ],
+    "t0": 54.5,
+    "x0": 5450,
+    "t1": 28.5,
+    "x1": 2853,
+    "open_solved": true
+   },
+   {
+    "id": "cab12",
+    "from": "U12",
+    "to": "L12",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      390,
+      630
+     ],
+     [
+      560,
+      730
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 5450,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u21a",
+    "from": "M",
+    "to": "U21",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      270
+     ],
+     [
+      920,
+      270
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 3000,
+    "t1": 25.3,
+    "x1": 1900,
+    "open_solved": true
+   },
+   {
+    "id": "u21b",
+    "from": "U21",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      920,
+      270
+     ],
+     [
+      1290,
+      270
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 250,
+    "t1": 40.0,
+    "x1": 1900,
+    "open_solved": true
+   },
+   {
+    "id": "l21a",
+    "from": "M",
+    "to": "L21",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      720,
+      370
+     ],
+     [
+      1090,
+      370
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 250,
+    "t1": 40.0,
+    "x1": 1900,
+    "open_solved": true
+   },
+   {
+    "id": "l21b",
+    "from": "L21",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      1090,
+      370
+     ],
+     [
+      1290,
+      370
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 3000,
+    "t1": 25.3,
+    "x1": 1900,
+    "open_solved": true
+   },
+   {
+    "id": "cab21",
+    "from": "U21",
+    "to": "L21",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      920,
+      270
+     ],
+     [
+      1090,
+      370
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 2750,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u22a",
+    "from": "M",
+    "to": "U22",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      630
+     ],
+     [
+      960,
+      630
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 2250,
+    "t1": 32.7,
+    "x1": 1700,
+    "open_solved": true
+   },
+   {
+    "id": "u22b",
+    "from": "U22",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 46,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      960,
+      630
+     ],
+     [
+      1290,
+      630
+     ]
+    ],
+    "t0": 46.0,
+    "x0": 0,
+    "t1": 46.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l22a",
+    "from": "M",
+    "to": "L22",
+    "kind": "ancha",
+    "a": 46,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      720,
+      730
+     ],
+     [
+      1130,
+      730
+     ]
+    ],
+    "t0": 46.0,
+    "x0": 0,
+    "t1": 46.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l22b",
+    "from": "L22",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      1130,
+      730
+     ],
+     [
+      1290,
+      730
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 2250,
+    "t1": 32.7,
+    "x1": 1700,
+    "open_solved": true
+   },
+   {
+    "id": "cab22",
+    "from": "U22",
+    "to": "L22",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      960,
+      630
+     ],
+     [
+      1130,
+      730
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 2250,
+    "t1": 0.0,
+    "x1": 1700,
+    "open_solved": true
+   }
+  ],
+  "phases": [
+   {
+    "name": "Hora valle",
+    "factor": 0.7
+   },
+   {
+    "name": "Hora pico",
+    "factor": 1.0
+   }
+  ],
+  "toques": 2,
+  "msg": "Hora pico: solo dos toques.",
+  "legend": null,
+  "start": 130.7,
+  "optimo": 113.3,
+  "cambios": 2,
+  "solucion": [
+   "cab12",
+   "cab21"
+  ],
+  "lineas": 4,
+  "cables": 4,
+  "grupos": 3
+ },
+ {
+  "num": 15,
+  "name": "La ciudad",
+  "block": 3,
+  "nodes": {
+   "O": {
+    "x": 150,
+    "y": 500,
+    "label": "Portal Américas",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "M": {
+    "x": 720,
+    "y": 500,
+    "label": "Ricaurte",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "Z": {
+    "x": 1290,
+    "y": 500,
+    "label": "Universidades",
+    "kind": "bar",
+    "y1": 210,
+    "y2": 790
+   },
+   "U11": {
+    "x": 320,
+    "y": 250,
+    "label": "Marsella",
+    "kind": "station"
+   },
+   "L11": {
+    "x": 510,
+    "y": 320,
+    "label": "Pradera",
+    "kind": "station"
+   },
+   "U12": {
+    "x": 370,
+    "y": 450,
+    "label": "Zona Industrial",
+    "kind": "station"
+   },
+   "L12": {
+    "x": 560,
+    "y": 520,
+    "label": "Américas",
+    "kind": "station"
+   },
+   "U13": {
+    "x": 420,
+    "y": 650,
+    "label": "Mandalay",
+    "kind": "station"
+   },
+   "L13": {
+    "x": 610,
+    "y": 720,
+    "label": "Kennedy",
+    "kind": "station"
+   },
+   "U21": {
+    "x": 890,
+    "y": 250,
+    "label": "Tercer Milenio",
+    "kind": "station"
+   },
+   "L21": {
+    "x": 1080,
+    "y": 320,
+    "label": "Museo Nacional",
+    "kind": "station"
+   },
+   "U22": {
+    "x": 940,
+    "y": 450,
+    "label": "Las Aguas",
+    "kind": "station"
+   },
+   "L22": {
+    "x": 1130,
+    "y": 520,
+    "label": "Germania",
+    "kind": "station"
+   },
+   "U23": {
+    "x": 990,
+    "y": 650,
+    "label": "Calle 22",
+    "kind": "station"
+   },
+   "L23": {
+    "x": 1180,
+    "y": 720,
+    "label": "Calle 26",
+    "kind": "station"
+   }
+  },
+  "groups": [
+   {
+    "from": "O",
+    "to": "Z",
+    "cars": 9000
+   },
+   {
+    "from": "M",
+    "to": "Z",
+    "cars": 1500
+   },
+   {
+    "from": "U12",
+    "to": "Z",
+    "cars": 1000
+   },
+   {
+    "from": "O",
+    "to": "M",
+    "cars": 500
+   }
+  ],
+  "links": [
+   {
+    "id": "u11a",
+    "from": "O",
+    "to": "U11",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      150,
+      250
+     ],
+     [
+      320,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 2000,
+    "t1": 33.6,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "u11b",
+    "from": "U11",
+    "to": "M",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      320,
+      250
+     ],
+     [
+      720,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 250,
+    "t1": 40.0,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "l11a",
+    "from": "O",
+    "to": "L11",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      150,
+      320
+     ],
+     [
+      510,
+      320
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 250,
+    "t1": 40.0,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "l11b",
+    "from": "L11",
+    "to": "M",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      510,
+      320
+     ],
+     [
+      720,
+      320
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 2000,
+    "t1": 33.6,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "cab11",
+    "from": "U11",
+    "to": "L11",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      320,
+      250
+     ],
+     [
+      510,
+      320
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 1750,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u12a",
+    "from": "O",
+    "to": "U12",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      150,
+      450
+     ],
+     [
+      370,
+      450
+     ]
+    ],
+    "t0": 31.7,
+    "x0": 3250,
+    "t1": 28.5,
+    "x1": 2773,
+    "open_solved": true
+   },
+   {
+    "id": "u12b",
+    "from": "U12",
+    "to": "M",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      370,
+      450
+     ],
+     [
+      720,
+      450
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l12a",
+    "from": "O",
+    "to": "L12",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      150,
+      520
+     ],
+     [
+      560,
+      520
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l12b",
+    "from": "L12",
+    "to": "M",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.006666666666666667,
+    "k": 150,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      560,
+      520
+     ],
+     [
+      720,
+      520
+     ]
+    ],
+    "t0": 38.3,
+    "x0": 4250,
+    "t1": 35.2,
+    "x1": 3773,
+    "open_solved": true
+   },
+   {
+    "id": "cab12",
+    "from": "U12",
+    "to": "L12",
+    "kind": "cable",
+    "a": 10,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      370,
+      450
+     ],
+     [
+      560,
+      520
+     ]
+    ],
+    "t0": 10.0,
+    "x0": 4250,
+    "t1": 10.0,
+    "x1": 3773,
+    "open_solved": true
+   },
+   {
+    "id": "u13a",
+    "from": "O",
+    "to": "U13",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      150,
+      650
+     ],
+     [
+      420,
+      650
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 2000,
+    "t1": 43.6,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "u13b",
+    "from": "U13",
+    "to": "M",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      420,
+      650
+     ],
+     [
+      720,
+      650
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 2000,
+    "t1": 30.0,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "l13a",
+    "from": "O",
+    "to": "L13",
+    "kind": "ancha",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      150,
+      720
+     ],
+     [
+      610,
+      720
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 2000,
+    "t1": 30.0,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "l13b",
+    "from": "L13",
+    "to": "M",
+    "kind": "angosta",
+    "a": 10,
+    "b": 0.02,
+    "k": 50,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      610,
+      720
+     ],
+     [
+      720,
+      720
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 2000,
+    "t1": 43.6,
+    "x1": 1682,
+    "open_solved": true
+   },
+   {
+    "id": "cab13",
+    "from": "U13",
+    "to": "L13",
+    "kind": "cable",
+    "a": 30,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      420,
+      650
+     ],
+     [
+      610,
+      720
+     ]
+    ],
+    "t0": 30.0,
+    "x0": 0,
+    "t1": 30.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "u21a",
+    "from": "M",
+    "to": "U21",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      720,
+      250
+     ],
+     [
+      890,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1875,
+    "t1": 33.9,
+    "x1": 1417,
+    "open_solved": true
+   },
+   {
+    "id": "u21b",
+    "from": "U21",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "amarilla",
+    "both": false,
+    "pts": [
+     [
+      890,
+      250
+     ],
+     [
+      1290,
+      250
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 813,
+    "t1": 40.0,
+    "x1": 1417,
+    "open_solved": true
+   },
+   {
+    "id": "l21a",
+    "from": "M",
+    "to": "L21",
+    "kind": "ancha",
+    "a": 40,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      720,
+      320
+     ],
+     [
+      1080,
+      320
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 813,
+    "t1": 40.0,
+    "x1": 1417,
+    "open_solved": true
+   },
+   {
+    "id": "l21b",
+    "from": "L21",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 15,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "naranja",
+    "both": false,
+    "pts": [
+     [
+      1080,
+      320
+     ],
+     [
+      1290,
+      320
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 1875,
+    "t1": 33.9,
+    "x1": 1417,
+    "open_solved": true
+   },
+   {
+    "id": "cab21",
+    "from": "U21",
+    "to": "L21",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      890,
+      250
+     ],
+     [
+      1080,
+      320
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 1062,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   },
+   {
+    "id": "u22a",
+    "from": "M",
+    "to": "U22",
+    "kind": "angosta",
+    "a": 20,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      720,
+      450
+     ],
+     [
+      940,
+      450
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 6000,
+    "t1": 36.9,
+    "x1": 5083,
+    "open_solved": true
+   },
+   {
+    "id": "u22b",
+    "from": "U22",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "azul",
+    "both": false,
+    "pts": [
+     [
+      940,
+      450
+     ],
+     [
+      1290,
+      450
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l22a",
+    "from": "M",
+    "to": "L22",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      720,
+      520
+     ],
+     [
+      1130,
+      520
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 0,
+    "open_solved": true
+   },
+   {
+    "id": "l22b",
+    "from": "L22",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 20,
+    "b": 0.0033333333333333335,
+    "k": 300,
+    "open": true,
+    "locked": false,
+    "line": "lila",
+    "both": false,
+    "pts": [
+     [
+      1130,
+      520
+     ],
+     [
+      1290,
+      520
+     ]
+    ],
+    "t0": 40.0,
+    "x0": 6000,
+    "t1": 36.9,
+    "x1": 5083,
+    "open_solved": true
+   },
+   {
+    "id": "cab22",
+    "from": "U22",
+    "to": "L22",
+    "kind": "cable",
+    "a": 0,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      940,
+      450
+     ],
+     [
+      1130,
+      520
+     ]
+    ],
+    "t0": 0.0,
+    "x0": 6000,
+    "t1": 0.0,
+    "x1": 5083,
+    "open_solved": true
+   },
+   {
+    "id": "u23a",
+    "from": "M",
+    "to": "U23",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      720,
+      650
+     ],
+     [
+      990,
+      650
+     ]
+    ],
+    "t0": 37.5,
+    "x0": 2812,
+    "t1": 23.9,
+    "x1": 1792,
+    "open_solved": true
+   },
+   {
+    "id": "u23b",
+    "from": "U23",
+    "to": "Z",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cafe",
+    "both": false,
+    "pts": [
+     [
+      990,
+      650
+     ],
+     [
+      1290,
+      650
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 1792,
+    "open_solved": true
+   },
+   {
+    "id": "l23a",
+    "from": "M",
+    "to": "L23",
+    "kind": "ancha",
+    "a": 50,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      720,
+      720
+     ],
+     [
+      1180,
+      720
+     ]
+    ],
+    "t0": 50.0,
+    "x0": 0,
+    "t1": 50.0,
+    "x1": 1792,
+    "open_solved": true
+   },
+   {
+    "id": "l23b",
+    "from": "L23",
+    "to": "Z",
+    "kind": "angosta",
+    "a": 0,
+    "b": 0.013333333333333334,
+    "k": 75,
+    "open": true,
+    "locked": false,
+    "line": "cian",
+    "both": false,
+    "pts": [
+     [
+      1180,
+      720
+     ],
+     [
+      1290,
+      720
+     ]
+    ],
+    "t0": 37.5,
+    "x0": 2812,
+    "t1": 23.9,
+    "x1": 1792,
+    "open_solved": true
+   },
+   {
+    "id": "cab23",
+    "from": "U23",
+    "to": "L23",
+    "kind": "cable",
+    "a": 5,
+    "b": 0,
+    "k": null,
+    "open": true,
+    "locked": false,
+    "line": null,
+    "both": false,
+    "pts": [
+     [
+      990,
+      650
+     ],
+     [
+      1180,
+      720
+     ]
+    ],
+    "t0": 5.0,
+    "x0": 2812,
+    "t1": null,
+    "x1": 0,
+    "open_solved": false
+   }
+  ],
+  "phases": [
+   {
+    "name": "Hora valle",
+    "factor": 0.4
+   },
+   {
+    "name": "Hora pico",
+    "factor": 1.0
+   }
+  ],
+  "toques": 3,
+  "msg": "Hora pico: tres toques para seis cables. No todos son trampa.",
+  "legend": null,
+  "start": 129.7,
+  "optimo": 123.4,
+  "cambios": 3,
+  "solucion": [
+   "cab11",
+   "cab21",
+   "cab23"
+  ],
+  "lineas": 6,
+  "cables": 6,
+  "grupos": 4
+ }
+]

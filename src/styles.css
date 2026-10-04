@@ -1,0 +1,108 @@
+/* Fuentes locales (licencia OFL, public/fonts). Sin Google Fonts. */
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow';
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-latin-800-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-condensed-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+  src: url('/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2');
+}
+
+/* Tokens del sistema visual (los mismos de src/render/colores.ts) */
+:root {
+  --tierra: #f2f1ec;
+  --tinta: #1f2329;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--tierra);
+  overflow: hidden;
+}
+
+#escena {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Solo las vías tocables y los botones reciben toques */
+#escena * {
+  pointer-events: none;
+}
+#escena .toque {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+#escena .toque.obra {
+  cursor: not-allowed;
+}
+#escena .btn,
+#escena .btn * {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+/* La vía vibra cuando el toque no se permite */
+@keyframes vibrar {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-5px, 0);
+  }
+  40% {
+    transform: translate(5px, 0);
+  }
+  60% {
+    transform: translate(-3px, 0);
+  }
+  80% {
+    transform: translate(3px, 0);
+  }
+}
+#escena .vibra {
+  animation: vibrar 260ms ease-out;
+}
