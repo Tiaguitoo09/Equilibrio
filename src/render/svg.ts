@@ -5,7 +5,7 @@
  *   - toque: zonas invisibles para tocar las vías
  */
 import { FUENTES } from './colores';
-import { medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
+import { ANCHO_FLECHA, medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
 import type { Punto } from '../engine/equilibrio';
 
 export const NS = 'http://www.w3.org/2000/svg';
@@ -121,6 +121,20 @@ export function elemento(it: Primitiva): SVGElement {
         // cada texto centrado verticalmente en la pastilla (auto-layout de Figma)
         g.append(texto(x, it.y + q.z * 0.4, q.v, q.z, q.f, q.c, 'start'));
         x += medir(q.v, q.z, q.f) + it.gap;
+      }
+      if (it.flecha) {
+        const c = it.parts[0].c;
+        const y = r2(it.y);
+        g.append(
+          el('path', {
+            d: `M${r2(x)} ${y} H${r2(x + ANCHO_FLECHA - 1)} M${r2(x + ANCHO_FLECHA - 5)} ${y - 4} L${r2(x + ANCHO_FLECHA - 1)} ${y} L${r2(x + ANCHO_FLECHA - 5)} ${y + 4}`,
+            fill: 'none',
+            stroke: c,
+            'stroke-width': 1.8,
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round',
+          }),
+        );
       }
       e = g;
       break;

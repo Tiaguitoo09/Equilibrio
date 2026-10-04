@@ -106,3 +106,8 @@ body {
 #escena .vibra {
   animation: vibrar 260ms ease-out;
 }
+
+/* El velo del tutorial y de la pausa no deja tocar lo que está debajo */
+#escena [data-n$=':velo'] {
+  pointer-events: all;
+}

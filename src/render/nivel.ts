@@ -4,6 +4,7 @@
  */
 import { C, colorLinea } from './colores';
 import { hud } from './hud';
+import { filaBotones } from './piezas';
 import { titulo } from './titulo';
 import { Escena, enSegmento, medidaPastilla, miles, segmentos, dos } from './primitivas';
 import type { Nivel, Punto, Via } from '../engine/equilibrio';
@@ -20,6 +21,8 @@ export interface VistaNivel {
   toques: number;
   /** índice de la fase mostrada (en niveles con hora pico) */
   fase: number;
+  /** al ganar, mostrar el botón «Ver bitácora» (no en el tutorial) */
+  verBitacora?: boolean;
 }
 
 const RADIO = 22;
@@ -214,6 +217,7 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
       s.t('inf', x + 36, y - 8, items[k] ?? k, 12, 'M', C.tinta);
     });
   }
+  if (v.resuelto && v.verBitacora) filaBotones(s, 'inf', [{ v: 'Ver bitácora', btn: 'bitacora', estilo: 'negro' }], 720, 836, 'c');
   return { escena: s, vias };
 }
 

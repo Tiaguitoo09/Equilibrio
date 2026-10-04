@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "verificar": "tsx src/render/niveles.test.ts",
-    "test": "tsx src/engine/equilibrio.test.ts && tsx src/game/estadoNivel.test.ts && tsx src/game/bitacora.test.ts && tsx src/render/niveles.test.ts"
+    "test": "tsx src/engine/equilibrio.test.ts && tsx src/game/estadoNivel.test.ts && tsx src/game/bitacora.test.ts && tsx src/game/progreso.test.ts && tsx src/render/niveles.test.ts"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

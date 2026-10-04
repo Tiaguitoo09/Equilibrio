@@ -1,8 +1,7 @@
 import './styles.css';
 import datos from '../data/niveles.json';
+import { crearApp } from './app';
 import type { Nivel } from './engine/equilibrio';
-import { pantallaAjustes } from './screens/ajustes';
-import { pantallaNivel } from './screens/pantallaNivel';
 
 const niveles = datos as unknown as Nivel[];
 
@@ -17,13 +16,12 @@ async function iniciar() {
   const svg = document.querySelector<SVGSVGElement>('#escena')!;
 
   if (import.meta.env.DEV) {
-    // Solo en desarrollo: ?pantalla=ajustes abre Ajustes; si no, navegación de pruebas entre los 15 niveles
-    const { navegacionPruebas } = await import('./dev/navegacion');
-    if (new URLSearchParams(location.search).get('pantalla') === 'ajustes') pantallaAjustes(svg, () => navegacionPruebas(svg, niveles));
-    else navegacionPruebas(svg, niveles);
+    // Solo en desarrollo: navegación de pruebas (?nivel=N, ?pantalla=…, flechas ← →)
+    const { instalarPruebas } = await import('./dev/navegacion');
+    instalarPruebas(svg, niveles);
     return;
   }
-  pantallaNivel(svg, niveles[0]);
+  crearApp(svg, niveles).ir({ p: 'carga' });
 }
 
 iniciar();

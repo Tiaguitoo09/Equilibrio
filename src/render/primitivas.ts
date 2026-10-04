@@ -85,7 +85,12 @@ export interface Pastilla extends Base {
   px: number;
   py: number;
   gap: number;
+  /** flecha → al final (dibujada, porque la fuente latin de Barlow no trae el glifo) */
+  flecha?: boolean;
 }
+
+/** Ancho de la flecha de los botones. */
+export const ANCHO_FLECHA = 13;
 
 export type Primitiva = Trazo | Elipse | Rect | Poligono | Texto | Pastilla;
 
@@ -118,9 +123,10 @@ export function partir(str: string, z: number, f: Fuente, maxW: number): string[
 }
 
 /** Tamaño de una pastilla (ancho, alto). */
-export function medidaPastilla(p: Pick<Pastilla, 'parts' | 'px' | 'py' | 'gap'>): [number, number] {
+export function medidaPastilla(p: Pick<Pastilla, 'parts' | 'px' | 'py' | 'gap' | 'flecha'>): [number, number] {
   const anchos = p.parts.map((q) => medir(q.v, q.z, q.f));
-  const w = anchos.reduce((s, a) => s + a, 0) + p.gap * (p.parts.length - 1) + p.px * 2;
+  if (p.flecha) anchos.push(ANCHO_FLECHA);
+  const w = anchos.reduce((s, a) => s + a, 0) + p.gap * (anchos.length - 1) + p.px * 2;
   const h = Math.max(...p.parts.map((q) => q.z)) * 1.2 + p.py * 2;
   return [w, h];
 }

@@ -103,6 +103,8 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 
 **Bitácora (decidido por Santiago):** el JSON solo trae la frase del nivel 03, así que todas salen de la plantilla de `src/game/bitacora.ts` según lo que hizo el jugador: «Hoy cerré el cable y la ciudad respiró.» + «Cerraste una vía y todos llegaron 15 minutos antes.». No escribir frases a mano por nivel.
 
+**Flujo implementado (`src/app.ts`):** el tutorial sale al entrar al nivel 01 mientras no esté resuelto; «Jugar»/«Saltar» reinician el 01 para que lo juegue el jugador. Al ganar aparece «Ver bitácora» (como en Figma). El chip «Bitácora» del inicio solo aparece si ya hay una entrada y abre la del último nivel resuelto. En el plano se tocan los niveles resueltos y el actual. El menú de pausa (Seguir · Reiniciar · Plano de la red · Inicio) **no tiene diseño en Figma**: es provisional con las mismas piezas. La flecha → de los botones se dibuja (la fuente latin de Barlow no trae el glifo).
+
 **Ajustes:** el chip se queda. La sección existe (`src/screens/ajustes.ts`, solo título y «Volver») y el diseño lo hará Santiago en Figma; no le pongas contenido hasta que llegue.
 
 ## Arquitectura recomendada
@@ -118,10 +120,30 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 npm install
 npm test       # motor (15 niveles) + estado del nivel + bitácora + verificar
 npm run verificar  # los 15 niveles se resuelven con nivel.solucion y el HUD coincide con el JSON
-npm run dev    # http://localhost:5173/   (solo en dev: ‹ › o ← → entre niveles · ?nivel=N · ?toques=a,b · ?pantalla=ajustes)
+npm run dev    # http://localhost:5173/   (solo en dev, ver src/dev/navegacion.ts: ?nivel=N · ?toques=a,b · ?pantalla=… · ?tutorial=1 · ?pausa=1 · ?borrar=1)
 npm run build  # tsc estricto + vite build → dist/
 ```
 Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).
+
+## Estado del proyecto (al 4 de octubre de 2026)
+Prompts de `PROMPT.md`: **1, 2 y 3 hechos** y subidos a GitHub. **Siguiente: prompt 4** (pulido y publicación).
+
+Hecho: los 15 niveles jugables con hora pico, tope de toques y obras; todas las pantallas (carga, inicio, plano, carga del nivel, tutorial, bitácora, pausa, Ajustes vacío) y el progreso en `localStorage`. `npm test` y `npm run build` pasan.
+
+Falta, en orden:
+1. **Prompt 4 · Pulido:**
+   - transiciones < 300 ms al tocar una vía (hoy todo se redibuja de golpe);
+   - accesibilidad: hoy las vías no tienen foco con teclado ni `aria-label`, y al redibujar se pierde el foco;
+   - revisar el uso táctil en el celular;
+   - desplegar en GitHub Pages o Vercel: falta `vite.config.ts` con `base`; ojo con las rutas `/fonts/...` del CSS.
+2. **Ajustes:** Santiago trae el diseño de Figma (y un prompt con el JSON); hasta entonces no se le pone contenido.
+3. **Menú de pausa:** es provisional porque no tiene diseño en Figma; ajustarlo si lo diseñan.
+4. **Prompt 5 · Íconos** (ver abajo).
+
+Detalles que conviene saber:
+- Las capturas de `reference/figma-preview/` de los niveles 13 y 14 tienen números viejos (125 → 109 y 111,7 → 103,7); manda el JSON.
+- En los cables con `both: true` (niveles 07 y 09) los carros se animan siempre en el sentido de `pts`, porque el motor no da la dirección del flujo.
+- Pruebas de punta a punta: se hicieron con Chrome sin ventana por CDP (scripts temporales, no están en el repo).
 
 ## Pendientes conocidos
 - **Íconos**: las compañeras de Santiago los están diseñando. Hoy los botones de reiniciar y pausa son provisionales (círculo tinta con símbolo). Cuando lleguen (SVG), se cambian en un solo módulo `src/ui/iconos.ts`; deja ese punto de extensión.

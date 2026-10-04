@@ -1,6 +1,7 @@
 /**
  * Pantalla de un nivel: une estado (src/game), dibujo (src/render) y toques.
  * Un solo gesto: tocar una vía la abre o la cierra.
+ * Encima pueden ir el tutorial (solo nivel 01) o el menú de pausa.
  */
 import type { Nivel } from '../engine/equilibrio';
 import { Carros } from '../game/carros';
@@ -8,6 +9,9 @@ import { EstadoNivel } from '../game/estadoNivel';
 import { escenaNivel } from '../render/nivel';
 import { activarBotones, el, pintar, trazoRedondeado, type Capas } from '../render/svg';
 import { botonRedondo } from '../ui/iconos';
+import { escucharBotones } from './montar';
+import { dibujarPausa } from './pausa';
+import { dibujarTutorial, PASOS_TUTORIAL } from './tutorial';
 
 export interface PantallaNivel {
   estado: EstadoNivel;
@@ -16,7 +20,13 @@ export interface PantallaNivel {
 }
 
 export interface OpcionesNivel {
-  /** se llama después de cada dibujo (p. ej. para agregar la navegación de pruebas) */
+  /** empezar con el tutorial de 4 pasos */
+  tutorial?: boolean;
+  /** se llama una vez, cuando el nivel llega al equilibrio */
+  alGanar?: (estado: EstadoNivel) => void;
+  /** salir del nivel: botón «Ver bitácora» o el menú de pausa */
+  alSalir?: (destino: 'bitacora' | 'plano' | 'inicio') => void;
+  /** se llama después de cada dibujo (p. ej. para la navegación de pruebas) */
   alDibujar?: (capas: Capas) => void;
 }
 
@@ -24,10 +34,14 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
   const estado = new EstadoNivel(nivel);
   const carros = new Carros();
   let pausado = false;
+  let paso = opciones.tutorial ? 1 : 0; // 0 = sin tutorial
+  let ganado = false;
 
   function dibujar() {
     const r = estado.resultadoFase;
-    const { escena, vias } = escenaNivel(nivel, {
+    // en el tutorial no se muestran píldora ni leyenda: lo explica la tarjeta
+    const lv = paso ? { ...nivel, msg: null, legend: null } : nivel;
+    const { escena, vias } = escenaNivel(lv, {
       abiertas: estado.abiertas,
       t: r.t,
       x: r.x,
@@ -35,6 +49,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
       resuelto: estado.resuelto,
       toques: estado.toques,
       fase: estado.fase,
+      verBitacora: !paso,
     });
     const capas = pintar(svg, escena);
     // zonas invisibles (30 px) para tocar cada vía con el dedo
@@ -52,15 +67,15 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
         }),
       );
     }
-    capas.inf.append(
-      botonRedondo('reiniciar', 62, 838, 'reiniciar', 'Reiniciar'),
-      botonRedondo('pausa', 116, 838, pausado ? 'reanudar' : 'pausa', pausado ? 'Seguir' : 'Pausa'),
-    );
+    capas.inf.append(botonRedondo('reiniciar', 62, 838, 'reiniciar', 'Reiniciar'), botonRedondo('pausa', 116, 838, 'pausa', 'Pausa'));
     activarBotones(capas.inf);
     capas.inf.querySelectorAll<SVGElement>('[data-btn^="fase-"]').forEach((b) => {
       b.setAttribute('aria-label', nivel.phases?.[Number(b.dataset.btn!.slice(5))]?.name ?? '');
     });
+    carros.pausado = pausado;
     carros.montar(capas.carros, vias);
+    if (paso) dibujarTutorial(paso, nivel, escena, capas, vias);
+    else if (pausado) dibujarPausa(capas);
     opciones.alDibujar?.(capas);
   }
 
@@ -74,41 +89,76 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     navigator.vibrate?.(40);
   }
 
-  function tocar(id: string) {
-    if (pausado) return;
-    const r = estado.tocar(id);
-    if (r === 'ok') dibujar();
-    else if (r === 'sin-ruta' || r === 'obra' || r === 'agotado') vibrar(id);
+  /** Paso 3 del tutorial: se abre la vía de verdad y se ve el resultado en el paso 4. */
+  function tocarEnTutorial(id: string) {
+    if (paso !== 3 || id !== nivel.solucion[0]) return;
+    estado.tocar(id);
+    paso = 4;
+    dibujar();
   }
 
-  /** Devuelve true si el botón era de esta pantalla. */
-  function boton(nombre: string): boolean {
-    if (nombre === 'reiniciar') {
-      estado.reiniciar();
-      pausado = false;
-      carros.pausado = false;
-    } else if (nombre === 'pausa') {
-      pausado = !pausado;
-      carros.pausado = pausado;
-    } else if (nombre.startsWith('fase-')) {
-      estado.fase = Number(nombre.slice(5));
-    } else return false;
+  function terminarTutorial() {
+    paso = 0;
+    estado.reiniciar(); // ahora lo juega el jugador
     dibujar();
-    return true;
+  }
+
+  function tocar(id: string) {
+    if (pausado) return;
+    if (paso) return tocarEnTutorial(id);
+    const r = estado.tocar(id);
+    if (r === 'ok') {
+      if (estado.resuelto && !ganado) {
+        ganado = true;
+        opciones.alGanar?.(estado);
+      }
+      dibujar();
+    } else if (r === 'sin-ruta' || r === 'obra' || r === 'agotado') vibrar(id);
+  }
+
+  function boton(nombre: string) {
+    if (paso) {
+      if (nombre === 'saltar') terminarTutorial();
+      else if (nombre === 'siguiente') {
+        if (paso === 3) tocarEnTutorial(nivel.solucion[0]);
+        else if (paso === PASOS_TUTORIAL) terminarTutorial();
+        else {
+          paso++;
+          dibujar();
+        }
+      }
+      return;
+    }
+    switch (nombre) {
+      case 'reiniciar':
+        estado.reiniciar();
+        ganado = false;
+        pausado = false;
+        break;
+      case 'pausa':
+        pausado = true;
+        break;
+      case 'seguir':
+        pausado = false;
+        break;
+      case 'bitacora':
+      case 'plano':
+      case 'inicio':
+        opciones.alSalir?.(nombre);
+        return;
+      default:
+        if (!nombre.startsWith('fase-')) return;
+        estado.fase = Number(nombre.slice(5));
+    }
+    dibujar();
   }
 
   const alHacerClic = (ev: MouseEvent) => {
-    const objetivo = (ev.target as Element).closest<SVGElement>('[data-tocar],[data-btn]');
-    if (!objetivo) return;
-    if (objetivo.dataset.tocar) tocar(objetivo.dataset.tocar);
-    else if (objetivo.dataset.btn) boton(objetivo.dataset.btn);
-  };
-  const alTeclear = (ev: KeyboardEvent) => {
-    const b = (ev.target as Element).closest<SVGElement>('[data-btn]');
-    if (b?.dataset.btn && (ev.key === 'Enter' || ev.key === ' ') && boton(b.dataset.btn)) ev.preventDefault();
+    const id = (ev.target as Element).closest<SVGElement>('[data-tocar]')?.dataset.tocar;
+    if (id) tocar(id);
   };
   svg.addEventListener('click', alHacerClic);
-  svg.addEventListener('keydown', alTeclear);
+  const dejarBotones = escucharBotones(svg, boton);
   dibujar();
 
   return {
@@ -117,7 +167,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     cerrar() {
       carros.detener();
       svg.removeEventListener('click', alHacerClic);
-      svg.removeEventListener('keydown', alTeclear);
+      dejarBotones();
     },
   };
 }
