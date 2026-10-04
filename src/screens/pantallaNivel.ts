@@ -6,7 +6,7 @@ import type { Nivel } from '../engine/equilibrio';
 import { Carros } from '../game/carros';
 import { EstadoNivel } from '../game/estadoNivel';
 import { escenaNivel } from '../render/nivel';
-import { el, pintar, trazoRedondeado } from '../render/svg';
+import { activarBotones, el, pintar, trazoRedondeado, type Capas } from '../render/svg';
 import { botonRedondo } from '../ui/iconos';
 
 export interface PantallaNivel {
@@ -15,7 +15,12 @@ export interface PantallaNivel {
   cerrar(): void;
 }
 
-export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel): PantallaNivel {
+export interface OpcionesNivel {
+  /** se llama después de cada dibujo (p. ej. para agregar la navegación de pruebas) */
+  alDibujar?: (capas: Capas) => void;
+}
+
+export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: OpcionesNivel = {}): PantallaNivel {
   const estado = new EstadoNivel(nivel);
   const carros = new Carros();
   let pausado = false;
@@ -51,7 +56,12 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel): PantallaNivel {
       botonRedondo('reiniciar', 62, 838, 'reiniciar', 'Reiniciar'),
       botonRedondo('pausa', 116, 838, pausado ? 'reanudar' : 'pausa', pausado ? 'Seguir' : 'Pausa'),
     );
+    activarBotones(capas.inf);
+    capas.inf.querySelectorAll<SVGElement>('[data-btn^="fase-"]').forEach((b) => {
+      b.setAttribute('aria-label', nivel.phases?.[Number(b.dataset.btn!.slice(5))]?.name ?? '');
+    });
     carros.montar(capas.carros, vias);
+    opciones.alDibujar?.(capas);
   }
 
   /** La vía vibra y vuelve a su estado (toque no permitido). */
@@ -71,7 +81,8 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel): PantallaNivel {
     else if (r === 'sin-ruta' || r === 'obra' || r === 'agotado') vibrar(id);
   }
 
-  function boton(nombre: string) {
+  /** Devuelve true si el botón era de esta pantalla. */
+  function boton(nombre: string): boolean {
     if (nombre === 'reiniciar') {
       estado.reiniciar();
       pausado = false;
@@ -79,8 +90,11 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel): PantallaNivel {
     } else if (nombre === 'pausa') {
       pausado = !pausado;
       carros.pausado = pausado;
-    }
+    } else if (nombre.startsWith('fase-')) {
+      estado.fase = Number(nombre.slice(5));
+    } else return false;
     dibujar();
+    return true;
   }
 
   const alHacerClic = (ev: MouseEvent) => {
@@ -91,10 +105,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel): PantallaNivel {
   };
   const alTeclear = (ev: KeyboardEvent) => {
     const b = (ev.target as Element).closest<SVGElement>('[data-btn]');
-    if (b?.dataset.btn && (ev.key === 'Enter' || ev.key === ' ')) {
-      ev.preventDefault();
-      boton(b.dataset.btn);
-    }
+    if (b?.dataset.btn && (ev.key === 'Enter' || ev.key === ' ') && boton(b.dataset.btn)) ev.preventDefault();
   };
   svg.addEventListener('click', alHacerClic);
   svg.addEventListener('keydown', alTeclear);

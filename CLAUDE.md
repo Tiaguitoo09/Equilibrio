@@ -116,8 +116,9 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 ## Comandos (Windows, PowerShell)
 ```
 npm install
-npm test       # motor (15 niveles) + estado del nivel + bitácora
-npm run dev    # http://localhost:5173/   (solo en dev: ?toques=n · ?pantalla=ajustes)
+npm test       # motor (15 niveles) + estado del nivel + bitácora + verificar
+npm run verificar  # los 15 niveles se resuelven con nivel.solucion y el HUD coincide con el JSON
+npm run dev    # http://localhost:5173/   (solo en dev: ‹ › o ← → entre niveles · ?nivel=N · ?toques=a,b · ?pantalla=ajustes)
 npm run build  # tsc estricto + vite build → dist/
 ```
 Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).

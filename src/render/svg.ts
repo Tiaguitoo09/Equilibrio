@@ -142,7 +142,7 @@ export function activarBotones(raiz: Element) {
     e.classList.add('btn');
     e.setAttribute('role', 'button');
     e.setAttribute('tabindex', '0');
-    e.setAttribute('aria-label', e.textContent ?? e.dataset.btn);
+    e.setAttribute('aria-label', e.textContent || e.dataset.btn);
   });
 }
 

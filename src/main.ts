@@ -15,19 +15,15 @@ async function cargarFuentes() {
 async function iniciar() {
   await cargarFuentes();
   const svg = document.querySelector<SVGSVGElement>('#escena')!;
-  const params = new URLSearchParams(location.search);
 
-  // Solo en desarrollo: ?pantalla=ajustes abre la sección de Ajustes (todavía no hay Inicio)
-  if (import.meta.env.DEV && params.get('pantalla') === 'ajustes') {
-    pantallaAjustes(svg, () => jugar(svg));
+  if (import.meta.env.DEV) {
+    // Solo en desarrollo: ?pantalla=ajustes abre Ajustes; si no, navegación de pruebas entre los 15 niveles
+    const { navegacionPruebas } = await import('./dev/navegacion');
+    if (new URLSearchParams(location.search).get('pantalla') === 'ajustes') pantallaAjustes(svg, () => navegacionPruebas(svg, niveles));
+    else navegacionPruebas(svg, niveles);
     return;
   }
-  const pantalla = jugar(svg);
-
-  // Solo en desarrollo: ?toques=n aplica toques al abrir (para revisar estados sin jugar)
-  if (import.meta.env.DEV) params.get('toques')?.split(',').forEach((id) => id && pantalla.tocar(id));
+  pantallaNivel(svg, niveles[0]);
 }
-
-const jugar = (svg: SVGSVGElement) => pantallaNivel(svg, niveles[0]);
 
 iniciar();

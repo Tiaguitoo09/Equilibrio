@@ -5,7 +5,7 @@
 import { C, colorLinea } from './colores';
 import { hud } from './hud';
 import { titulo } from './titulo';
-import { Escena, enSegmento, medidaPastilla, medir, miles, segmentos, dos } from './primitivas';
+import { Escena, enSegmento, medidaPastilla, miles, segmentos, dos } from './primitivas';
 import type { Nivel, Punto, Via } from '../engine/equilibrio';
 
 /** Lo que el renderizador necesita saber del estado del nivel. */
@@ -23,6 +23,9 @@ export interface VistaNivel {
 }
 
 const RADIO = 22;
+
+/** Minutos enteros de una pastilla; primero a un decimal, como el HUD (21,4999 → 21,5 → 22). */
+const minutos = (t: number) => Math.round(Math.round(t * 10) / 10);
 
 /** Fondo de ciudad: agua en dos esquinas y algunos parques. */
 export function territorio(s: Escena, seed: number, np = 2) {
@@ -143,7 +146,7 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
       m[0],
       m[1],
       [
-        { v: String(Math.round(t)), z: 14, f: 'B', c: cc },
+        { v: String(minutos(t)), z: 14, f: 'B', c: cc },
         { v: 'min', z: 9, f: 'M', c: cable ? C.cable : caliente ? C.rojo : C.sec },
       ],
       { bd: cable ? C.cable : caliente ? C.rojo : C.borde, n: 'costo:' + l.id },
@@ -161,19 +164,24 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
     s.pill('inf', 40 + w / 2, 114, partes, { bg: C.tinta, bd: C.tinta, px: 12, py: 7, n: 'mensaje' });
   }
 
-  // selector de fase y tope de toques
+  // selector «Hora valle | Hora pico»: las pastillas muestran la fase elegida
+  const x0 = 560;
   if (lv.phases && !v.resuelto) {
-    const x0 = 560;
     const pico = v.fase === lv.phases.length - 1;
     s.r('inf', x0, 38, 200, 34, { f: C.blanco, s: C.borde, sw: 1, rr: 17, n: 'fases' });
     s.r('inf', pico ? x0 + 100 : x0 + 3, 41, 97, 28, { f: C.tinta, rr: 14 });
-    s.t('inf', x0 + 50, 47, 'Hora valle', 12, 'SB', pico ? C.sec : C.blanco, { a: 'c' });
-    s.t('inf', x0 + 148, 47, 'Hora pico', 12, 'SB', pico ? C.blanco : C.sec, { a: 'c' });
-    if (lv.toques) {
-      s.r('inf', x0 + 212, 38, 58 + lv.toques * 16, 34, { f: C.blanco, s: C.borde, sw: 1, rr: 17, n: 'toques' });
-      s.t('inf', x0 + 226, 49, 'TOQUES', 10, 'CB', C.sec, { ls: 1 });
-      for (let k = 0; k < lv.toques; k++) s.e('inf', x0 + 268 + k * 16, 55, 5, { s: C.tinta, sw: 2, f: k < v.toques ? C.tinta : C.blanco });
-    }
+    s.t('inf', x0 + 50, 47, 'Hora valle', 12, 'SB', pico ? C.sec : C.blanco, { a: 'c', n: 'fase:valle' });
+    s.t('inf', x0 + 148, 47, 'Hora pico', 12, 'SB', pico ? C.blanco : C.sec, { a: 'c', n: 'fase:pico' });
+    // zonas para tocar cada mitad (la fase 0 es valle, la última es pico)
+    s.r('inf', x0, 38, 100, 34, { rr: 17, n: 'btn:fase-0' });
+    s.r('inf', x0 + 100, 38, 100, 34, { rr: 17, n: `btn:fase-${lv.phases.length - 1}` });
+  }
+  // tope de toques: los círculos se llenan con cada toque
+  if (lv.toques && !v.resuelto) {
+    const xt = lv.phases ? x0 + 212 : x0;
+    s.r('inf', xt, 38, 58 + lv.toques * 16, 34, { f: C.blanco, s: C.borde, sw: 1, rr: 17, n: 'toques' });
+    s.t('inf', xt + 14, 49, 'TOQUES', 10, 'CB', C.sec, { ls: 1 });
+    for (let k = 0; k < lv.toques; k++) s.e('inf', xt + 56 + k * 16, 55, 5, { s: C.tinta, sw: 2, f: k < v.toques ? C.tinta : C.blanco, n: 'toque:' + (k < v.toques ? 'usado' : 'libre') });
   }
 
   // leyenda: solo donde se aprende algo (niveles 01, 03 y 10)
@@ -209,7 +217,3 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
   return { escena: s, vias };
 }
 
-/** Ancho de la pastilla de costo de una vía (para que los carros la esquiven). */
-export function anchoPastilla(t: number): number {
-  return medir(String(Math.round(t)), 14, 'B') + medir('min', 9, 'M') + 3 + 18;
-}
