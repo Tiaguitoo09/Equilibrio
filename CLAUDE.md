@@ -139,10 +139,11 @@ npm run typecheck              # solo tsc
 npx tsx src/game/progreso.test.ts   # una sola prueba (cualquier *.test.ts)
 ```
 Las pruebas son scripts `tsx` simples, sin framework: tienen su propio `ok()`, imprimen `✗` en cada fallo y terminan con código 1 si algo falla. Corren en Node, sin DOM.
-Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).
+Repo (público): https://github.com/Tiaguitoo09/Equilibrio (rama `main`) · juego: https://tiaguitoo09.github.io/Equilibrio/
+Los commits usan el correo privado de GitHub (`199398288+Tiaguitoo09@users.noreply.github.com`, configurado en la carpeta): no pongas el correo personal en commits ni en archivos.
 
 ## Estado del proyecto (al 5 de octubre de 2026)
-Prompts: **1 a 6 hechos** (el 5 con `actualizacion-iconos/PROMPT_5.md`, el 6 con `pantallas-que-faltan/PROMPT_6.md`: Ajustes, Bitácora completa, Sin toques, Fin del juego, pausa según el diseño y sonidos). Falta publicar: push y activar GitHub Pages (ver «Despliegue»).
+Prompts: **1 a 6 hechos** (el 5 con `actualizacion-iconos/PROMPT_5.md`, el 6 con `pantallas-que-faltan/PROMPT_6.md`: Ajustes, Bitácora completa, Sin toques, Fin del juego, pausa según el diseño y sonidos). **Publicado** en https://tiaguitoo09.github.io/Equilibrio/ (repo público; cada push a `main` prueba y vuelve a publicar).
 
 Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido del prompt 4:
 - **Transición de un toque (260 ms, `animarCambio` en `pantallaNivel.ts`):** la vía que cambia aparece, las pastillas que cambian laten y el TOTAL y el punto del HUD corren hasta su valor. Con `prefers-reduced-motion` no se anima.
@@ -171,7 +172,7 @@ Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido d
   - Ícono de la app: los archivos de `public/` y `public/manifest.webmanifest`.
 
 Falta, en orden:
-1. **Publicar:** `git push` y activar GitHub Pages (Santiago dice «súbelo»).
+1. Nada obligatorio. Push solo cuando Santiago dice «súbelo».
 2. `actualizacion-iconos/`, `Equilibrio_prompt5_iconos.zip` y `pantallas-que-faltan/` quedaron fuera de git (son el material original que mandó el equipo).
 
 Detalles que conviene saber:
