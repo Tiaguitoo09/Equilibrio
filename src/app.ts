@@ -9,7 +9,6 @@
 import { abiertasIniciales, alternar, puntaje, type Nivel } from './engine/equilibrio';
 import { bitacora as armarBitacora, fraseDe, type Bitacora } from './game/bitacora';
 import { cargarProgreso, disponible, guardarProgreso, progresoVacio, registrarVictoria, type Progreso } from './game/progreso';
-import type { Capas } from './render/svg';
 import { pantallaAjustes } from './screens/ajustes';
 import { pantallaBitacora } from './screens/bitacora';
 import { pantallaBitacoraCompleta } from './screens/bitacoraCompleta';
@@ -31,12 +30,7 @@ export type Destino =
   | { p: 'cargaNivel'; num: number }
   | { p: 'nivel'; num: number; tutorial?: boolean };
 
-export interface OpcionesApp {
-  /** solo pruebas: se llama después de cada dibujo de un nivel */
-  alDibujarNivel?: (capas: Capas, num: number) => void;
-}
-
-export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: OpcionesApp = {}) {
+export function crearApp(svg: SVGSVGElement, niveles: Nivel[]) {
   let progreso: Progreso = cargarProgreso();
   let actual: Pantalla | null = null;
   const nivel = (num: number) => niveles.find((l) => l.num === num)!;
@@ -90,7 +84,6 @@ export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: Opcione
             guardarProgreso(progreso);
           },
           alSalir: (destino) => ir(destino === 'bitacora' ? { p: 'bitacora', num: lv.num } : { p: destino }),
-          alDibujar: opciones.alDibujarNivel && ((capas) => opciones.alDibujarNivel!(capas, lv.num)),
         });
       }
       case 'bitacora': {

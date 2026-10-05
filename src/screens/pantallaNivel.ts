@@ -9,7 +9,7 @@ import { Carros } from '../game/carros';
 import { EstadoNivel } from '../game/estadoNivel';
 import { escenaNivel } from '../render/nivel';
 import { nf } from '../render/primitivas';
-import { activarBotones, el, pintar, trazoRedondeado, type Capas } from '../render/svg';
+import { activarBotones, el, pintar, trazoRedondeado } from '../render/svg';
 import { preferencias } from '../game/preferencias';
 import { anunciar } from '../ui/anuncio';
 import { sonar } from '../ui/sonido';
@@ -32,8 +32,6 @@ export interface OpcionesNivel {
   alGanar?: (estado: EstadoNivel) => void;
   /** salir del nivel: botón «Ver bitácora» o el menú de pausa */
   alSalir?: (destino: 'bitacora' | 'plano' | 'inicio') => void;
-  /** se llama después de cada dibujo (p. ej. para la navegación de pruebas) */
-  alDibujar?: (capas: Capas) => void;
 }
 
 /** Lo que había antes de un toque, para animar el cambio. */
@@ -120,7 +118,6 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     if (paso) dibujarTutorial(paso, nivel, escena, capas, vias);
     else if (sinToques) dibujarSinToques(capas, nivel, estado.total);
     else if (pausado) dibujarPausa(capas, nivel, estado.total);
-    opciones.alDibujar?.(capas);
 
     // con el tutorial o la pausa abiertos, el teclado solo recorre la tarjeta
     const capaArriba = paso || pausado || sinToques ? capas.top : null;
