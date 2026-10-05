@@ -26,6 +26,10 @@ export const C = {
   // 5 Información
   sec: '#5B616B',
   borde: '#D5D8DC',
+  // Mismo tono, más oscuro, SOLO para texto pequeño (< 18 px): el verde y el magenta
+  // de Figma dan 4,25:1 y 4,47:1 sobre blanco; estos pasan WCAG AA (≥ 4,5:1 sobre blanco y tierra).
+  verdeTexto: '#297C4D',
+  cableTexto: '#C52F7F',
 } as const;
 
 /** Color de una línea de la red (o tinta si no tiene). */

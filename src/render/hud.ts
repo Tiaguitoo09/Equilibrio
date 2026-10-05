@@ -23,5 +23,5 @@ export function hud(s: Escena, { total, optimo, inicio, resuelto, toques }: Dato
   s.r('inf', x + 24, y + 96, 282, 4, { f: resuelto ? C.verde : C.borde, rr: 2, n: 'progreso' });
   s.e('inf', x + 306, y + 98, 7, { f: resuelto ? C.verde : C.blanco, s: resuelto ? C.verde : C.tinta, sw: 3 });
   if (!resuelto) s.e('inf', x + 24 + p * 282, y + 98, 6, { f: C.rojo, s: C.blanco, sw: 2, n: 'progreso:punto' });
-  if (resuelto) s.t('inf', x + 20, y + 110, `Equilibrio alcanzado en ${toques} toque${toques === 1 ? '' : 's'}`, 12, 'SB', C.verde, { n: 'hud:mensaje' });
+  if (resuelto) s.t('inf', x + 20, y + 110, `Equilibrio alcanzado en ${toques} toque${toques === 1 ? '' : 's'}`, 12, 'SB', C.verdeTexto, { n: 'hud:mensaje' });
 }

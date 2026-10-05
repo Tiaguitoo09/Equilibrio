@@ -4,7 +4,7 @@
  *   - carros: la llena src/game/carros.ts (animados)
  *   - toque: zonas invisibles para tocar las vías
  */
-import { FUENTES } from './colores';
+import { C, FUENTES } from './colores';
 import { ANCHO_FLECHA, medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
 import type { Punto } from '../engine/equilibrio';
 
@@ -157,6 +157,13 @@ export function activarBotones(raiz: Element) {
     e.setAttribute('role', 'button');
     e.setAttribute('tabindex', '0');
     e.setAttribute('aria-label', e.textContent || e.dataset.btn);
+    // pastillas: anillo de foco con su misma forma (el outline de SVG sale cuadrado; ver styles.css)
+    const fondo = e.tagName === 'g' ? e.querySelector(':scope > rect') : null;
+    if (fondo && !e.querySelector('.anillo')) {
+      const [x, y, w, h] = ['x', 'y', 'width', 'height'].map((a) => Number(fondo.getAttribute(a)));
+      e.prepend(el('rect', { x: x - 5, y: y - 5, width: w + 10, height: h + 10, rx: (h + 10) / 2, fill: 'none', stroke: C.tinta, 'stroke-width': 3, class: 'anillo' }));
+      e.classList.add('redondo');
+    }
   });
 }
 

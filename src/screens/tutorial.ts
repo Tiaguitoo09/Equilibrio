@@ -109,7 +109,20 @@ export function dibujarTutorial(paso: number, nivel: Nivel, escena: Escena, capa
     if (v) {
       dedo(s, v.pastilla[0] + 18, v.pastilla[1] + 16);
       // la vía cerrada se puede tocar a través del velo
-      top.append(el('path', { d: trazoRedondeado(v.pts, v.rad), class: 'toque', 'data-tocar': v.id, fill: 'none', stroke: 'transparent', 'stroke-width': 30, 'stroke-linecap': 'round' }));
+      top.append(
+        el('path', {
+          d: trazoRedondeado(v.pts, v.rad),
+          class: 'toque',
+          'data-tocar': v.id,
+          fill: 'none',
+          stroke: 'transparent',
+          'stroke-width': 30,
+          'stroke-linecap': 'round',
+          role: 'button',
+          tabindex: 0,
+          'aria-label': v.etiqueta,
+        }),
+      );
     }
   }
   tarjeta(s, paso, p);

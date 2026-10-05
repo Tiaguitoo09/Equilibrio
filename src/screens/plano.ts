@@ -79,5 +79,6 @@ export function pantallaPlano(svg: SVGSVGElement, niveles: Nivel[], p: Progreso,
         const n = niveles.find((l) => l.num === Number(e.dataset.btn!.slice(6)));
         if (n) e.setAttribute('aria-label', `Nivel ${dos(n.num)} · ${n.name}`);
       }),
+    `[data-btn="nivel-${p.actual}"]`,
   );
 }

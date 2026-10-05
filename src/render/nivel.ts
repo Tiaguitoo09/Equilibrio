@@ -124,6 +124,19 @@ export interface InfoVia {
   x: number;
   /** centro de la pastilla de costo (los carros no pasan por debajo) */
   pastilla: Punto;
+  /** lo que oye un lector de pantalla al llegar a la vía con el teclado */
+  etiqueta: string;
+}
+
+const NOMBRE_LINEA: Record<string, string> = { amarilla: 'amarilla', naranja: 'naranja', azul: 'azul', lila: 'lila', cafe: 'café', cian: 'cian' };
+
+/** «Vía angosta amarilla de Portal Usme a Av. Jiménez, abierta, 60 min» */
+export function etiquetaVia(lv: Nivel, l: Via, abierta: boolean, t: number): string {
+  const tramo = `de ${lv.nodes[l.from]?.label ?? l.from} a ${lv.nodes[l.to]?.label ?? l.to}`;
+  const que = l.kind === 'cable' ? `Cable ${tramo}` : `Vía ${l.kind} ${l.line ? NOMBRE_LINEA[l.line] + ' ' : ''}${tramo}`;
+  if (l.locked) return `${que}, en obra: no se toca`;
+  const genero = l.kind === 'cable' ? 'o' : 'a';
+  return abierta ? `${que}, abiert${genero}, ${minutos(t)} min` : `${que}, cerrad${genero}`;
 }
 
 export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: InfoVia[] } {
@@ -139,18 +152,18 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
     const g = segmentos(l.pts);
     const m = enSegmento(l.pts, g.bi, 0.5);
     const t = v.t[l.id] ?? 0;
-    vias.push({ id: l.id, pts: l.pts, rad: l.kind === 'cable' ? 0 : RADIO, abierta: abierta(l), locked: l.locked, t, x: v.x[l.id] ?? 0, pastilla: m });
+    vias.push({ id: l.id, pts: l.pts, rad: l.kind === 'cable' ? 0 : RADIO, abierta: abierta(l), locked: l.locked, t, x: v.x[l.id] ?? 0, pastilla: m, etiqueta: etiquetaVia(lv, l, abierta(l), t) });
     if (!abierta(l)) continue;
     const caliente = l.kind === 'angosta' && t - l.a >= 20;
     const cable = l.kind === 'cable';
-    const cc = cable ? C.cable : caliente ? C.rojo : C.tinta;
+    const cc = cable ? C.cableTexto : caliente ? C.rojo : C.tinta;
     s.pill(
       'sta',
       m[0],
       m[1],
       [
         { v: String(minutos(t)), z: 14, f: 'B', c: cc },
-        { v: 'min', z: 9, f: 'M', c: cable ? C.cable : caliente ? C.rojo : C.sec },
+        { v: 'min', z: 9, f: 'M', c: cable ? C.cableTexto : caliente ? C.rojo : C.sec },
       ],
       { bd: cable ? C.cable : caliente ? C.rojo : C.borde, n: 'costo:' + l.id },
     );

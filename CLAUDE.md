@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Equilibrio — guía para Claude Code
 
 Juego web de puzzle para el curso *Composición Digital de Apps y UI Kits* (Tadeo, Bogotá, prof. John Melo). Se evalúa con las **Leyes de la Simplicidad de John Maeda**. Santiago (el dueño) habla en español colombiano informal: responde y comenta el código en español. Los textos de la interfaz van en español.
@@ -107,13 +111,18 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 
 **Ajustes:** el chip se queda. La sección existe (`src/screens/ajustes.ts`, solo título y «Volver») y el diseño lo hará Santiago en Figma; no le pongas contenido hasta que llegue.
 
-## Arquitectura recomendada
-- Vite + TypeScript estricto, **sin frameworks de UI**, dibujo en SVG, estado en un store pequeño.
-- `src/engine/` — motor puro (ya está hecho y probado). **No lo reescribas**; si cambias algo, corre `npm test`.
-- `src/render/` — portar `reference/escena.js` a TS (primitivas ter/red/est/sta/inf → elementos SVG con los mismos nombres de capa).
-- `src/game/` — estado del nivel (vías abiertas, toques, fase), tocar una vía, victoria, animación de carros.
-- `src/screens/` — inicio, carga, tutorial, nivel, bitácora, plano, pausa.
-- `data/niveles.json` — fuente de verdad de los niveles.
+## Arquitectura (cómo está hecho)
+Vite + TypeScript estricto, **sin frameworks de UI**, todo dibujado en un solo `<svg id="escena">`.
+
+- **`src/engine/`**: motor puro, ya probado. **No lo reescribas.** `puntaje()` calcula todas las fases y tarda unos 21 ms en el peor nivel; devuelve `null` si algún grupo queda sin ruta.
+- **Del dibujo a la pantalla:** una función arma una `Escena` (`src/render/primitivas.ts`, port de `S()` de `escena.js`): una lista de primitivas `p/e/r/g/t/pill`, cada una con su capa `L`. Luego `pintar()` (`src/render/svg.ts`) **borra el SVG y lo vuelve a crear entero** con un `<g data-capa>` por capa, en este orden: `ter · red · carros · est · sta · toque · inf · top`. No hay comparación de cambios: cada cambio de estado redibuja todo.
+- **Texto:** la `y` es el borde superior de la caja, como en Figma, y la línea base queda en `y + z`. Las pastillas se miden con un canvas, por eso `main.ts` espera a que carguen las fuentes. Sin DOM (en las pruebas) se usa un ancho aproximado.
+- **Botones:** toda primitiva llamada `btn:algo` se vuelve botón con `data-btn="algo"` (`activarBotones`). Para conectar los clics y el teclado están `escucharBotones` y `montarEscena` (`src/screens/montar.ts`).
+- **Toques en las vías:** cada vía tiene un trazo invisible de 30 px con `data-tocar` en la capa `toque`. En el CSS, todo tiene `pointer-events: none` salvo `.toque`, `.btn` y el velo `[data-n$=":velo"]`, que bloquea lo de abajo durante el tutorial y la pausa.
+- **Nivel** (`src/screens/pantallaNivel.ts`): junta `EstadoNivel` (`src/game`, envuelve el motor), `escenaNivel` y `Carros`. `Carros` anima con `requestAnimationFrame` y conserva el avance de cada vía al redibujar. El tutorial y la pausa se dibujan en la capa `top`; el tutorial «levanta» copias de primitivas de la escena del nivel por encima del velo.
+- **Flujo** (`src/app.ts`): `ir(Destino)` cierra la pantalla actual y abre la siguiente. **Cada pantalla devuelve `{ cerrar() }` y debe quitar ahí sus listeners del SVG.** El progreso son funciones puras en `src/game/progreso.ts` y se guarda en `localStorage` con la clave `equilibrio.progreso.v1`.
+- **Herramientas de pruebas** (`src/dev/navegacion.ts`): `main.ts` las carga con `import()` dentro de `import.meta.env.DEV`, así que no llegan al build.
+- **`tsconfig`:** excluye `*.test.ts` (tsc no los revisa). `noUnusedParameters` está desactivado porque el motor tiene un parámetro sin usar.
 
 ## Comandos (Windows, PowerShell)
 ```
@@ -122,23 +131,34 @@ npm test       # motor (15 niveles) + estado del nivel + bitácora + verificar
 npm run verificar  # los 15 niveles se resuelven con nivel.solucion y el HUD coincide con el JSON
 npm run dev    # http://localhost:5173/   (solo en dev, ver src/dev/navegacion.ts: ?nivel=N · ?toques=a,b · ?pantalla=… · ?tutorial=1 · ?pausa=1 · ?borrar=1)
 npm run build  # tsc estricto + vite build → dist/
+npm run typecheck              # solo tsc
+npx tsx src/game/progreso.test.ts   # una sola prueba (cualquier *.test.ts)
 ```
+Las pruebas son scripts `tsx` simples, sin framework: tienen su propio `ok()`, imprimen `✗` en cada fallo y terminan con código 1 si algo falla. Corren en Node, sin DOM.
 Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).
 
-## Estado del proyecto (al 4 de octubre de 2026)
-Prompts de `PROMPT.md`: **1, 2 y 3 hechos** y subidos a GitHub. **Siguiente: prompt 4** (pulido y publicación).
+## Estado del proyecto (al 5 de octubre de 2026)
+Prompts de `PROMPT.md`: **1, 2, 3 y 4 hechos**. **Siguiente: prompt 5** (íconos, con `actualizacion-iconos/PROMPT_5.md`).
 
-Hecho: los 15 niveles jugables con hora pico, tope de toques y obras; todas las pantallas (carga, inicio, plano, carga del nivel, tutorial, bitácora, pausa, Ajustes vacío) y el progreso en `localStorage`. `npm test` y `npm run build` pasan.
+Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido del prompt 4:
+- **Transición de un toque (260 ms, `animarCambio` en `pantallaNivel.ts`):** la vía que cambia aparece, las pastillas que cambian laten y el TOTAL y el punto del HUD corren hasta su valor. Con `prefers-reduced-motion` no se anima.
+- **Teclado:**
+  - cada vía es un botón con `tabindex` y `aria-label` (`etiquetaVia` en `src/render/nivel.ts`); Enter o Espacio la tocan;
+  - Esc abre y cierra la pausa;
+  - el foco se conserva al redibujar y cada pantalla lo pone en su acción principal (`montarEscena(…, foco)`);
+  - con el tutorial o la pausa abiertos, lo de abajo queda con `tabindex=-1`.
+- **Lectores de pantalla y foco visible:** `#anuncio` (aria-live, `src/ui/anuncio.ts`) dice el resultado de cada toque. Los anillos de foco son color tinta: un halo en las vías y, en los botones, un `.anillo` con su misma forma.
+- **Contraste:** `C.verdeTexto` (#297C4D) y `C.cableTexto` (#C52F7F) se usan SOLO en texto pequeño; el verde y el magenta de Figma no llegaban a 4,5:1. Los números grandes, los bordes y las líneas siguen con los colores de Figma.
+- **Despliegue:**
+  - `vite.config.ts` con `base: './'`: el mismo build sirve en Pages y en Vercel; `/fonts/…` del CSS sale como `../fonts/…`;
+  - `.github/workflows/deploy.yml` publica en GitHub Pages en cada push a `main` y corre `npm test` antes;
+  - URL: https://tiaguitoo09.github.io/Equilibrio/ (en *Settings → Pages* hay que elegir *GitHub Actions* una vez).
+- **Íconos:** `src/ui/iconos.ts` ya tiene la forma que pide el prompt 5: `NombreIcono` (los 22 nombres) e `icono(nombre, tamaño)`. Solo falta llenar `FINALES`.
 
 Falta, en orden:
-1. **Prompt 4 · Pulido:**
-   - transiciones < 300 ms al tocar una vía (hoy todo se redibuja de golpe);
-   - accesibilidad: hoy las vías no tienen foco con teclado ni `aria-label`, y al redibujar se pierde el foco;
-   - revisar el uso táctil en el celular;
-   - desplegar en GitHub Pages o Vercel: falta `vite.config.ts` con `base`; ojo con las rutas `/fonts/...` del CSS.
+1. **Prompt 5 · Íconos:** el material está en `actualizacion-iconos/`, sin integrar y sin subir a git (`PROMPT_5.md`; SVG en `iconos/svg_color`, viewBox 480 con colores propios; `svg_juego` con currentColor; íconos de la app en `app/`; capturas en `reference/figma/`). El `Equilibrio_prompt5_iconos.zip` trae lo mismo.
 2. **Ajustes:** Santiago trae el diseño de Figma (y un prompt con el JSON); hasta entonces no se le pone contenido.
 3. **Menú de pausa:** es provisional porque no tiene diseño en Figma; ajustarlo si lo diseñan.
-4. **Prompt 5 · Íconos** (ver abajo).
 
 Detalles que conviene saber:
 - Las capturas de `reference/figma-preview/` de los niveles 13 y 14 tienen números viejos (125 → 109 y 111,7 → 103,7); manda el JSON.
@@ -146,7 +166,7 @@ Detalles que conviene saber:
 - Pruebas de punta a punta: se hicieron con Chrome sin ventana por CDP (scripts temporales, no están en el repo).
 
 ## Pendientes conocidos
-- **Íconos**: las compañeras de Santiago los están diseñando. Hoy los botones de reiniciar y pausa son provisionales (círculo tinta con símbolo). Cuando lleguen (SVG), se cambian en un solo módulo `src/ui/iconos.ts`; deja ese punto de extensión.
+- **Íconos**: ya llegaron (ver «Estado del proyecto»). Se integran solo en `src/ui/iconos.ts`; los botones de reiniciar y pausa siguen provisionales hasta el prompt 5.
 - Sonido (opcional, solo si sobra tiempo; siempre con interruptor y apagado por defecto).
 - Mostrar en el plano de la red las estrellas/toques mejores por nivel (opcional).
 

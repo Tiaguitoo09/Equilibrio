@@ -38,7 +38,7 @@ export function escenaCargaApp(p: number): Escena {
   s.t('inf', 720, 556, `CARGANDO LA RED DE BOGOTÁ · ${Math.round(p * 100)}%`, 12, 'CB', C.sec, { a: 'c', ls: 1.4, n: 'progreso:texto' });
 
   s.r('inf', 470, 690, 500, 64, { f: C.blanco, s: C.borde, sw: 1, rr: 14, n: 'dato' });
-  s.t('inf', 494, 704, '¿SABÍAS QUE?', 10, 'CB', C.cable, { ls: 1.2 });
+  s.t('inf', 494, 704, '¿SABÍAS QUE?', 10, 'CB', C.cableTexto, { ls: 1.2 });
   s.t('inf', 494, 722, 'A veces abrir un atajo hace que todos lleguen más tarde.', 14, 'M', C.tinta);
   s.t('inf', 720, 836, PIE, 12, 'CB', C.sec, { a: 'c', ls: 1.4 });
   return s;

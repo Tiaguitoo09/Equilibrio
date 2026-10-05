@@ -31,10 +31,15 @@ export function escucharBotones(svg: SVGSVGElement, alBoton: (nombre: string) =>
   };
 }
 
-export function montarEscena(svg: SVGSVGElement, escena: Escena, alBoton: (nombre: string) => void, alPintar?: (capas: Capas) => void): Pantalla {
+/**
+ * @param foco selector del botón que recibe el foco al abrir (por defecto el primero);
+ *             así quien juega con teclado no queda perdido al cambiar de pantalla.
+ */
+export function montarEscena(svg: SVGSVGElement, escena: Escena, alBoton: (nombre: string) => void, alPintar?: (capas: Capas) => void, foco?: string): Pantalla {
   const capas = pintar(svg, escena);
   activarBotones(svg);
   alPintar?.(capas);
+  ((foco && svg.querySelector<SVGElement>(foco)) || svg.querySelector<SVGElement>('[data-btn][tabindex="0"]'))?.focus({ preventScroll: true });
   const dejar = escucharBotones(svg, alBoton);
   return { cerrar: dejar };
 }
