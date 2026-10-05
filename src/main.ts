@@ -2,6 +2,8 @@ import './styles.css';
 import datos from '../data/niveles.json';
 import { crearApp } from './app';
 import type { Nivel } from './engine/equilibrio';
+import logo from './assets/iconos/logo.svg?url';
+import { vigilarPantalla } from './ui/bloqueo';
 
 const niveles = datos as unknown as Nivel[];
 
@@ -14,6 +16,8 @@ async function cargarFuentes() {
 async function iniciar() {
   await cargarFuentes();
   const svg = document.querySelector<SVGSVGElement>('#escena')!;
+  // en celulares (y ventanas muy pequeñas) se muestra un aviso en vez del juego
+  vigilarPantalla(svg, logo);
 
   if (import.meta.env.DEV) {
     // Solo en desarrollo: navegación de pruebas (?nivel=N, ?pantalla=…, flechas ← →)

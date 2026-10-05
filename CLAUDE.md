@@ -111,6 +111,8 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 
 **Ajustes:** sonido (apagado por defecto) y vibración (encendida) con interruptor, guardados en `localStorage` (`equilibrio.preferencias.v1`, `src/game/preferencias.ts`); «Borrar progreso» pide confirmación; créditos con los nombres del equipo. **Sonidos** (`src/ui/sonido.ts`): Web Audio sin archivos (tic al tocar, otro cuando el toque no se permite, acorde al llegar al óptimo); el audio arranca con el primer toque del jugador.
 
+**Celular: bloqueado (decisión de Santiago).** Equilibrio se juega en computador o en tablet acostada. Si la red de 1440×900 quedaría a menos de 0,55 de escala (`ESCALA_MINIMA`), `src/ui/bloqueo.ts` muestra un aviso HTML (`#bloqueo` en `index.html`) en vez del juego: «se juega en computador» (celular), «gira la pantalla» (tablet de pie) o «agranda la ventana» (escritorio). El juego sigue detrás, oculto, y vuelve al girar o agrandar. Medido antes de bloquear: en un celular de 390 px los íconos quedaban de 6–9 px y las zonas para tocar las vías de 8 px. Si algún día se quiere jugar en celular, hace falta un diseño propio para pantallas pequeñas (no basta con escalar).
+
 **Sin toques:** en los niveles con tope, ~0,6 s después del último toque si no se llegó al óptimo (`pantallaNivel.ts`). **Bitácora completa:** encabezado fijo; la lista (capa `est`, recortada) se desplaza con rueda, arrastre/dedo y teclado, con degradado abajo.
 
 ## Arquitectura (cómo está hecho)

@@ -167,6 +167,39 @@ body {
   opacity: 1;
 }
 
+/* Aviso cuando la pantalla es muy pequeña para jugar (celular, tablet de pie, ventana chica) */
+#bloqueo {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px;
+  background: var(--tierra);
+  color: var(--tinta);
+  text-align: center;
+  font-family: 'Barlow', sans-serif;
+}
+#bloqueo[hidden] {
+  display: none;
+}
+#bloqueo h1 {
+  margin: 8px 0 0;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+}
+#bloqueo p {
+  margin: 0;
+  max-width: 340px;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4;
+  color: #5b616b;
+}
+
 /* Solo para lectores de pantalla */
 .solo-lector {
   position: absolute;

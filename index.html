@@ -13,6 +13,12 @@
   <body>
     <svg id="escena" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid meet" role="application" aria-label="Equilibrio"></svg>
     <p id="anuncio" class="solo-lector" aria-live="polite"></p>
+    <!-- aviso para celulares y ventanas muy pequeñas (src/ui/bloqueo.ts) -->
+    <div id="bloqueo" role="alert" hidden>
+      <img alt="" width="96" height="96" />
+      <h1></h1>
+      <p></p>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
