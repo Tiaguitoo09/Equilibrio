@@ -1,17 +1,11 @@
 /**
- * Íconos del juego — PUNTO DE EXTENSIÓN.
- *
- * Los íconos finales ya llegaron (sin integrar): actualizacion-iconos/iconos/svg_color/*.svg
- * (los 22 de NOMBRES_ICONOS; viewBox 0 0 480 480 y colores propios del equipo). Instrucciones en
- * actualizacion-iconos/PROMPT_5.md. Para integrarlos (prompt 5):
- *   1. copiar svg_color/*.svg a src/assets/iconos/
- *   2. llenar FINALES con:
- *        import.meta.glob('../assets/iconos/*.svg', { query: '?raw', import: 'default', eager: true })
- *      (la clave es la ruta; el nombre del ícono es el archivo sin .svg)
- * Mientras tanto, icono() usa los PROVISIONALES (los de reference/escena.js) y, si no hay, devuelve null.
+ * Íconos del equipo (prompt 5). Los SVG están en src/assets/iconos/ (copiados de
+ * actualizacion-iconos/iconos/svg_color/): viewBox 0 0 480 480 y colores propios del equipo,
+ * que NO se cambian (van a color sobre fondo claro y sobre los botones tinta).
+ * Para cambiar un ícono basta con reemplazar su archivo; el nombre del ícono es el nombre del archivo.
  */
 import { C } from '../render/colores';
-import { el } from '../render/svg';
+import { el } from '../render/dom';
 
 export const NOMBRES_ICONOS = [
   'ajustes',
@@ -39,37 +33,39 @@ export const NOMBRES_ICONOS = [
 ] as const;
 export type NombreIcono = (typeof NOMBRES_ICONOS)[number];
 
-/** SVG finales como texto, por nombre. Vacío hasta el prompt 5. */
-const FINALES: Partial<Record<NombreIcono, string>> = {};
+/** Texto de cada SVG por nombre (Vite los incluye en el build). */
+const ARCHIVOS = import.meta.glob<string>('../assets/iconos/*.svg', { query: '?raw', import: 'default', eager: true });
+const SVG: Partial<Record<NombreIcono, string>> = {};
+for (const [ruta, texto] of Object.entries(ARCHIVOS)) SVG[ruta.split('/').pop()!.replace('.svg', '') as NombreIcono] = texto;
 
-/** Provisionales: interior de un SVG en cuadrícula 24×24 centrada en (0,0), con currentColor. */
-const PROVISIONALES: Partial<Record<NombreIcono, string>> = {
-  reiniciar:
-    '<path d="M4.97 6.27 A8 8 0 1 1 7.89 -1.46" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>' +
-    '<polygon points="4,-12 10,-7 2,-4" fill="currentColor"/>',
-  pausa: '<rect x="-6" y="-7" width="4" height="14" rx="1" fill="currentColor"/><rect x="2" y="-7" width="4" height="14" rx="1" fill="currentColor"/>',
-};
+/** Cada ícono se interpreta una sola vez; después se clona. */
+const plantillas = new Map<NombreIcono, SVGSVGElement>();
+function plantilla(nombre: NombreIcono): SVGSVGElement | null {
+  let p = plantillas.get(nombre);
+  if (!p) {
+    const texto = SVG[nombre];
+    if (!texto) return null;
+    p = new DOMParser().parseFromString(texto, 'image/svg+xml').documentElement as unknown as SVGSVGElement;
+    plantillas.set(nombre, p);
+  }
+  return p;
+}
 
 /**
- * Ícono de `tamano` px centrado en (cx, cy), decorativo (aria-hidden): el texto o el aria-label
- * del botón dicen qué es. Devuelve null si ese ícono todavía no existe.
+ * Ícono de `tamano` px centrado en (cx, cy), como un <svg> anidado.
+ * Es decorativo (aria-hidden): el texto de al lado o el aria-label del botón dicen qué es.
  */
 export function icono(nombre: NombreIcono, tamano: number, cx = 0, cy = 0): SVGElement | null {
-  const final = FINALES[nombre];
-  if (final) {
-    const svg = document.importNode(new DOMParser().parseFromString(final, 'image/svg+xml').documentElement, true) as unknown as SVGSVGElement;
-    svg.setAttribute('x', String(cx - tamano / 2));
-    svg.setAttribute('y', String(cy - tamano / 2));
-    svg.setAttribute('width', String(tamano));
-    svg.setAttribute('height', String(tamano));
-    svg.setAttribute('aria-hidden', 'true');
-    return svg;
-  }
-  const provisional = PROVISIONALES[nombre];
-  if (!provisional) return null;
-  const g = el('g', { transform: `translate(${cx} ${cy}) scale(${tamano / 24})`, 'aria-hidden': 'true' });
-  g.innerHTML = provisional;
-  return g;
+  const p = plantilla(nombre);
+  if (!p) return null;
+  const svg = document.importNode(p, true);
+  svg.setAttribute('x', String(cx - tamano / 2));
+  svg.setAttribute('y', String(cy - tamano / 2));
+  svg.setAttribute('width', String(tamano));
+  svg.setAttribute('height', String(tamano));
+  svg.setAttribute('aria-hidden', 'true');
+  svg.dataset.icono = nombre;
+  return svg;
 }
 
 /** Botón redondo tinta (r22) solo con ícono: lleva aria-label («Reiniciar», «Pausa»…). */
@@ -81,13 +77,12 @@ export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono
     tabindex: 0,
     'aria-label': etiqueta,
     transform: `translate(${cx} ${cy})`,
-    color: C.blanco,
   });
   const t = el('title');
   t.textContent = etiqueta;
   // anillo de foco (solo se ve con el teclado, ver styles.css)
   g.append(t, el('circle', { r: 27.5, fill: 'none', stroke: C.tinta, 'stroke-width': 3, class: 'anillo' }), el('circle', { r: 22, fill: C.tinta }));
-  const i = icono(nombreIcono, 24);
+  const i = icono(nombreIcono, 26);
   if (i) g.append(i);
   return g;
 }

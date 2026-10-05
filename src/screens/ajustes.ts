@@ -12,8 +12,9 @@ export function escenaAjustes(): Escena {
   const s = new Escena('Ajustes');
   s.g('ter', [[1180, 0], [1440, 0], [1440, 170]], C.agua);
   s.g('ter', [[0, 720], [0, 900], [260, 900]], C.agua);
-  s.t('inf', 60, 48, 'Ajustes', 32, 'B', C.tinta, { n: 'titulo' });
-  filaBotones(s, 'inf', [{ v: 'Volver', btn: 'volver', estilo: 'negro' }], 60, 838);
+  s.i('inf', 74, 68, 'ajustes', 28);
+  s.t('inf', 96, 48, 'Ajustes', 32, 'B', C.tinta, { n: 'titulo' });
+  filaBotones(s, 'inf', [{ v: 'Volver', btn: 'volver', estilo: 'negro', icono: 'inicio' }], 60, 838);
   return s;
 }
 

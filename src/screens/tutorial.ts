@@ -8,6 +8,7 @@ import { C } from '../render/colores';
 import type { InfoVia } from '../render/nivel';
 import { velo } from '../render/piezas';
 import { Escena, medidaPastilla, partir, type Primitiva } from '../render/primitivas';
+import type { NombreIcono } from '../ui/iconos';
 import { activarBotones, el, elemento, trazoRedondeado, type Capas } from '../render/svg';
 
 export const PASOS_TUTORIAL = 4;
@@ -16,21 +17,25 @@ interface Paso {
   titulo: string;
   texto: string;
   boton: string;
+  /** ícono al lado del título (24 px) */
+  icono: NombreIcono;
+  /** ícono del botón: antes («Jugar») o después («Siguiente») del texto */
+  icoBoton?: { ico?: NombreIcono; icoFin?: NombreIcono };
   /** centro x y borde superior de la tarjeta */
   cx: number;
   y: number;
 }
 
 const PASOS: Paso[] = [
-  { titulo: 'Estos son los carros', texto: 'Salen de Portal Usme y todos quieren llegar a Av. Jiménez lo más rápido posible.', boton: 'Siguiente', cx: 720, y: 560 },
-  { titulo: 'Cada vía dice cuánto se demora', texto: 'Esta vía es angosta: entre más carros, más lenta. Hoy van todos por aquí y se demoran 60 min.', boton: 'Siguiente', cx: 720, y: 420 },
-  { titulo: 'Toca una vía para abrirla', texto: 'La vía de abajo está cerrada. Es ancha: siempre se demora 45 min y no se llena. Tócala.', boton: 'Ya la toqué', cx: 720, y: 420 },
-  { titulo: '¡Bajó de 60 a 45!', texto: 'Los carros se repartieron solos. Cuando TOTAL llega a ÓPTIMO, la ciudad está en equilibrio.', boton: 'Jugar', cx: 1060, y: 190 },
+  { titulo: 'Estos son los carros', texto: 'Salen de Portal Usme y todos quieren llegar a Av. Jiménez lo más rápido posible.', boton: 'Siguiente', icono: 'carros', icoBoton: { icoFin: 'siguiente' }, cx: 720, y: 560 },
+  { titulo: 'Cada vía dice cuánto se demora', texto: 'Esta vía es angosta: entre más carros, más lenta. Hoy van todos por aquí y se demoran 60 min.', boton: 'Siguiente', icono: 'tiempo', icoBoton: { icoFin: 'siguiente' }, cx: 720, y: 420 },
+  { titulo: 'Toca una vía para abrirla', texto: 'La vía de abajo está cerrada. Es ancha: siempre se demora 45 min y no se llena. Tócala.', boton: 'Ya la toqué', icono: 'via_abierta', cx: 720, y: 420 },
+  { titulo: '¡Bajó de 60 a 45!', texto: 'Los carros se repartieron solos. Cuando TOTAL llega a ÓPTIMO, la ciudad está en equilibrio.', boton: 'Jugar', icono: 'optimo', icoBoton: { ico: 'jugar' }, cx: 1060, y: 190 },
 ];
 
 /** Tarjeta del tutorial (coach() de la referencia). */
 function tarjeta(s: Escena, paso: number, p: Paso) {
-  const W = 380;
+  const W = 400;
   const lineas = partir(p.texto, 14, 'M', W - 48);
   const H = 140 + lineas.length * 20;
   const x = Math.max(40, Math.min(1440 - W - 40, p.cx - W / 2));
@@ -38,9 +43,10 @@ function tarjeta(s: Escena, paso: number, p: Paso) {
   s.r('top', x, y, W, H, { f: C.blanco, rr: 18, n: 'tutorial:tarjeta' });
   for (let i = 0; i < PASOS_TUTORIAL; i++) s.e('top', x + 28 + i * 16, y + 28, 4, { f: i < paso ? C.tinta : C.borde });
   s.t('top', x + W - 24, y + 20, `PASO ${paso} DE ${PASOS_TUTORIAL}`, 10, 'CB', C.sec, { a: 'r', ls: 1.2 });
-  s.t('top', x + 24, y + 46, p.titulo, 22, 'B', C.tinta, { n: 'tutorial:titulo' });
+  s.i('top', x + 24 + 12, y + 46 + 14, p.icono, 24);
+  s.t('top', x + 24 + 32, y + 46, p.titulo, 22, 'B', C.tinta, { n: 'tutorial:titulo' });
   lineas.forEach((l, i) => s.t('top', x + 24, y + 80 + i * 20, l, 14, 'M', C.sec));
-  const boton = { parts: [{ v: p.boton, z: 14, f: 'SB' as const, c: C.blanco }], px: 18, py: 9, gap: 3 };
+  const boton = { parts: [{ v: p.boton, z: 14, f: 'SB' as const, c: C.blanco }], px: 18, py: 9, gap: 6, tamIco: 16, ...p.icoBoton };
   const [w] = medidaPastilla(boton);
   s.pill('top', x + W - 24 - w / 2, y + H - 28, boton.parts, { ...boton, bg: C.tinta, bd: C.tinta, n: 'btn:siguiente' });
   s.t('top', x + 24, y + H - 36, 'Saltar', 13, 'SB', C.sec);

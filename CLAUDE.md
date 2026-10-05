@@ -71,7 +71,7 @@ Figma: https://www.figma.com/design/M4LovFmMXxTkbaNocJByti/Equilibrio (Page 3, s
 | 4 Estados | cerrada `#B8BCC3` · cable `#D6338A` · costo alto `#D93A35` · meta `#2E8B57` |
 | 5 Información | texto `#1F2329` · secundario `#5B616B` · borde `#D5D8DC` |
 
-**Regla:** las líneas NUNCA usan rojo, verde ni magenta; esos tres son solo para costo alto, meta y cable.
+**Regla:** las líneas NUNCA usan rojo, verde ni magenta; esos tres son solo para costo alto, meta y cable. **Excepción:** los íconos del equipo (`src/assets/iconos/`) traen sus propios colores y no se cambian (decisión del prompt 5).
 
 **Tipografía:** Barlow 800 para números grandes, Barlow 700/600 para títulos y botones, Barlow 500 para texto, **Barlow Condensed 700 para estaciones** (MAYÚSCULAS, letter-spacing .8). Los .woff2 están en `public/fonts/` (licencia OFL); cárgalos con `@font-face` local, sin Google Fonts.
 
@@ -107,7 +107,7 @@ El texto exacto y la geometría del tutorial y de las pantallas de carga están 
 
 **Bitácora (decidido por Santiago):** el JSON solo trae la frase del nivel 03, así que todas salen de la plantilla de `src/game/bitacora.ts` según lo que hizo el jugador: «Hoy cerré el cable y la ciudad respiró.» + «Cerraste una vía y todos llegaron 15 minutos antes.». No escribir frases a mano por nivel.
 
-**Flujo implementado (`src/app.ts`):** el tutorial sale al entrar al nivel 01 mientras no esté resuelto; «Jugar»/«Saltar» reinician el 01 para que lo juegue el jugador. Al ganar aparece «Ver bitácora» (como en Figma). El chip «Bitácora» del inicio solo aparece si ya hay una entrada y abre la del último nivel resuelto. En el plano se tocan los niveles resueltos y el actual. El menú de pausa (Seguir · Reiniciar · Plano de la red · Inicio) **no tiene diseño en Figma**: es provisional con las mismas piezas. La flecha → de los botones se dibuja (la fuente latin de Barlow no trae el glifo).
+**Flujo implementado (`src/app.ts`):** el tutorial sale al entrar al nivel 01 mientras no esté resuelto; «Jugar»/«Saltar» reinician el 01 para que lo juegue el jugador. Al ganar aparece «Ver bitácora» (como en Figma). El chip «Bitácora» del inicio solo aparece si ya hay una entrada y abre la del último nivel resuelto. En el plano se tocan los niveles resueltos y el actual. El menú de pausa (Seguir · Reiniciar · Plano de la red · Inicio) **no tiene diseño en Figma**: es provisional con las mismas piezas. Los botones llevan íconos del equipo (la flecha de «Siguiente» es el ícono `siguiente`; la fuente latin de Barlow no trae el glifo →).
 
 **Ajustes:** el chip se queda. La sección existe (`src/screens/ajustes.ts`, solo título y «Volver») y el diseño lo hará Santiago en Figma; no le pongas contenido hasta que llegue.
 
@@ -138,7 +138,7 @@ Las pruebas son scripts `tsx` simples, sin framework: tienen su propio `ok()`, i
 Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).
 
 ## Estado del proyecto (al 5 de octubre de 2026)
-Prompts de `PROMPT.md`: **1, 2, 3 y 4 hechos**. **Siguiente: prompt 5** (íconos, con `actualizacion-iconos/PROMPT_5.md`).
+Prompts de `PROMPT.md`: **1 a 5 hechos** (el 5 con `actualizacion-iconos/PROMPT_5.md`). Falta publicar: activar GitHub Pages (ver «Despliegue»).
 
 Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido del prompt 4:
 - **Transición de un toque (260 ms, `animarCambio` en `pantallaNivel.ts`):** la vía que cambia aparece, las pastillas que cambian laten y el TOTAL y el punto del HUD corren hasta su valor. Con `prefers-reduced-motion` no se anima.
@@ -153,12 +153,19 @@ Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido d
   - `vite.config.ts` con `base: './'`: el mismo build sirve en Pages y en Vercel; `/fonts/…` del CSS sale como `../fonts/…`;
   - `.github/workflows/deploy.yml` publica en GitHub Pages en cada push a `main` y corre `npm test` antes;
   - URL: https://tiaguitoo09.github.io/Equilibrio/ (en *Settings → Pages* hay que elegir *GitHub Actions* una vez).
-- **Íconos:** `src/ui/iconos.ts` ya tiene la forma que pide el prompt 5: `NombreIcono` (los 22 nombres) e `icono(nombre, tamaño)`. Solo falta llenar `FINALES`.
+- **Íconos (prompt 5): ya están.**
+  - Los 22 SVG del equipo están en `src/assets/iconos/` (copiados de `actualizacion-iconos/iconos/svg_color/`) y se cargan con `import.meta.glob` en `src/ui/iconos.ts`.
+  - Para usarlos: `icono(nombre, tamaño, cx, cy)`, la primitiva `s.i(...)`, o `ico`/`icoFin` en las pastillas y `icono`/`iconoFin` en los botones (`src/render/piezas.ts`).
+  - **La bitácora usa el ícono de óptimo** (chip «Bitácora», «Ver bitácora» y HUD).
+  - Ubicación como en el Figma actualizado: reiniciar y pausa (26); jugar, siguiente, red e inicio en los botones; tiempo y óptimo en el HUD; origen y destino junto a las estaciones; carros en los grupos; íconos en la leyenda y en la píldora de obra; candado en los niveles bloqueados del plano; ingeniero y logo en el inicio; logo en la carga; ingeniero en la bitácora; un ícono por paso en el tutorial; ajustes junto al título de Ajustes.
+  - El inicio ya no lleva «UN JUEGO DE VÍAS · BOGOTÁ» ni el pie de Maeda, como en el Figma actualizado.
+  - Ícono de la app: los archivos de `public/` y `public/manifest.webmanifest`.
 
 Falta, en orden:
-1. **Prompt 5 · Íconos:** el material está en `actualizacion-iconos/`, sin integrar y sin subir a git (`PROMPT_5.md`; SVG en `iconos/svg_color`, viewBox 480 con colores propios; `svg_juego` con currentColor; íconos de la app en `app/`; capturas en `reference/figma/`). El `Equilibrio_prompt5_iconos.zip` trae lo mismo.
-2. **Ajustes:** Santiago trae el diseño de Figma (y un prompt con el JSON); hasta entonces no se le pone contenido.
+1. **Ajustes:** Santiago trae el diseño de Figma (y un prompt con el JSON); hasta entonces no se le pone contenido. Según `PROMPT_5.md`, ahí van los íconos `sonido` (20, junto a «Sonido») y `cerrar` (23, botón con aria-label «Cerrar»).
+2. **Pantallas que nombra `PROMPT_5.md` pero que no existen todavía:** «Fin del juego» (ícono `logro` de 64 e `inicio` en «Volver al inicio») y «Bitácora completa» (`ingeniero` de 34 junto al título e `inicio` para volver). Hoy, al ganar el nivel 15, la bitácora solo ofrece «Ver plano». Hay que pedir el diseño.
 3. **Menú de pausa:** es provisional porque no tiene diseño en Figma; ajustarlo si lo diseñan.
+4. `actualizacion-iconos/` y `Equilibrio_prompt5_iconos.zip` quedaron fuera de git (son el material original).
 
 Detalles que conviene saber:
 - Las capturas de `reference/figma-preview/` de los niveles 13 y 14 tienen números viejos (125 → 109 y 111,7 → 103,7); manda el JSON.
@@ -166,7 +173,7 @@ Detalles que conviene saber:
 - Pruebas de punta a punta: se hicieron con Chrome sin ventana por CDP (scripts temporales, no están en el repo).
 
 ## Pendientes conocidos
-- **Íconos**: ya llegaron (ver «Estado del proyecto»). Se integran solo en `src/ui/iconos.ts`; los botones de reiniciar y pausa siguen provisionales hasta el prompt 5.
+- **Íconos**: integrados (ver «Estado del proyecto»). Para cambiar uno basta con reemplazar su archivo en `src/assets/iconos/`.
 - Sonido (opcional, solo si sobra tiempo; siempre con interruptor y apagado por defecto).
 - Mostrar en el plano de la red las estrellas/toques mejores por nivel (opcional).
 

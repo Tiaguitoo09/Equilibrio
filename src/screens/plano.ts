@@ -50,7 +50,11 @@ export function escenaPlano(niveles: Nivel[], p: Progreso): Escena {
       } else if (hecho) {
         s.e('est', x, y, 15, { f: C.tinta });
         s.e('est', x, y, 6, { f: C.blanco });
-      } else s.e('est', x, y, 11, { f: C.blanco, s: C.cerrada, sw: 4 });
+      } else {
+        s.e('est', x, y, 11, { f: C.blanco, s: C.cerrada, sw: 4 });
+        // todavía bloqueado: candado encima de la estación
+        if (!disponible(p, l.num)) s.i('est', x, y, 'candado', 16);
+      }
       const tinta = ahora || resuelto(l.num);
       s.t('est', x, y + 28, dos(l.num), 13, 'CB', tinta ? C.tinta : C.sec, { a: 'c' });
       s.t('est', x, y + 46, l.name, 12, 'M', tinta ? C.tinta : C.sec, { a: 'c' });
@@ -62,7 +66,7 @@ export function escenaPlano(niveles: Nivel[], p: Progreso): Escena {
   s.p('red', [[1250, 300], [1290, 300], [1290, 500], [1250, 500]], resuelto(5) ? C.tinta : C.cerrada, 3, { d: [0.1, 8], rad: 16 });
   s.p('red', [[1250, 500], [1290, 500], [1290, 700], [1250, 700]], resuelto(10) ? C.tinta : C.cerrada, 3, { d: [0.1, 8], rad: 16 });
 
-  filaBotones(s, 'inf', [{ v: 'Volver', btn: 'volver', estilo: 'negro' }], 60, 838);
+  filaBotones(s, 'inf', [{ v: 'Volver', btn: 'volver', estilo: 'negro', icono: 'inicio' }], 60, 838);
   return s;
 }
 

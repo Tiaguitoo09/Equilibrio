@@ -18,7 +18,7 @@ export function escenaCargaApp(p: number): Escena {
   const s = new Escena('Carga · Inicio de la app');
   s.g('ter', [[1150, 0], [1440, 0], [1440, 190]], C.agua);
   s.g('ter', [[0, 680], [0, 900], [290, 900]], C.agua);
-  [C.amarilla, C.naranja, C.azul].forEach((c, i) => s.e('inf', 680 + i * 16, 330, 7, { f: c }));
+  s.i('inf', 720, 282, 'logo', 120, { n: 'logo' });
   s.t('inf', 720, 356, 'Equilibrio', 72, 'EB', C.tinta, { a: 'c', n: 'titulo' });
 
   const y = 520;
@@ -85,7 +85,7 @@ export function escenaCargaNivel(lv: Nivel): Escena {
   if (lv.cables) sub += ` · ${lv.cables} CABLE${lv.cables === 1 ? '' : 'S'}`;
   s.t('inf', 720, 458, sub, 12, 'CB', C.sec, { a: 'c', ls: 1.2 });
   s.t('inf', 720, 490, `Empiezas en ${nf(lv.start)} min por carro. La meta: ${nf(lv.optimo)}.`, 15, 'M', C.tinta, { a: 'c' });
-  filaBotones(s, 'inf', [{ v: 'Toca para empezar', btn: 'empezar', estilo: 'negro' }], 720, 560, 'c');
+  filaBotones(s, 'inf', [{ v: 'Toca para empezar', btn: 'empezar', estilo: 'negro', icono: 'jugar' }], 720, 560, 'c');
   return s;
 }
 

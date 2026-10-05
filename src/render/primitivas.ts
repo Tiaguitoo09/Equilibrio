@@ -6,6 +6,7 @@
  */
 import { C, cssFuente, type Fuente } from './colores';
 import type { Punto } from '../engine/equilibrio';
+import type { NombreIcono } from '../ui/iconos';
 
 export type Capa = 'ter' | 'red' | 'est' | 'sta' | 'inf' | 'top';
 export type Alinear = 'l' | 'c' | 'r';
@@ -85,14 +86,22 @@ export interface Pastilla extends Base {
   px: number;
   py: number;
   gap: number;
-  /** flecha → al final (dibujada, porque la fuente latin de Barlow no trae el glifo) */
-  flecha?: boolean;
+  /** ícono antes del texto y/o después (src/ui/iconos.ts), de tamIco px (16 por defecto) */
+  ico?: NombreIcono;
+  icoFin?: NombreIcono;
+  tamIco?: number;
 }
 
-/** Ancho de la flecha de los botones. */
-export const ANCHO_FLECHA = 13;
+/** Ícono del equipo (src/ui/iconos.ts) de tam px, centrado en (x, y). */
+export interface Icono extends Base {
+  k: 'i';
+  x: number;
+  y: number;
+  nombre: NombreIcono;
+  tam: number;
+}
 
-export type Primitiva = Trazo | Elipse | Rect | Poligono | Texto | Pastilla;
+export type Primitiva = Trazo | Elipse | Rect | Poligono | Texto | Pastilla | Icono;
 
 type Opc<T> = Partial<Omit<T, 'k' | 'L'>>;
 
@@ -123,9 +132,10 @@ export function partir(str: string, z: number, f: Fuente, maxW: number): string[
 }
 
 /** Tamaño de una pastilla (ancho, alto). */
-export function medidaPastilla(p: Pick<Pastilla, 'parts' | 'px' | 'py' | 'gap' | 'flecha'>): [number, number] {
+export function medidaPastilla(p: Pick<Pastilla, 'parts' | 'px' | 'py' | 'gap' | 'ico' | 'icoFin' | 'tamIco'>): [number, number] {
   const anchos = p.parts.map((q) => medir(q.v, q.z, q.f));
-  if (p.flecha) anchos.push(ANCHO_FLECHA);
+  if (p.ico) anchos.unshift(p.tamIco ?? 16);
+  if (p.icoFin) anchos.push(p.tamIco ?? 16);
   const w = anchos.reduce((s, a) => s + a, 0) + p.gap * (anchos.length - 1) + p.px * 2;
   const h = Math.max(...p.parts.map((q) => q.z)) * 1.2 + p.py * 2;
   return [w, h];
@@ -198,6 +208,9 @@ export class Escena {
   }
   pill(L: Capa, x: number, y: number, parts: Parte[], o: Opc<Pastilla> = {}) {
     return this.add<Pastilla>({ k: 'pill', L, x, y, parts, bg: C.blanco, bd: C.borde, px: 9, py: 4, gap: 3, ...o });
+  }
+  i(L: Capa, x: number, y: number, nombre: NombreIcono, tam: number, o: Opc<Icono> = {}) {
+    return this.add<Icono>({ k: 'i', L, x, y, nombre, tam, ...o });
   }
   /** texto en varias líneas */
   tw(L: Capa, x: number, y: number, v: string, z: number, f: Fuente, c: string, maxW: number, lh: number, o: Opc<Texto> = {}) {

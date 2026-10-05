@@ -2,11 +2,12 @@
  * Dibuja un NIVEL a partir de sus datos y del estado actual (port de nivel() en reference/escena.js).
  * A diferencia de escena.js, los minutos y carros salen del motor en vivo, no de t0/x0.
  */
-import { C, colorLinea } from './colores';
+import type { NombreIcono } from '../ui/iconos';
+import { C, colorLinea, type Fuente } from './colores';
 import { hud } from './hud';
 import { filaBotones } from './piezas';
 import { titulo } from './titulo';
-import { Escena, enSegmento, medidaPastilla, miles, segmentos, dos } from './primitivas';
+import { Escena, enSegmento, medidaPastilla, medir, miles, segmentos, dos, type Alinear, type Capa } from './primitivas';
 import type { Nivel, Punto, Via } from '../engine/equilibrio';
 
 /** Lo que el renderizador necesita saber del estado del nivel. */
@@ -73,7 +74,16 @@ function dibujarVia(s: Escena, l: Via, abierta: boolean, pasada: number) {
 }
 
 function estaciones(s: Escena, lv: Nivel) {
-  const etiquetas: Record<string, { x: number; y: number; a: 'l' | 'c' | 'r' }> = {};
+  const etiquetas: Record<string, { x: number; y: number; a: Alinear }> = {};
+  // origen y destino de los grupos: llevan su ícono junto al nombre de la estación
+  const origenes = new Set(lv.groups.map((g) => g.from));
+  const destinos = new Set(lv.groups.map((g) => g.to).filter((id) => !origenes.has(id)));
+  const nombre = (id: string, x: number, y: number, label: string, a: Alinear) => {
+    s.t('est', x, y, label, 12, 'CB', C.tinta, { a, ls: 0.8 });
+    const rol = origenes.has(id) ? 'origen' : destinos.has(id) ? 'destino' : null;
+    // nombre a la izquierda del punto → ícono antes; a la derecha → después (así no tapa la estación)
+    if (rol) iconoJunto(s, 'est', x, y, label, 12, 'CB', 0.8, a, rol, 15, a === 'l' || (a === 'c' && rol === 'destino') ? 'despues' : 'antes');
+  };
   for (const [id, n] of Object.entries(lv.nodes)) {
     const nm = 'nodo:' + id;
     const label = n.label.toUpperCase();
@@ -81,35 +91,49 @@ function estaciones(s: Escena, lv: Nivel) {
       const y1 = n.y1 ?? n.y;
       const y2 = n.y2 ?? n.y;
       s.r('est', n.x - 12, y1, 24, y2 - y1, { f: C.tinta, rr: 12, n: nm });
-      s.t('est', n.x, y1 - 44, label, 12, 'CB', C.tinta, { a: 'c', ls: 0.8 });
+      nombre(id, n.x, y1 - 44, label, 'c');
     } else if (n.kind === 'capsule') {
       s.r('est', n.x - 15, n.y - 56, 30, 112, { f: C.blanco, s: C.tinta, sw: 4, rr: 15, n: nm });
-      s.t('est', n.x, n.y - 84, label, 12, 'CB', C.tinta, { a: 'c', ls: 0.8 });
+      nombre(id, n.x, n.y - 84, label, 'c');
     } else if (n.kind === 'terminal') {
       s.e('est', n.x, n.y, 15, { f: C.tinta, n: nm });
       s.e('est', n.x, n.y, 6, { f: C.blanco });
       const a = n.x < 400 ? 'r' : n.x > 1040 ? 'l' : 'c';
       const lx = a === 'r' ? n.x - 26 : a === 'l' ? n.x + 26 : n.x;
       const ly = a === 'c' ? n.y - 44 : n.y - 16;
-      s.t('est', lx, ly, label, 12, 'CB', C.tinta, { a, ls: 0.8 });
+      nombre(id, lx, ly, label, a);
       etiquetas[id] = { x: lx, y: ly, a };
     } else {
       s.e('est', n.x, n.y, 11, { f: C.blanco, s: C.tinta, sw: 4, n: nm });
       const arriba = n.y < 500;
-      s.t('est', n.x, arriba ? n.y - 36 : n.y + 22, label, 12, 'CB', C.tinta, { a: 'c', ls: 0.8 });
+      nombre(id, n.x, arriba ? n.y - 36 : n.y + 22, label, 'c');
     }
   }
-  // carros que salen de cada origen
+  // carros que salen de cada origen (con el ícono de carros antes del texto)
   const porOrigen: Record<string, number> = {};
   for (const g of lv.groups) porOrigen[g.from] = (porOrigen[g.from] ?? 0) + g.cars;
   for (const [id, cs] of Object.entries(porOrigen)) {
     const n = lv.nodes[id];
     const txt = miles(cs) + ' carros';
     const e = etiquetas[id];
-    if (n.kind === 'bar') s.t('inf', n.x, (n.y1 ?? n.y) - 28, txt, 11, 'M', C.sec, { a: 'c', n: 'grupo' });
-    else if (e) s.t('inf', e.x, e.y + 16, txt, 11, 'M', C.sec, { a: e.a, n: 'grupo' });
-    else s.pill('inf', n.x, n.y + (n.y < 500 ? -64 : 64), [{ v: '+' + txt, z: 11, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, n: 'grupo' });
+    const grupo = (x: number, y: number, a: Alinear) => {
+      // alineado a la izquierda, el texto se corre para dejarle sitio al ícono
+      const xt = a === 'l' ? x + 18 : a === 'c' ? x + 9 : x;
+      s.t('inf', xt, y, txt, 11, 'M', C.sec, { a, n: 'grupo' });
+      iconoJunto(s, 'inf', xt, y, txt, 11, 'M', 0, a, 'carros', 14, 'antes');
+    };
+    if (n.kind === 'bar') grupo(n.x, (n.y1 ?? n.y) - 28, 'c');
+    else if (e) grupo(e.x, e.y + 16, e.a);
+    else s.pill('inf', n.x, n.y + (n.y < 500 ? -64 : 64), [{ v: '+' + txt, z: 11, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, ico: 'carros', tamIco: 14, n: 'grupo' });
   }
+}
+
+/** Pone un ícono antes o después de un texto ya dibujado (x, y = posición del texto, como en s.t). */
+function iconoJunto(s: Escena, L: Capa, x: number, y: number, v: string, z: number, f: Fuente, ls: number, a: Alinear, icono: NombreIcono, tam: number, lado: 'antes' | 'despues') {
+  const w = medir(v, z, f, ls);
+  const izq = a === 'l' ? x : a === 'r' ? x - w : x - w / 2;
+  const cx = lado === 'antes' ? izq - 4 - tam / 2 : izq + w + 4 + tam / 2;
+  s.i(L, cx, y + z * 0.62, icono, tam);
 }
 
 /** Datos de cada vía para tocarla y animar sus carros. */
@@ -167,7 +191,7 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
       ],
       { bd: cable ? C.cable : caliente ? C.rojo : C.borde, n: 'costo:' + l.id },
     );
-    if (l.locked) s.pill('inf', m[0] - 120, m[1] + 20, [{ v: 'Obra · no se toca', z: 11, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, n: 'obra' });
+    if (l.locked) s.pill('inf', m[0] - 120, m[1] + 20, [{ v: 'Obra · no se toca', z: 11, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, ico: 'obra', tamIco: 14, n: 'obra' });
   }
 
   titulo(s, lv);
@@ -209,12 +233,17 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
       cable: 'Cable · atajo',
       obra: 'Obra · no se toca',
     };
-    const W = lv.legend.length * 150 + 24;
+    // un ícono antes de cada muestra de línea (Figma actualizado)
+    const ICONO_LEYENDA: Record<string, NombreIcono> = { ancha: 'via_abierta', angosta: 'carros', cerrada: 'via_cerrada', cable: 'atajo', obra: 'obra' };
+    const PASO = 176;
+    const W = lv.legend.length * PASO + 24;
     const x0 = 720 - W / 2;
     s.r('inf', x0, 822, W, 36, { f: C.blanco, s: C.borde, sw: 1, rr: 18, n: 'leyenda' });
     lv.legend.forEach((k, i) => {
-      const x = x0 + 16 + i * 150;
+      const xi = x0 + 16 + i * PASO;
       const y = 840;
+      if (ICONO_LEYENDA[k]) s.i('inf', xi + 8, y, ICONO_LEYENDA[k], 16);
+      const x = xi + 22;
       const seg: Punto[] = [[x, y], [x + 28, y]];
       if (k === 'ancha') {
         s.p('inf', seg, C.tinta, 8);
@@ -230,7 +259,7 @@ export function escenaNivel(lv: Nivel, v: VistaNivel): { escena: Escena; vias: I
       s.t('inf', x + 36, y - 8, items[k] ?? k, 12, 'M', C.tinta);
     });
   }
-  if (v.resuelto && v.verBitacora) filaBotones(s, 'inf', [{ v: 'Ver bitácora', btn: 'bitacora', estilo: 'negro' }], 720, 836, 'c');
+  if (v.resuelto && v.verBitacora) filaBotones(s, 'inf', [{ v: 'Ver bitácora', btn: 'bitacora', estilo: 'negro', icono: 'optimo' }], 720, 836, 'c');
   return { escena: s, vias };
 }
 

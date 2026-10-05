@@ -1,6 +1,7 @@
 /**
  * Inicio (port de inicio() en reference/escena.js).
- * Un botón principal («Empezar» o «Seguir en el nivel 08») y chips: Plano de la red · Bitácora · Ajustes.
+ * Logo, un botón principal («Empezar» o «Seguir en el nivel 08») y chips: Plano de la red · Bitácora · Ajustes.
+ * Como en el Figma actualizado: sin «UN JUEGO DE VÍAS · BOGOTÁ» ni el pie de Maeda; el ingeniero sobre el mapa.
  * El chip «Bitácora» solo aparece cuando ya hay algo escrito en ella.
  */
 import { C } from '../render/colores';
@@ -24,19 +25,21 @@ export function escenaInicio(p: Progreso): Escena {
   s.e('est', 1000, 450, 15, { f: C.tinta });
   s.e('est', 1000, 450, 6, { f: C.blanco });
 
+  // el ingeniero, en un círculo blanco sobre el mapa (Figma actualizado)
+  s.e('inf', 1310, 362, 38, { f: C.blanco, s: C.tinta, sw: 3 });
+  s.i('inf', 1310, 362, 'ingeniero', 50);
+
   [C.amarilla, C.naranja, C.azul].forEach((c, i) => s.e('inf', 62 + i * 16, 96, 6, { f: c }));
-  s.t('inf', 108, 89, 'UN JUEGO DE VÍAS · BOGOTÁ', 12, 'CB', C.sec, { ls: 1.4 });
+  s.i('inf', 112, 226, 'logo', 104, { n: 'logo' });
   s.t('inf', 56, 300, 'Equilibrio', 112, 'EB', C.tinta, { n: 'titulo' });
   s.tw('inf', 60, 440, 'A veces, cerrar una vía es la forma más rápida de que todos lleguen.', 22, 'M', C.sec, 520, 30);
 
   const empezo = p.resueltos.length > 0;
-  filaBotones(s, 'inf', [{ v: empezo ? `Seguir en el nivel ${dos(p.actual)}` : 'Empezar', btn: 'jugar', estilo: 'grande', flecha: true }], 60, 550);
-  const chips: Boton[] = [{ v: 'Plano de la red', btn: 'plano', estilo: 'chip' }];
-  if (p.ultima) chips.push({ v: 'Bitácora', btn: 'bitacora', estilo: 'chip' });
-  chips.push({ v: 'Ajustes', btn: 'ajustes', estilo: 'chip' });
+  filaBotones(s, 'inf', [{ v: empezo ? `Seguir en el nivel ${dos(p.actual)}` : 'Empezar', btn: 'jugar', estilo: 'grande', icono: 'jugar' }], 60, 550);
+  const chips: Boton[] = [{ v: 'Plano de la red', btn: 'plano', estilo: 'chip', icono: 'red' }];
+  if (p.ultima) chips.push({ v: 'Bitácora', btn: 'bitacora', estilo: 'chip', icono: 'optimo' });
+  chips.push({ v: 'Ajustes', btn: 'ajustes', estilo: 'chip', icono: 'ajustes' });
   filaBotones(s, 'inf', chips, 60, 628, 'l', 12);
-
-  s.t('inf', 60, 836, 'SIMPLICIDAD = EQUILIBRIO · JOHN MAEDA', 12, 'CB', C.sec, { ls: 1.4 });
   return s;
 }
 

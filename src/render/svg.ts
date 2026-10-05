@@ -5,19 +5,15 @@
  *   - toque: zonas invisibles para tocar las vías
  */
 import { C, FUENTES } from './colores';
-import { ANCHO_FLECHA, medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
+import { el } from './dom';
+import { medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
 import type { Punto } from '../engine/equilibrio';
+import { icono } from '../ui/iconos';
 
-export const NS = 'http://www.w3.org/2000/svg';
+export { el, NS } from './dom';
 export const CAPAS = ['ter', 'red', 'carros', 'est', 'sta', 'toque', 'inf', 'top'] as const;
 export type CapaSvg = (typeof CAPAS)[number];
 export type Capas = Record<CapaSvg, SVGGElement>;
-
-export function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number | undefined> = {}) {
-  const e = document.createElementNS(NS, tag);
-  for (const [k, v] of Object.entries(attrs)) if (v !== undefined) e.setAttribute(k, String(v));
-  return e;
-}
 
 const r2 = (v: number) => Math.round(v * 100) / 100;
 
@@ -117,28 +113,25 @@ export function elemento(it: Primitiva): SVGElement {
       const g = el('g');
       g.append(el('rect', { x: r2(it.x - w / 2), y: r2(it.y - h / 2), width: r2(w), height: r2(h), rx: r2(h / 2), fill: it.bg, stroke: it.bd, 'stroke-width': 1.5 }));
       let x = it.x - w / 2 + it.px;
+      const tam = it.tamIco ?? 16;
+      const ponerIcono = (nombre: NonNullable<typeof it.ico>) => {
+        const i = icono(nombre, tam, x + tam / 2, it.y);
+        if (i) g.append(i);
+        x += tam + it.gap;
+      };
+      if (it.ico) ponerIcono(it.ico);
       for (const q of it.parts) {
         // cada texto centrado verticalmente en la pastilla (auto-layout de Figma)
         g.append(texto(x, it.y + q.z * 0.4, q.v, q.z, q.f, q.c, 'start'));
         x += medir(q.v, q.z, q.f) + it.gap;
       }
-      if (it.flecha) {
-        const c = it.parts[0].c;
-        const y = r2(it.y);
-        g.append(
-          el('path', {
-            d: `M${r2(x)} ${y} H${r2(x + ANCHO_FLECHA - 1)} M${r2(x + ANCHO_FLECHA - 5)} ${y - 4} L${r2(x + ANCHO_FLECHA - 1)} ${y} L${r2(x + ANCHO_FLECHA - 5)} ${y + 4}`,
-            fill: 'none',
-            stroke: c,
-            'stroke-width': 1.8,
-            'stroke-linecap': 'round',
-            'stroke-linejoin': 'round',
-          }),
-        );
-      }
+      if (it.icoFin) ponerIcono(it.icoFin);
       e = g;
       break;
     }
+    case 'i':
+      e = icono(it.nombre, it.tam, it.x, it.y) ?? el('g');
+      break;
   }
   if (it.o !== undefined) e.setAttribute('opacity', String(it.o));
   if (it.n) e.dataset.n = it.n;

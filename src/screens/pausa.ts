@@ -16,14 +16,14 @@ export function escenaPausa(): Escena {
   const y = 450 - H / 2;
   s.r('top', x, y, W, H, { f: C.blanco, s: C.borde, sw: 1, rr: 22, n: 'pausa:tarjeta' });
   s.t('top', 720, y + 40, 'Pausa', 34, 'B', C.tinta, { a: 'c', n: 'titulo' });
-  filaBotones(s, 'top', [{ v: 'Seguir', btn: 'seguir', estilo: 'negro' }], 720, y + 132, 'c');
+  filaBotones(s, 'top', [{ v: 'Seguir', btn: 'seguir', estilo: 'negro', icono: 'jugar' }], 720, y + 132, 'c');
   filaBotones(
     s,
     'top',
     [
-      { v: 'Reiniciar', btn: 'reiniciar', estilo: 'chip' },
-      { v: 'Plano de la red', btn: 'plano', estilo: 'chip' },
-      { v: 'Inicio', btn: 'inicio', estilo: 'chip' },
+      { v: 'Reiniciar', btn: 'reiniciar', estilo: 'chip', icono: 'reiniciar' },
+      { v: 'Plano de la red', btn: 'plano', estilo: 'chip', icono: 'red' },
+      { v: 'Inicio', btn: 'inicio', estilo: 'chip', icono: 'inicio' },
     ],
     720,
     y + 196,

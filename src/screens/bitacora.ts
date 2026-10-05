@@ -22,6 +22,8 @@ export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean):
   const y = Math.round(200 - extra / 2);
   s.r('inf', x, y, W, H, { f: C.blanco, s: C.borde, sw: 1, rr: 22, n: 'bitacora' });
   [C.amarilla, C.naranja, C.azul, C.lila].forEach((c, i) => s.r('inf', x + 40 + i * 44, y + 34, 36, 6, { f: c, rr: 3 }));
+  // la firma del ingeniero, arriba a la derecha
+  s.i('inf', x + W - 40 - 24, y + 34 + 24, 'ingeniero', 48);
   s.t('inf', x + 40, y + 58, `BITÁCORA DEL INGENIERO · NIVEL ${dos(num)}`, 11, 'CB', C.sec, { ls: 1.4 });
   lineas.forEach((l, i) => s.t('inf', x + 40, y + 92 + i * 44, l, 36, 'EB', C.tinta, { n: 'bitacora:cita' }));
 
@@ -38,8 +40,8 @@ export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean):
   s.tw('inf', x + 40, yb + 100, b.detalle, 16, 'M', C.sec, 540, 22);
 
   const botones: Boton[] = [];
-  if (haySiguiente) botones.push({ v: 'Siguiente nivel', btn: 'siguiente', estilo: 'negro', flecha: true });
-  botones.push({ v: 'Ver plano', btn: 'plano', estilo: haySiguiente ? 'contorno' : 'negro' });
+  if (haySiguiente) botones.push({ v: 'Siguiente nivel', btn: 'siguiente', estilo: 'negro', iconoFin: 'siguiente' });
+  botones.push({ v: 'Ver plano', btn: 'plano', estilo: haySiguiente ? 'contorno' : 'negro', icono: 'red' });
   filaBotones(s, 'inf', botones, x + 40, yb + 190, 'l', 28);
   return s;
 }

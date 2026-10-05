@@ -1,7 +1,8 @@
 /**
  * Piezas que comparten las pantallas: botones en pastilla y filas de botones.
- * Los estilos salen de reference/escena.js y tutorial_y_cargas.js.
+ * Los estilos salen de reference/escena.js y tutorial_y_cargas.js; los íconos, del Figma actualizado.
  */
+import type { NombreIcono } from '../ui/iconos';
 import { C } from './colores';
 import { medidaPastilla, type Capa, type Escena, type Pastilla } from './primitivas';
 
@@ -12,21 +13,25 @@ export interface Boton {
   /** nombre del botón: queda como data-btn */
   btn: string;
   estilo: EstiloBoton;
-  flecha?: boolean;
+  /** ícono antes del texto (como en el Figma) */
+  icono?: NombreIcono;
+  /** ícono después del texto («Siguiente →») */
+  iconoFin?: NombreIcono;
 }
 
 /** Medidas de cada estilo. */
 function pastillaDe(b: Boton): Omit<Pastilla, 'k' | 'L' | 'x' | 'y'> {
   const n = 'btn:' + b.btn;
+  const ico = { ico: b.icono, icoFin: b.iconoFin };
   switch (b.estilo) {
-    case 'grande': // «Seguir en el nivel 08 →» del inicio
-      return { parts: [{ v: b.v, z: 18, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 24, py: 14, gap: 10, flecha: b.flecha, n };
-    case 'negro': // «Siguiente nivel →», «Toca para empezar»
-      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 18, py: 11, gap: 8, flecha: b.flecha, n };
+    case 'grande': // «Seguir en el nivel 08» del inicio
+      return { parts: [{ v: b.v, z: 18, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 24, py: 14, gap: 10, tamIco: 18, ...ico, n };
+    case 'negro': // «Siguiente nivel», «Toca para empezar»
+      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 18, py: 11, gap: 8, tamIco: 16, ...ico, n };
     case 'contorno': // «Ver plano»
-      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 18, py: 11, gap: 8, flecha: b.flecha, n };
+      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 18, py: 11, gap: 8, tamIco: 16, ...ico, n };
     case 'chip': // «Plano de la red · Bitácora · Ajustes»
-      return { parts: [{ v: b.v, z: 14, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 15, py: 8, gap: 3, flecha: b.flecha, n };
+      return { parts: [{ v: b.v, z: 14, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 15, py: 8, gap: 6, tamIco: 16, ...ico, n };
   }
 }
 
