@@ -8,7 +8,7 @@ import { C, FUENTES } from './colores';
 import { el } from './dom';
 import { medidaPastilla, medir, type Escena, type Primitiva } from './primitivas';
 import type { Punto } from '../engine/equilibrio';
-import { icono } from '../ui/iconos';
+import { icono, TAM } from '../ui/iconos';
 
 export { el, NS } from './dom';
 export const CAPAS = ['ter', 'red', 'carros', 'est', 'sta', 'toque', 'inf', 'top'] as const;
@@ -113,7 +113,7 @@ export function elemento(it: Primitiva): SVGElement {
       const g = el('g');
       g.append(el('rect', { x: r2(it.x - w / 2), y: r2(it.y - h / 2), width: r2(w), height: r2(h), rx: r2(h / 2), fill: it.bg, stroke: it.bd, 'stroke-width': 1.5 }));
       let x = it.x - w / 2 + it.px;
-      const tam = it.tamIco ?? 16;
+      const tam = it.tamIco ?? TAM.s;
       const ponerIcono = (nombre: NonNullable<typeof it.ico>) => {
         const i = icono(nombre, tam, x + tam / 2, it.y);
         if (i) g.append(i);

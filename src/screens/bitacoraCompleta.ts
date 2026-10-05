@@ -12,6 +12,7 @@ import { Escena, dos, medir, nf } from '../render/primitivas';
 import { el, type Capas } from '../render/svg';
 import { botonRedondo } from '../ui/iconos';
 import { montarEscena, type Pantalla } from './montar';
+import { TAM } from '../ui/escala';
 
 const PRIMERA = 134; // y de la primera fila
 const PASO = 96; // alto de fila + separación
@@ -36,7 +37,7 @@ export function escenaBitacoraCompleta(d: DatosBitacora): Escena {
   const s = new Escena('Bitácora completa');
   s.g('ter', [[1150, 0], [1440, 0], [1440, 190]], C.agua);
   s.t('inf', 104, 40, 'Bitácora del ingeniero', 32, 'B', C.tinta, { n: 'titulo' });
-  s.i('inf', 104 + medir('Bitácora del ingeniero', 32, 'B') + 8 + 12, 40 + 21, 'ingeniero', 24);
+  s.i('inf', 104 + medir('Bitácora del ingeniero', 32, 'B') + 8 + TAM.m / 2, 40 + 21, 'ingeniero', TAM.m);
   const filas = resueltos(d);
   s.t('inf', 105, 84, `${filas.length} DE 15 NIVELES · AHORRASTE ${nf(ahorroTotal(d))} MIN POR CARRO`, 11, 'CB', C.sec, { ls: 1.2, n: 'bitacora:resumen' });
 
@@ -78,7 +79,7 @@ export function pantallaBitacoraCompleta(svg: SVGSVGElement, d: DatosBitacora, a
   };
 
   function preparar(capas: Capas) {
-    capas.inf.append(botonRedondo('volver', 62, 62, 'inicio', 'Volver al inicio', { r: 22, tam: 24 }));
+    capas.inf.append(botonRedondo('volver', 62, 62, 'inicio', 'Volver al inicio'));
     // recorte (las filas no se meten bajo el encabezado) y degradado
     const defs = el('defs');
     const recorte = el('clipPath', { id: 'bitacora-recorte' });

@@ -7,6 +7,7 @@
 import { C, cssFuente, type Fuente } from './colores';
 import type { Punto } from '../engine/equilibrio';
 import type { NombreIcono } from '../ui/iconos';
+import { TAM } from '../ui/escala';
 
 export type Capa = 'ter' | 'red' | 'est' | 'sta' | 'inf' | 'top';
 export type Alinear = 'l' | 'c' | 'r';
@@ -86,7 +87,7 @@ export interface Pastilla extends Base {
   px: number;
   py: number;
   gap: number;
-  /** ícono antes del texto y/o después (src/ui/iconos.ts), de tamIco px (16 por defecto) */
+  /** ícono antes del texto y/o después (src/ui/iconos.ts), de tamIco px (TAM.s = 24 por defecto) */
   ico?: NombreIcono;
   icoFin?: NombreIcono;
   tamIco?: number;
@@ -134,10 +135,12 @@ export function partir(str: string, z: number, f: Fuente, maxW: number): string[
 /** Tamaño de una pastilla (ancho, alto). */
 export function medidaPastilla(p: Pick<Pastilla, 'parts' | 'px' | 'py' | 'gap' | 'ico' | 'icoFin' | 'tamIco'>): [number, number] {
   const anchos = p.parts.map((q) => medir(q.v, q.z, q.f));
-  if (p.ico) anchos.unshift(p.tamIco ?? 16);
-  if (p.icoFin) anchos.push(p.tamIco ?? 16);
+  const tam = p.tamIco ?? TAM.s;
+  if (p.ico) anchos.unshift(tam);
+  if (p.icoFin) anchos.push(tam);
   const w = anchos.reduce((s, a) => s + a, 0) + p.gap * (anchos.length - 1) + p.px * 2;
-  const h = Math.max(...p.parts.map((q) => q.z)) * 1.2 + p.py * 2;
+  const alto = Math.max(Math.max(...p.parts.map((q) => q.z)) * 1.2, p.ico || p.icoFin ? tam : 0);
+  const h = alto + p.py * 2;
   return [w, h];
 }
 

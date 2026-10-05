@@ -10,6 +10,7 @@ import { filaBotones } from '../render/piezas';
 import { Escena, dos } from '../render/primitivas';
 import { disponible, type Progreso } from '../game/progreso';
 import { montarEscena, type Pantalla } from './montar';
+import { TAM } from '../ui/escala';
 
 export function escenaPlano(niveles: Nivel[], p: Progreso): Escena {
   const s = new Escena('Plano de la red');
@@ -51,9 +52,10 @@ export function escenaPlano(niveles: Nivel[], p: Progreso): Escena {
         s.e('est', x, y, 15, { f: C.tinta });
         s.e('est', x, y, 6, { f: C.blanco });
       } else {
-        s.e('est', x, y, 11, { f: C.blanco, s: C.cerrada, sw: 4 });
-        // todavía bloqueado: candado encima de la estación
-        if (!disponible(p, l.num)) s.i('est', x, y, 'candado', 16);
+        // todavía bloqueada: círculo de 34 px (r15 + borde 4) con el candado de 24 adentro
+        const bloqueada = !disponible(p, l.num);
+        s.e('est', x, y, bloqueada ? 15 : 11, { f: C.blanco, s: C.cerrada, sw: 4 });
+        if (bloqueada) s.i('est', x, y, 'candado', TAM.s);
       }
       const tinta = ahora || resuelto(l.num);
       s.t('est', x, y + 28, dos(l.num), 13, 'CB', tinta ? C.tinta : C.sec, { a: 'c' });

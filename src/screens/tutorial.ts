@@ -10,6 +10,7 @@ import { velo } from '../render/piezas';
 import { Escena, medidaPastilla, partir, type Primitiva } from '../render/primitivas';
 import type { NombreIcono } from '../ui/iconos';
 import { activarBotones, el, elemento, trazoRedondeado, type Capas } from '../render/svg';
+import { AIRE, TAM } from '../ui/escala';
 
 export const PASOS_TUTORIAL = 4;
 
@@ -17,7 +18,7 @@ interface Paso {
   titulo: string;
   texto: string;
   boton: string;
-  /** ícono al lado del título (24 px) */
+  /** ícono del paso (m), arriba a la derecha junto a «PASO N DE 4» */
   icono: NombreIcono;
   /** ícono del botón: antes («Jugar») o después («Siguiente») del texto */
   icoBoton?: { ico?: NombreIcono; icoFin?: NombreIcono };
@@ -42,11 +43,11 @@ function tarjeta(s: Escena, paso: number, p: Paso) {
   const y = p.y;
   s.r('top', x, y, W, H, { f: C.blanco, rr: 18, n: 'tutorial:tarjeta' });
   for (let i = 0; i < PASOS_TUTORIAL; i++) s.e('top', x + 28 + i * 16, y + 28, 4, { f: i < paso ? C.tinta : C.borde });
-  s.t('top', x + W - 24, y + 20, `PASO ${paso} DE ${PASOS_TUTORIAL}`, 10, 'CB', C.sec, { a: 'r', ls: 1.2 });
-  s.i('top', x + 24 + 12, y + 46 + 14, p.icono, 24);
-  s.t('top', x + 24 + 32, y + 46, p.titulo, 22, 'B', C.tinta, { n: 'tutorial:titulo' });
+  s.i('top', x + W - 24 - TAM.m / 2, y + 28, p.icono, TAM.m);
+  s.t('top', x + W - 24 - TAM.m - 8, y + 20, `PASO ${paso} DE ${PASOS_TUTORIAL}`, 10, 'CB', C.sec, { a: 'r', ls: 1.2 });
+  s.t('top', x + 24, y + 46, p.titulo, 22, 'B', C.tinta, { n: 'tutorial:titulo' });
   lineas.forEach((l, i) => s.t('top', x + 24, y + 80 + i * 20, l, 14, 'M', C.sec));
-  const boton = { parts: [{ v: p.boton, z: 14, f: 'SB' as const, c: C.blanco }], px: 18, py: 9, gap: 6, tamIco: 16, ...p.icoBoton };
+  const boton = { parts: [{ v: p.boton, z: 14, f: 'SB' as const, c: C.blanco }], px: 18, py: 9, gap: AIRE, tamIco: TAM.s, ...p.icoBoton };
   const [w] = medidaPastilla(boton);
   s.pill('top', x + W - 24 - w / 2, y + H - 28, boton.parts, { ...boton, bg: C.tinta, bd: C.tinta, n: 'btn:siguiente' });
   s.t('top', x + 24, y + H - 36, 'Saltar', 13, 'SB', C.sec);

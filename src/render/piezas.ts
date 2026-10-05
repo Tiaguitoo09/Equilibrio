@@ -3,6 +3,7 @@
  * Los estilos salen de reference/escena.js y tutorial_y_cargas.js; los íconos, del Figma actualizado.
  */
 import type { NombreIcono } from '../ui/iconos';
+import { TAM } from '../ui/escala';
 import { C } from './colores';
 import { medidaPastilla, type Capa, type Escena, type Pastilla } from './primitivas';
 
@@ -25,13 +26,13 @@ function pastillaDe(b: Boton): Omit<Pastilla, 'k' | 'L' | 'x' | 'y'> {
   const ico = { ico: b.icono, icoFin: b.iconoFin };
   switch (b.estilo) {
     case 'grande': // «Seguir en el nivel 08» del inicio
-      return { parts: [{ v: b.v, z: 18, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 24, py: 14, gap: 10, tamIco: 18, ...ico, n };
+      return { parts: [{ v: b.v, z: 18, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 24, py: 14, gap: 8, tamIco: TAM.s, ...ico, n };
     case 'negro': // «Siguiente nivel», «Toca para empezar»
-      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 18, py: 11, gap: 8, tamIco: 16, ...ico, n };
+      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.blanco }], bg: C.tinta, bd: C.tinta, px: 18, py: 11, gap: 8, tamIco: TAM.s, ...ico, n };
     case 'contorno': // «Ver plano»
-      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 18, py: 11, gap: 8, tamIco: 16, ...ico, n };
+      return { parts: [{ v: b.v, z: 15, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 18, py: 11, gap: 8, tamIco: TAM.s, ...ico, n };
     case 'chip': // «Plano de la red · Bitácora · Ajustes»
-      return { parts: [{ v: b.v, z: 14, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 15, py: 8, gap: 6, tamIco: 16, ...ico, n };
+      return { parts: [{ v: b.v, z: 14, f: 'SB', c: C.tinta }], bg: C.blanco, bd: C.borde, px: 15, py: 8, gap: 6, tamIco: TAM.s, ...ico, n };
   }
 }
 

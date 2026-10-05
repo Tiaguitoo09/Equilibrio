@@ -1,6 +1,7 @@
 /** HUD arriba a la derecha (330×118): TOTAL y ÓPTIMO. Port de hud() en escena.js. */
 import { C } from './colores';
 import { medir, nf, type Escena } from './primitivas';
+import { AIRE, TAM } from '../ui/escala';
 
 export interface DatosHud {
   total: number;
@@ -15,9 +16,9 @@ export function hud(s: Escena, { total, optimo, inicio, resuelto, toques }: Dato
   const y = 34;
   s.r('inf', x, y, 330, resuelto ? 134 : 118, { f: C.blanco, s: resuelto ? C.verde : C.borde, sw: resuelto ? 2 : 1, rr: 14, n: 'HUD' });
   // íconos de tiempo y óptimo antes de cada rótulo (Figma actualizado)
-  s.i('inf', x + 27.5, y + 22, 'tiempo', 15);
-  s.t('inf', x + 40, y + 16, 'TOTAL · MIN POR CARRO', 10, 'CB', C.sec, { ls: 1 });
-  s.i('inf', x + 310 - medir('ÓPTIMO', 10, 'CB', 1) - 12.5, y + 22, 'optimo', 15);
+  s.i('inf', x + 20 + TAM.s / 2, y + 22, 'tiempo', TAM.s);
+  s.t('inf', x + 20 + TAM.s + AIRE, y + 16, 'TOTAL · MIN POR CARRO', 10, 'CB', C.sec, { ls: 1 });
+  s.i('inf', x + 310 - medir('ÓPTIMO', 10, 'CB', 1) - AIRE - TAM.s / 2, y + 22, 'optimo', TAM.s);
   s.t('inf', x + 310, y + 16, 'ÓPTIMO', 10, 'CB', C.sec, { ls: 1, a: 'r' });
   s.t('inf', x + 18, y + 32, nf(total), 44, 'EB', resuelto ? C.verde : C.rojo, { n: 'hud:total' });
   s.t('inf', x + 312, y + 32, nf(optimo), 44, 'EB', C.tinta, { a: 'r', n: 'hud:optimo' });

@@ -8,13 +8,14 @@ import { territorio } from '../render/nivel';
 import { filaBotones, type Boton } from '../render/piezas';
 import { Escena, dos, medir, partir } from '../render/primitivas';
 import { montarEscena, type Pantalla } from './montar';
+import { TAM } from '../ui/escala';
 
 export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean, esUltimo = false): Escena {
   const s = new Escena(`Bitácora · Nivel ${dos(num)}`);
   territorio(s, num);
   s.r('inf', 0, 0, 1440, 900, { f: C.tinta, o: 0.06 });
 
-  const lineas = partir(b.cita, 36, 'EB', 540);
+  const lineas = partir(b.cita, 36, 'EB', 470); // deja libre la esquina del ingeniero
   const extra = (lineas.length - 2) * 44;
   const W = 640;
   const H = 470 + extra;
@@ -23,7 +24,7 @@ export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean, 
   s.r('inf', x, y, W, H, { f: C.blanco, s: C.borde, sw: 1, rr: 22, n: 'bitacora' });
   [C.amarilla, C.naranja, C.azul, C.lila].forEach((c, i) => s.r('inf', x + 40 + i * 44, y + 34, 36, 6, { f: c, rr: 3 }));
   // la firma del ingeniero, arriba a la derecha
-  s.i('inf', x + W - 40 - 24, y + 34 + 24, 'ingeniero', 48);
+  s.i('inf', x + W - 40 - TAM.l / 2, y + 30 + TAM.l / 2, 'ingeniero', TAM.l);
   s.t('inf', x + 40, y + 58, `BITÁCORA DEL INGENIERO · NIVEL ${dos(num)}`, 11, 'CB', C.sec, { ls: 1.4 });
   lineas.forEach((l, i) => s.t('inf', x + 40, y + 92 + i * 44, l, 36, 'EB', C.tinta, { n: 'bitacora:cita' }));
 

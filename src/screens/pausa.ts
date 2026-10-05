@@ -5,9 +5,10 @@
 import type { Nivel } from '../engine/equilibrio';
 import { C } from '../render/colores';
 import { velo } from '../render/piezas';
-import { Escena, dos, medidaPastilla, nf } from '../render/primitivas';
+import { Escena, dos, medidaPastilla, medir, nf } from '../render/primitivas';
 import { activarBotones, elemento, type Capas } from '../render/svg';
 import type { NombreIcono } from '../ui/iconos';
+import { AIRE, TAM } from '../ui/escala';
 
 export function escenaPausa(nivel: Nivel, total: number): Escena {
   const s = new Escena('Pausa');
@@ -17,9 +18,12 @@ export function escenaPausa(nivel: Nivel, total: number): Escena {
   const x = 720 - W / 2;
   const y = 314;
   s.r('top', x, y, W, H, { f: C.blanco, rr: 22, n: 'pausa:tarjeta' });
-  s.t('top', 720, y + 36, 'Pausa', 34, 'B', C.tinta, { a: 'c', n: 'titulo' });
+  // título con su ícono (m), centrados juntos
+  const wt = TAM.m + 8 + medir('Pausa', 34, 'B');
+  s.i('top', 720 - wt / 2 + TAM.m / 2, y + 36 + 22, 'pausa', TAM.m);
+  s.t('top', 720 - wt / 2 + TAM.m + 8, y + 36, 'Pausa', 34, 'B', C.tinta, { n: 'titulo' });
   s.t('top', 720, y + 84, `${dos(nivel.num)} · ${nivel.name}  ·  vas en ${nf(total)} min, la meta es ${nf(nivel.optimo)}`, 13, 'M', C.sec, { a: 'c' });
-  s.pill('top', 720, y + 150, [{ v: 'Seguir', z: 16, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, px: 22, py: 11, gap: 8, ico: 'jugar', tamIco: 18, n: 'btn:seguir' });
+  s.pill('top', 720, y + 150, [{ v: 'Seguir', z: 16, f: 'SB', c: C.blanco }], { bg: C.tinta, bd: C.tinta, px: 22, py: 11, gap: 8, ico: 'jugar', tamIco: TAM.s, n: 'btn:seguir' });
 
   // tres salidas centradas, con 10 px entre ellas
   const salidas: [NombreIcono, string, string][] = [
@@ -27,7 +31,7 @@ export function escenaPausa(nivel: Nivel, total: number): Escena {
     ['red', 'Plano de la red', 'plano'],
     ['inicio', 'Inicio', 'inicio'],
   ];
-  const pastillas = salidas.map(([ico, v, btn]) => ({ parts: [{ v, z: 15, f: 'SB' as const, c: C.tinta }], px: 14, py: 9, gap: 6, ico, tamIco: 16, n: 'btn:' + btn }));
+  const pastillas = salidas.map(([ico, v, btn]) => ({ parts: [{ v, z: 15, f: 'SB' as const, c: C.tinta }], px: 14, py: 9, gap: AIRE, ico, tamIco: TAM.s, n: 'btn:' + btn }));
   const anchos = pastillas.map((p) => medidaPastilla(p)[0]);
   let cx = 720 - (anchos.reduce((a, b) => a + b, 0) + 10 * (anchos.length - 1)) / 2;
   pastillas.forEach((p, i) => {

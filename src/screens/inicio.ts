@@ -9,6 +9,7 @@ import { filaBotones, type Boton } from '../render/piezas';
 import { Escena, dos } from '../render/primitivas';
 import type { Progreso } from '../game/progreso';
 import { montarEscena, type Pantalla } from './montar';
+import { TAM } from '../ui/escala';
 
 export function escenaInicio(p: Progreso): Escena {
   const s = new Escena('Inicio');
@@ -26,8 +27,8 @@ export function escenaInicio(p: Progreso): Escena {
   s.e('est', 1000, 450, 6, { f: C.blanco });
 
   // el ingeniero, en un círculo blanco sobre el mapa (Figma actualizado)
-  s.e('inf', 1310, 362, 38, { f: C.blanco, s: C.tinta, sw: 3 });
-  s.i('inf', 1310, 362, 'ingeniero', 50);
+  s.e('inf', 1310, 362, 48.5, { f: C.blanco, s: C.tinta, sw: 3 }); // 100 px con el borde
+  s.i('inf', 1310, 362, 'ingeniero', TAM.l);
 
   [C.amarilla, C.naranja, C.azul].forEach((c, i) => s.e('inf', 62 + i * 16, 96, 6, { f: c }));
   s.i('inf', 112, 226, 'logo', 104, { n: 'logo' });

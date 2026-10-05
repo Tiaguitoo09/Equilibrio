@@ -159,7 +159,12 @@ Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido d
   - Los 22 SVG del equipo están en `src/assets/iconos/` (copiados de `actualizacion-iconos/iconos/svg_color/`) y se cargan con `import.meta.glob` en `src/ui/iconos.ts`.
   - Para usarlos: `icono(nombre, tamaño, cx, cy)`, la primitiva `s.i(...)`, o `ico`/`icoFin` en las pastillas y `icono`/`iconoFin` en los botones (`src/render/piezas.ts`).
   - **La bitácora usa el ícono de óptimo** (chip «Bitácora», «Ver bitácora» y HUD).
-  - Ubicación como en el Figma actualizado: reiniciar y pausa (26); jugar, siguiente, red e inicio en los botones; tiempo y óptimo en el HUD; origen y destino junto a las estaciones; carros en los grupos; íconos en la leyenda y en la píldora de obra; candado en los niveles bloqueados del plano; ingeniero y logo en el inicio; logo en la carga; ingeniero en la bitácora; un ícono por paso en el tutorial; ajustes junto al título de Ajustes.
+  - **Escala** (`src/ui/escala.ts`, igual que en Figma): `TAM = { s: 24, m: 32, l: 72 }`, siempre proporcional y con 5–8 px (`AIRE` = 6) entre ícono y texto.
+    - **s (24)**, junto a texto: píldoras y chips, HUD (tiempo y óptimo), origen y destino, grupos de carros, leyenda (a 6 px de cada muestra), candado del plano (en un círculo de 34 px), cifras del fin y píldora de obra. Las píldoras crecen de alto con el ícono, centradas en el mismo punto.
+    - **m (32)**: botones redondos, todos de 44 px (`R_BOTON`), y los íconos de los títulos (Pausa, Ajustes, Sonido, Bitácora completa). En el tutorial, el ícono del paso va arriba a la derecha, junto a «PASO N DE 4».
+    - **l (72)**: ingeniero en el inicio (círculo de 100 px) y en la bitácora; logro en Fin del juego.
+    - El logo va aparte: 104 en el inicio y 120 en la carga.
+    - `TAM` vive fuera de `iconos.ts` para que las pruebas de Node no carguen los SVG (`import.meta.glob` solo existe en Vite).
   - El inicio ya no lleva «UN JUEGO DE VÍAS · BOGOTÁ» ni el pie de Maeda, como en el Figma actualizado.
   - Ícono de la app: los archivos de `public/` y `public/manifest.webmanifest`.
 

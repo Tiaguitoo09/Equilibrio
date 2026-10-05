@@ -11,6 +11,7 @@ import { anunciar } from '../ui/anuncio';
 import { botonRedondo } from '../ui/iconos';
 import { sonar } from '../ui/sonido';
 import { montarEscena, type Pantalla } from './montar';
+import { TAM } from '../ui/escala';
 
 const EQUIPO = 'Equipo: Santiago Martinez Beltran · Juanita Carolina Torres · Estefany Sofia Maldonado · Julian Santiago Hernandez Gonzalez · Liz Jerez';
 
@@ -34,7 +35,7 @@ export function escenaAjustes(borrado: Borrado = 'nada'): Escena {
   s.g('ter', [[0, 680], [0, 900], [290, 900]], C.agua);
   s.r('inf', X, Y, W, 640, { f: C.blanco, s: C.borde, sw: 1, rr: 24, n: 'ajustes:tarjeta' });
   s.t('inf', X + 40, Y + 36, 'Ajustes', 32, 'B', C.tinta, { n: 'titulo' });
-  s.i('inf', X + 40 + medir('Ajustes', 32, 'B') + 8 + 12, Y + 36 + 21, 'ajustes', 24);
+  s.i('inf', X + 40 + medir('Ajustes', 32, 'B') + 8 + TAM.m / 2, Y + 36 + 21, 'ajustes', TAM.m);
 
   const fila = (i: number, titulo: string, detalle: string) => {
     const yy = Y + 120 + i * 92;
@@ -44,7 +45,7 @@ export function escenaAjustes(borrado: Borrado = 'nada'): Escena {
     return yy;
   };
   let yy = fila(0, 'Sonido', 'Efectos al tocar una vía.');
-  s.i('inf', X + 40 + medir('Sonido', 18, 'SB') + 8 + 12, yy + 8 + 12, 'sonido', 24);
+  s.i('inf', X + 40 + medir('Sonido', 18, 'SB') + 8 + TAM.m / 2, yy + 17, 'sonido', TAM.m);
   interruptor(s, X + W - 96, yy + 14, p.sonido, 'sonido');
   yy = fila(1, 'Vibración', 'Solo en el celular.');
   interruptor(s, X + W - 96, yy + 14, p.vibracion, 'vibracion');
@@ -73,7 +74,7 @@ export function escenaAjustes(borrado: Borrado = 'nada'): Escena {
 
 /** Botón cerrar (redondo, 24) y semántica de interruptor para lectores de pantalla. */
 function completar(capas: Capas) {
-  capas.inf.append(botonRedondo('cerrar', X + W - 56, Y + 56, 'cerrar', 'Cerrar', { r: 20, tam: 24 }));
+  capas.inf.append(botonRedondo('cerrar', X + W - 56, Y + 56, 'cerrar', 'Cerrar'));
   const p = preferencias();
   for (const [btn, nombre, on] of [
     ['sonido', 'Sonido', p.sonido],

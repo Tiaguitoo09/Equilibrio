@@ -6,6 +6,9 @@
  */
 import { C } from '../render/colores';
 import { el } from '../render/dom';
+import { R_BOTON, TAM } from './escala';
+
+export { AIRE, R_BOTON, TAM } from './escala';
 
 export const NOMBRES_ICONOS = [
   'ajustes',
@@ -70,9 +73,9 @@ export function icono(nombre: NombreIcono, tamano: number, cx = 0, cy = 0): SVGE
 
 /**
  * Botón redondo tinta solo con ícono: lleva aria-label («Reiniciar», «Pausa», «Cerrar»…).
- * Por defecto r22 con ícono de 26 (los de abajo a la izquierda en cada nivel).
+ * Todos de 44 px (r22) con el ícono de tamaño m (32).
  */
-export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono: NombreIcono, etiqueta: string, { r = 22, tam = 26 } = {}): SVGGElement {
+export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono: NombreIcono, etiqueta: string, { r = R_BOTON, tam = TAM.m as number } = {}): SVGGElement {
   const g = el('g', {
     class: 'btn redondo',
     'data-btn': nombre,
