@@ -2,7 +2,7 @@
  * Inicio (port de inicio() en reference/escena.js).
  * Logo, un botón principal («Empezar» o «Seguir en el nivel 08») y chips: Plano de la red · Bitácora · Ajustes.
  * Como en el Figma actualizado: sin «UN JUEGO DE VÍAS · BOGOTÁ» ni el pie de Maeda; el ingeniero sobre el mapa.
- * El chip «Bitácora» solo aparece cuando ya hay algo escrito en ella.
+ * El chip «Bitácora» (abre la Bitácora completa) solo aparece cuando ya hay algún nivel resuelto.
  */
 import { C } from '../render/colores';
 import { filaBotones, type Boton } from '../render/piezas';
@@ -37,7 +37,7 @@ export function escenaInicio(p: Progreso): Escena {
   const empezo = p.resueltos.length > 0;
   filaBotones(s, 'inf', [{ v: empezo ? `Seguir en el nivel ${dos(p.actual)}` : 'Empezar', btn: 'jugar', estilo: 'grande', icono: 'jugar' }], 60, 550);
   const chips: Boton[] = [{ v: 'Plano de la red', btn: 'plano', estilo: 'chip', icono: 'red' }];
-  if (p.ultima) chips.push({ v: 'Bitácora', btn: 'bitacora', estilo: 'chip', icono: 'optimo' });
+  if (p.resueltos.length) chips.push({ v: 'Bitácora', btn: 'bitacora', estilo: 'chip', icono: 'optimo' });
   chips.push({ v: 'Ajustes', btn: 'ajustes', estilo: 'chip', icono: 'ajustes' });
   filaBotones(s, 'inf', chips, 60, 628, 'l', 12);
   return s;

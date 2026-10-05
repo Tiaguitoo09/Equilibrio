@@ -54,7 +54,7 @@ export function filaBotones(s: Escena, L: Capa, botones: Boton[], x: number, y: 
   });
 }
 
-/** Velo oscuro sobre la escena (tutorial y pausa). Bloquea los toques de lo que queda debajo. */
-export function velo(s: Escena, n: string) {
-  s.r('top', 0, 0, 1440, 900, { f: C.tinta, o: 0.55, n });
+/** Velo oscuro sobre la escena (tutorial, pausa, sin toques). Bloquea los toques de lo que queda debajo. */
+export function velo(s: Escena, n: string, o = 0.55) {
+  s.r('top', 0, 0, 1440, 900, { f: C.tinta, o, n });
 }

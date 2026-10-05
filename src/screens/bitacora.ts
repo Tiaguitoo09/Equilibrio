@@ -9,7 +9,7 @@ import { filaBotones, type Boton } from '../render/piezas';
 import { Escena, dos, medir, partir } from '../render/primitivas';
 import { montarEscena, type Pantalla } from './montar';
 
-export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean): Escena {
+export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean, esUltimo = false): Escena {
   const s = new Escena(`Bitácora · Nivel ${dos(num)}`);
   territorio(s, num);
   s.r('inf', 0, 0, 1440, 900, { f: C.tinta, o: 0.06 });
@@ -41,7 +41,9 @@ export function escenaBitacora(num: number, b: Bitacora, haySiguiente: boolean):
 
   const botones: Boton[] = [];
   if (haySiguiente) botones.push({ v: 'Siguiente nivel', btn: 'siguiente', estilo: 'negro', iconoFin: 'siguiente' });
-  botones.push({ v: 'Ver plano', btn: 'plano', estilo: haySiguiente ? 'contorno' : 'negro', icono: 'red' });
+  // después del último nivel: «Terminar» lleva a Fin del juego
+  if (esUltimo) botones.push({ v: 'Terminar', btn: 'terminar', estilo: 'negro', iconoFin: 'siguiente' });
+  botones.push({ v: 'Ver plano', btn: 'plano', estilo: haySiguiente || esUltimo ? 'contorno' : 'negro', icono: 'red' });
   filaBotones(s, 'inf', botones, x + 40, yb + 190, 'l', 28);
   return s;
 }
@@ -50,10 +52,11 @@ export function pantallaBitacora(
   svg: SVGSVGElement,
   num: number,
   b: Bitacora,
-  al: { siguiente?: () => void; plano: () => void },
+  al: { siguiente?: () => void; terminar?: () => void; plano: () => void },
 ): Pantalla {
-  return montarEscena(svg, escenaBitacora(num, b, !!al.siguiente), (btn) => {
+  return montarEscena(svg, escenaBitacora(num, b, !!al.siguiente, !!al.terminar), (btn) => {
     if (btn === 'siguiente') al.siguiente?.();
+    if (btn === 'terminar') al.terminar?.();
     if (btn === 'plano') al.plano();
   });
 }

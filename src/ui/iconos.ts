@@ -68,8 +68,11 @@ export function icono(nombre: NombreIcono, tamano: number, cx = 0, cy = 0): SVGE
   return svg;
 }
 
-/** Botón redondo tinta (r22) solo con ícono: lleva aria-label («Reiniciar», «Pausa»…). */
-export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono: NombreIcono, etiqueta: string): SVGGElement {
+/**
+ * Botón redondo tinta solo con ícono: lleva aria-label («Reiniciar», «Pausa», «Cerrar»…).
+ * Por defecto r22 con ícono de 26 (los de abajo a la izquierda en cada nivel).
+ */
+export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono: NombreIcono, etiqueta: string, { r = 22, tam = 26 } = {}): SVGGElement {
   const g = el('g', {
     class: 'btn redondo',
     'data-btn': nombre,
@@ -81,8 +84,8 @@ export function botonRedondo(nombre: string, cx: number, cy: number, nombreIcono
   const t = el('title');
   t.textContent = etiqueta;
   // anillo de foco (solo se ve con el teclado, ver styles.css)
-  g.append(t, el('circle', { r: 27.5, fill: 'none', stroke: C.tinta, 'stroke-width': 3, class: 'anillo' }), el('circle', { r: 22, fill: C.tinta }));
-  const i = icono(nombreIcono, 26);
+  g.append(t, el('circle', { r: r + 5.5, fill: 'none', stroke: C.tinta, 'stroke-width': 3, class: 'anillo' }), el('circle', { r, fill: C.tinta }));
+  const i = icono(nombreIcono, tam);
   if (i) g.append(i);
   return g;
 }

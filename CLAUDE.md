@@ -71,7 +71,7 @@ Figma: https://www.figma.com/design/M4LovFmMXxTkbaNocJByti/Equilibrio (Page 3, s
 | 4 Estados | cerrada `#B8BCC3` · cable `#D6338A` · costo alto `#D93A35` · meta `#2E8B57` |
 | 5 Información | texto `#1F2329` · secundario `#5B616B` · borde `#D5D8DC` |
 
-**Regla:** las líneas NUNCA usan rojo, verde ni magenta; esos tres son solo para costo alto, meta y cable. **Excepción:** los íconos del equipo (`src/assets/iconos/`) traen sus propios colores y no se cambian (decisión del prompt 5).
+**Regla:** las líneas NUNCA usan rojo, verde ni magenta; esos tres son solo para costo alto, meta y cable. **Excepción (aprobada por Santiago):** los íconos del equipo (`src/assets/iconos/`) traen sus propios colores y no se cambian, aunque usen rojo, verde o magenta (decisión del prompt 5).
 
 **Tipografía:** Barlow 800 para números grandes, Barlow 700/600 para títulos y botones, Barlow 500 para texto, **Barlow Condensed 700 para estaciones** (MAYÚSCULAS, letter-spacing .8). Los .woff2 están en `public/fonts/` (licencia OFL); cárgalos con `@font-face` local, sin Google Fonts.
 
@@ -102,14 +102,16 @@ Figma: https://www.figma.com/design/M4LovFmMXxTkbaNocJByti/Equilibrio (Page 3, s
 6. **Contexto, Emoción, Confianza, Fracasos, La única:** fondo discreto de ciudad; bitácora con frase humana; el óptimo siempre verificado; reiniciar sin castigo; una sola cosa que ahorrar (minutos).
 
 ## Pantallas y flujo
-Carga de la app → **Inicio** («Seguir en el nivel 08», chips Plano de la red · Bitácora · Ajustes) → Plano de la red (opcional) → Carga del nivel → (nivel 01: **Tutorial de 4 pasos**) → Nivel → **Bitácora** («Hoy cerré el cable y la ciudad respiró.», 80 → 65) → Siguiente nivel.
+Carga de la app → **Inicio** («Seguir en el nivel 08», chips Plano de la red · Bitácora · Ajustes) → Plano de la red (opcional) → Carga del nivel → (nivel 01: **Tutorial de 4 pasos**) → Nivel → **Bitácora** («Hoy cerré el cable y la ciudad respiró.», 80 → 65) → Siguiente nivel. Después del 15: Bitácora → **Terminar** → **Fin del juego**. Mapa completo: `pantallas-que-faltan/reference/figma/flujo_de_pantallas.png`.
 El texto exacto y la geometría del tutorial y de las pantallas de carga están en `reference/tutorial_y_cargas.js`; el resto de pantallas (inicio, plano, bitácora, sistema) en `reference/escena.js`. Esos dos archivos son el **código que generó los diseños de Figma**: portarlos a TypeScript da el resultado idéntico. Progreso guardado en `localStorage` (nivel actual, niveles resueltos, mejores toques).
 
-**Bitácora (decidido por Santiago):** el JSON solo trae la frase del nivel 03, así que todas salen de la plantilla de `src/game/bitacora.ts` según lo que hizo el jugador: «Hoy cerré el cable y la ciudad respiró.» + «Cerraste una vía y todos llegaron 15 minutos antes.». No escribir frases a mano por nivel.
+**Bitácora (decidido por Santiago, prompt 6):** la frase de cada nivel sale de `data/bitacora.json` (escrita por el equipo), tanto en la bitácora al ganar como en la Bitácora completa. La plantilla de `src/game/bitacora.ts` queda **solo** para la línea de detalle («Cerraste una vía y todos llegaron 15 minutos antes.»). No inventes frases: si falta una, va en `data/bitacora.json`.
 
-**Flujo implementado (`src/app.ts`):** el tutorial sale al entrar al nivel 01 mientras no esté resuelto; «Jugar»/«Saltar» reinician el 01 para que lo juegue el jugador. Al ganar aparece «Ver bitácora» (como en Figma). El chip «Bitácora» del inicio solo aparece si ya hay una entrada y abre la del último nivel resuelto. En el plano se tocan los niveles resueltos y el actual. El menú de pausa (Seguir · Reiniciar · Plano de la red · Inicio) **no tiene diseño en Figma**: es provisional con las mismas piezas. Los botones llevan íconos del equipo (la flecha de «Siguiente» es el ícono `siguiente`; la fuente latin de Barlow no trae el glifo →).
+**Flujo implementado (`src/app.ts`):** el tutorial sale al entrar al nivel 01 mientras no esté resuelto; «Jugar»/«Saltar» reinician el 01 para que lo juegue el jugador. Al ganar aparece «Ver bitácora» (como en Figma). El chip «Bitácora» del inicio abre la **Bitácora completa** y sale apenas hay algún nivel resuelto. En el plano se tocan los niveles resueltos y el actual. Pausa, Ajustes, Bitácora completa, Sin toques y Fin del juego están portados de `pantallas-que-faltan/reference/pantallas_nuevas.js` (mismas posiciones, textos y tamaños). Los botones llevan íconos del equipo (la flecha de «Siguiente» es el ícono `siguiente`; la fuente latin de Barlow no trae el glifo →).
 
-**Ajustes:** el chip se queda. La sección existe (`src/screens/ajustes.ts`, solo título y «Volver») y el diseño lo hará Santiago en Figma; no le pongas contenido hasta que llegue.
+**Ajustes:** sonido (apagado por defecto) y vibración (encendida) con interruptor, guardados en `localStorage` (`equilibrio.preferencias.v1`, `src/game/preferencias.ts`); «Borrar progreso» pide confirmación; créditos con los nombres del equipo. **Sonidos** (`src/ui/sonido.ts`): Web Audio sin archivos (tic al tocar, otro cuando el toque no se permite, acorde al llegar al óptimo); el audio arranca con el primer toque del jugador.
+
+**Sin toques:** en los niveles con tope, ~0,6 s después del último toque si no se llegó al óptimo (`pantallaNivel.ts`). **Bitácora completa:** encabezado fijo; la lista (capa `est`, recortada) se desplaza con rueda, arrastre/dedo y teclado, con degradado abajo.
 
 ## Arquitectura (cómo está hecho)
 Vite + TypeScript estricto, **sin frameworks de UI**, todo dibujado en un solo `<svg id="escena">`.
@@ -138,7 +140,7 @@ Las pruebas son scripts `tsx` simples, sin framework: tienen su propio `ok()`, i
 Repo: https://github.com/Tiaguitoo09/Equilibrio (rama `main`).
 
 ## Estado del proyecto (al 5 de octubre de 2026)
-Prompts de `PROMPT.md`: **1 a 5 hechos** (el 5 con `actualizacion-iconos/PROMPT_5.md`). Falta publicar: activar GitHub Pages (ver «Despliegue»).
+Prompts: **1 a 6 hechos** (el 5 con `actualizacion-iconos/PROMPT_5.md`, el 6 con `pantallas-que-faltan/PROMPT_6.md`: Ajustes, Bitácora completa, Sin toques, Fin del juego, pausa según el diseño y sonidos). Falta publicar: push y activar GitHub Pages (ver «Despliegue»).
 
 Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido del prompt 4:
 - **Transición de un toque (260 ms, `animarCambio` en `pantallaNivel.ts`):** la vía que cambia aparece, las pastillas que cambian laten y el TOTAL y el punto del HUD corren hasta su valor. Con `prefers-reduced-motion` no se anima.
@@ -162,10 +164,8 @@ Hecho: los 15 niveles; todas las pantallas; progreso en `localStorage`. Pulido d
   - Ícono de la app: los archivos de `public/` y `public/manifest.webmanifest`.
 
 Falta, en orden:
-1. **Ajustes:** Santiago trae el diseño de Figma (y un prompt con el JSON); hasta entonces no se le pone contenido. Según `PROMPT_5.md`, ahí van los íconos `sonido` (20, junto a «Sonido») y `cerrar` (23, botón con aria-label «Cerrar»).
-2. **Pantallas que nombra `PROMPT_5.md` pero que no existen todavía:** «Fin del juego» (ícono `logro` de 64 e `inicio` en «Volver al inicio») y «Bitácora completa» (`ingeniero` de 34 junto al título e `inicio` para volver). Hoy, al ganar el nivel 15, la bitácora solo ofrece «Ver plano». Hay que pedir el diseño.
-3. **Menú de pausa:** es provisional porque no tiene diseño en Figma; ajustarlo si lo diseñan.
-4. `actualizacion-iconos/` y `Equilibrio_prompt5_iconos.zip` quedaron fuera de git (son el material original).
+1. **Publicar:** `git push` y activar GitHub Pages (Santiago dice «súbelo»).
+2. `actualizacion-iconos/`, `Equilibrio_prompt5_iconos.zip` y `pantallas-que-faltan/` quedaron fuera de git (son el material original que mandó el equipo).
 
 Detalles que conviene saber:
 - Las capturas de `reference/figma-preview/` de los niveles 13 y 14 tienen números viejos (125 → 109 y 111,7 → 103,7); manda el JSON.
@@ -174,7 +174,7 @@ Detalles que conviene saber:
 
 ## Pendientes conocidos
 - **Íconos**: integrados (ver «Estado del proyecto»). Para cambiar uno basta con reemplazar su archivo en `src/assets/iconos/`.
-- Sonido (opcional, solo si sobra tiempo; siempre con interruptor y apagado por defecto).
+- Sonido: hecho (ver «Ajustes»).
 - Mostrar en el plano de la red las estrellas/toques mejores por nivel (opcional).
 
 ## Cómo trabajar con Santiago

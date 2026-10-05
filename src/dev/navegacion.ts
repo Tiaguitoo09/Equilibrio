@@ -4,7 +4,7 @@
  *   - sin parámetros: el flujo normal (carga → inicio → …)
  *   - ?nivel=N abre ese nivel directo; en los niveles, botones ‹ › abajo a la derecha y flechas ← →
  *   - ?toques=a,b aplica toques al abrir el nivel
- *   - ?pantalla=carga|inicio|plano|ajustes|bitacora|cargaNivel (con ?nivel=N para bitacora y cargaNivel)
+ *   - ?pantalla=carga|inicio|plano|ajustes|bitacora|bitacoraCompleta|fin|cargaNivel (con ?nivel=N para bitacora y cargaNivel)
  *   - ?tutorial=1 abre el nivel 01 con el tutorial · ?pausa=1 abre el menú de pausa
  *   - ?borrar=1 borra el progreso guardado
  */

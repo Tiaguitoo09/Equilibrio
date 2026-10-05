@@ -1,16 +1,20 @@
 /**
- * Flujo de pantallas:
+ * Flujo de pantallas (pantallas-que-faltan/reference/figma/flujo_de_pantallas.png):
  *   carga → inicio → (carga del nivel → tutorial en el 01) → nivel → bitácora → siguiente nivel
- * Desde el inicio: plano de la red, bitácora y ajustes. Desde la pausa: plano e inicio.
+ *   bitácora del 15 → Terminar → fin del juego → bitácora completa o inicio
+ * Desde el inicio: plano de la red, bitácora completa y ajustes (cada una vuelve al inicio).
+ * Desde la pausa: plano e inicio. Sin toques: reintentar (en el nivel) o plano.
  * El progreso se guarda en localStorage cada vez que se gana un nivel.
  */
 import { abiertasIniciales, alternar, puntaje, type Nivel } from './engine/equilibrio';
-import { bitacora as armarBitacora, type Bitacora } from './game/bitacora';
-import { cargarProgreso, disponible, guardarProgreso, registrarVictoria, type Progreso } from './game/progreso';
+import { bitacora as armarBitacora, fraseDe, type Bitacora } from './game/bitacora';
+import { cargarProgreso, disponible, guardarProgreso, progresoVacio, registrarVictoria, type Progreso } from './game/progreso';
 import type { Capas } from './render/svg';
 import { pantallaAjustes } from './screens/ajustes';
 import { pantallaBitacora } from './screens/bitacora';
+import { pantallaBitacoraCompleta } from './screens/bitacoraCompleta';
 import { pantallaCargaApp, pantallaCargaNivel } from './screens/carga';
+import { pantallaFinJuego } from './screens/finJuego';
 import { pantallaInicio } from './screens/inicio';
 import type { Pantalla } from './screens/montar';
 import { pantallaNivel } from './screens/pantallaNivel';
@@ -21,6 +25,8 @@ export type Destino =
   | { p: 'inicio' }
   | { p: 'plano' }
   | { p: 'ajustes' }
+  | { p: 'bitacoraCompleta' }
+  | { p: 'fin' }
   | { p: 'bitacora'; num: number }
   | { p: 'cargaNivel'; num: number }
   | { p: 'nivel'; num: number; tutorial?: boolean };
@@ -35,10 +41,10 @@ export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: Opcione
   let actual: Pantalla | null = null;
   const nivel = (num: number) => niveles.find((l) => l.num === num)!;
 
-  /** Bitácora guardada del nivel; si no hay (pruebas), la de su solución. */
+  /** Bitácora guardada del nivel (con la frase de data/bitacora.json); si no hay (pruebas), la de su solución. */
   function entrada(num: number): Bitacora {
     const guardada = progreso.bitacora[num];
-    if (guardada) return guardada;
+    if (guardada) return { ...guardada, cita: fraseDe(num) };
     const lv = nivel(num);
     let s = abiertasIniciales(lv);
     for (const id of lv.solucion) s = alternar(lv, s, id);
@@ -52,7 +58,7 @@ export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: Opcione
       case 'inicio':
         return pantallaInicio(svg, progreso, (b) => {
           if (b === 'jugar') ir({ p: 'cargaNivel', num: progreso.actual });
-          else if (b === 'bitacora' && progreso.ultima) ir({ p: 'bitacora', num: progreso.ultima });
+          else if (b === 'bitacora') ir({ p: 'bitacoraCompleta' });
           else if (b === 'plano' || b === 'ajustes') ir({ p: b });
         });
       case 'plano':
@@ -61,7 +67,17 @@ export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: Opcione
           volver: () => ir({ p: 'inicio' }),
         });
       case 'ajustes':
-        return pantallaAjustes(svg, () => ir({ p: 'inicio' }));
+        return pantallaAjustes(svg, {
+          cerrar: () => ir({ p: 'inicio' }),
+          borrarProgreso: () => {
+            progreso = progresoVacio();
+            guardarProgreso(progreso);
+          },
+        });
+      case 'bitacoraCompleta':
+        return pantallaBitacoraCompleta(svg, { niveles, progreso }, () => ir({ p: 'inicio' }));
+      case 'fin':
+        return pantallaFinJuego(svg, niveles, progreso, { bitacora: () => ir({ p: 'bitacoraCompleta' }), inicio: () => ir({ p: 'inicio' }) });
       case 'cargaNivel':
         // el tutorial solo sale la primera vez que se entra al nivel 01
         return pantallaCargaNivel(svg, nivel(d.num), () => ir({ p: 'nivel', num: d.num, tutorial: d.num === 1 && !progreso.resueltos.includes(1) }));
@@ -81,6 +97,7 @@ export function crearApp(svg: SVGSVGElement, niveles: Nivel[], opciones: Opcione
         const siguiente = niveles.find((l) => l.num === d.num + 1);
         return pantallaBitacora(svg, d.num, entrada(d.num), {
           siguiente: siguiente && (() => ir({ p: 'cargaNivel', num: siguiente.num })),
+          terminar: siguiente ? undefined : () => ir({ p: 'fin' }),
           plano: () => ir({ p: 'plano' }),
         });
       }

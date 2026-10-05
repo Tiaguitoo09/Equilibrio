@@ -1,7 +1,8 @@
 /**
  * Pantalla de un nivel: une estado (src/game), dibujo (src/render) y toques.
  * Un solo gesto: tocar una vía la abre o la cierra (con el teclado: Tab hasta la vía y Enter o Espacio).
- * Encima pueden ir el tutorial (solo nivel 01) o el menú de pausa (botón Pausa o Esc).
+ * Encima pueden ir el tutorial (solo nivel 01), el menú de pausa (botón Pausa o Esc)
+ * o «Sin toques» (niveles con tope, al gastarlos todos sin llegar al óptimo).
  */
 import type { Nivel } from '../engine/equilibrio';
 import { Carros } from '../game/carros';
@@ -9,10 +10,13 @@ import { EstadoNivel } from '../game/estadoNivel';
 import { escenaNivel } from '../render/nivel';
 import { nf } from '../render/primitivas';
 import { activarBotones, el, pintar, trazoRedondeado, type Capas } from '../render/svg';
+import { preferencias } from '../game/preferencias';
 import { anunciar } from '../ui/anuncio';
+import { sonar } from '../ui/sonido';
 import { botonRedondo } from '../ui/iconos';
 import { escucharBotones } from './montar';
 import { dibujarPausa } from './pausa';
+import { dibujarSinToques, MENSAJE_SIN_TOQUES } from './sinToques';
 import { dibujarTutorial, PASOS_TUTORIAL } from './tutorial';
 
 export interface PantallaNivel {
@@ -51,6 +55,8 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
   let pausado = false;
   let paso = opciones.tutorial ? 1 : 0; // 0 = sin tutorial
   let ganado = false;
+  let sinToques = false;
+  let esperaSinToques = 0;
   let rafHud = 0;
   /** a dónde llevar el foco en el próximo dibujo (si no, se conserva el que había); al entrar, la primera vía */
   let focoPendiente: string | null = '.toque:not(.obra)';
@@ -70,7 +76,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     focoPendiente = null;
     const r = estado.resultadoFase;
     // en el tutorial no se muestran píldora ni leyenda: lo explica la tarjeta
-    const lv = paso ? { ...nivel, msg: null, legend: null } : nivel;
+    const lv = paso ? { ...nivel, msg: null, legend: null } : sinToques ? { ...nivel, msg: MENSAJE_SIN_TOQUES } : nivel;
     const { escena, vias } = escenaNivel(lv, {
       abiertas: estado.abiertas,
       t: r.t,
@@ -112,11 +118,12 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     if (antes && !quieto()) animarCambio(antes);
 
     if (paso) dibujarTutorial(paso, nivel, escena, capas, vias);
-    else if (pausado) dibujarPausa(capas);
+    else if (sinToques) dibujarSinToques(capas, nivel, estado.total);
+    else if (pausado) dibujarPausa(capas, nivel, estado.total);
     opciones.alDibujar?.(capas);
 
     // con el tutorial o la pausa abiertos, el teclado solo recorre la tarjeta
-    const capaArriba = paso || pausado ? capas.top : null;
+    const capaArriba = paso || pausado || sinToques ? capas.top : null;
     if (capaArriba) {
       svg.querySelectorAll<SVGElement>('[tabindex]').forEach((e) => {
         if (capaArriba.contains(e)) return;
@@ -125,7 +132,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
       });
     }
     const destino =
-      (foco && (capaArriba ?? svg).querySelector<SVGElement>(foco)) || (capaArriba ? capaArriba.querySelector<SVGElement>('[data-btn="siguiente"],[data-btn="seguir"]') : null);
+      (foco && (capaArriba ?? svg).querySelector<SVGElement>(foco)) || (capaArriba ? capaArriba.querySelector<SVGElement>('[data-btn="siguiente"],[data-btn="seguir"],[data-btn="reintentar"]') : null);
     destino?.focus({ preventScroll: true });
   }
 
@@ -163,7 +170,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
       void (e as SVGElement).getBoundingClientRect(); // reinicia la animación
       e.classList.add('vibra');
     });
-    navigator.vibrate?.(40);
+    if (preferencias().vibracion) navigator.vibrate?.(40);
   }
 
   /** Paso 3 del tutorial: se abre la vía de verdad y se ve el resultado en el paso 4. */
@@ -171,6 +178,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     if (paso !== 3 || id !== nivel.solucion[0]) return;
     const antes = foto(id);
     estado.tocar(id);
+    sonar('equilibrio');
     paso = 4;
     dibujar(antes);
   }
@@ -185,7 +193,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
   const foto = (via: string): Antes => ({ via, total: estado.total, t: { ...estado.resultadoFase.t }, resuelto: estado.resuelto });
 
   function tocar(id: string) {
-    if (pausado) return;
+    if (pausado || sinToques) return;
     if (paso) return tocarEnTutorial(id);
     const antes = foto(id);
     const r = estado.tocar(id);
@@ -194,11 +202,21 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
         ganado = true;
         opciones.alGanar?.(estado);
       }
+      sonar(estado.resuelto && !antes.resuelto ? 'equilibrio' : 'tic');
+      // se gastaron todos los toques sin llegar: «Sin toques», después de ver el resultado
+      if (!estado.resuelto && nivel.toques !== undefined && estado.quedan <= 0) {
+        esperaSinToques = window.setTimeout(() => {
+          sinToques = true;
+          dibujar();
+          anunciar(`Se acabaron los toques. Quedaste en ${nf(estado.total)} minutos; la meta es ${nf(nivel.optimo)}.`);
+        }, 600);
+      }
       dibujar(antes);
       const t = estado.toques;
       anunciar(`TOTAL ${nf(estado.total)} minutos por carro.` + (estado.resuelto ? ` Equilibrio alcanzado en ${t} toque${t === 1 ? '' : 's'}.` : ''));
     } else if (r === 'sin-ruta' || r === 'obra' || r === 'agotado') {
       vibrar(id);
+      sonar('no');
       anunciar(r === 'sin-ruta' ? 'No se puede: un grupo quedaría sin ruta.' : r === 'obra' ? 'Obra: no se toca.' : 'Ya no quedan toques. Reinicia para intentar otra vez.');
     }
   }
@@ -218,6 +236,10 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     }
     switch (nombre) {
       case 'reiniciar':
+      case 'reintentar':
+        clearTimeout(esperaSinToques);
+        if (sinToques) focoPendiente = '.toque:not(.obra)';
+        sinToques = false;
         estado.reiniciar();
         ganado = false;
         if (pausado) focoPendiente = '[data-btn="reiniciar"]';
@@ -256,7 +278,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
   };
   // Esc abre y cierra la pausa (no durante el tutorial)
   const alEsc = (ev: KeyboardEvent) => {
-    if (ev.key !== 'Escape' || paso) return;
+    if (ev.key !== 'Escape' || paso || sinToques) return;
     boton(pausado ? 'seguir' : 'pausa');
   };
   svg.addEventListener('click', alHacerClic);
@@ -270,6 +292,7 @@ export function pantallaNivel(svg: SVGSVGElement, nivel: Nivel, opciones: Opcion
     tocar,
     cerrar() {
       cancelAnimationFrame(rafHud);
+      clearTimeout(esperaSinToques);
       carros.detener();
       svg.removeEventListener('click', alHacerClic);
       svg.removeEventListener('keydown', alTeclear);
